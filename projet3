@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Le Fil du Lord — Projet IA</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b0f19;
+      color: #eaeaea;
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 80px 20px;
+      text-align: center;
+      background: radial-gradient(circle at top, #1a2440, #0b0f19);
+    }
+
+    header h1 {
+      font-size: 3rem;
+      color: #7dd3fc;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      max-width: 900px;
+      margin: auto;
+      opacity: 0.85;
+      font-size: 1.1rem;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 16px;
+      background: #2563eb;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+
+    section {
+      max-width: 950px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    h2 {
+      color: #60a5fa;
+      margin-bottom: 12px;
+    }
+
+    .card {
+      background: #121826;
+      border: 1px solid #1f2937;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 13px;
+      opacity: 0.6;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #1d4ed8;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      margin-right: 5px;
+    }
+
+    a {
+      color: #7dd3fc;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Le Fil du Lord</h1>
+  <p>
+    Projet de média automatisé en production développé par <strong>Fairy Lord</strong>,
+    capable de générer, analyser et publier des articles d’actualité de manière totalement autonome grâce à un système multi-IA.
+  </p>
+
+  <a class="btn" href="https://le-fil-du-lord.vercel.app/" target="_blank">
+    🔗 Voir le site en production
+  </a>
+</header>
+
+<section>
+  <h2>📌 Présentation du projet</h2>
+
+  <div class="card">
+    <p>
+      <strong>Le Fil du Lord</strong> est un média automatisé fonctionnant comme un journal numérique autonome.
+      Il produit des articles d’actualité récents sans intervention humaine directe.
+    </p>
+
+    <p>
+      Le système est déjà en <strong>production</strong> et accessible ici :
+      <a href="https://le-fil-du-lord.vercel.app/" target="_blank">le-fil-du-lord.vercel.app</a>
+    </p>
+  </div>
+</section>
+
+<section>
+  <h2>⚙️ Architecture du système</h2>
+
+  <div class="grid">
+
+    <div class="card">
+      <h3>🧠 IA de veille (Gemini)</h3>
+      <p>Analyse l’actualité récente et propose des sujets pertinents.</p>
+    </div>
+
+    <div class="card">
+      <h3>✍️ IA de rédaction</h3>
+      <p>Grok / Gemini génère des articles structurés et éditoriaux.</p>
+    </div>
+
+    <div class="card">
+      <h3>🧪 IA de validation</h3>
+      <p>Évalue les articles et attribue un score de qualité sur 10.</p>
+    </div>
+
+    <div class="card">
+      <h3>⚙️ Orchestration (Node.js)</h3>
+      <p>Script principal déclenché via GitHub Actions (cron 2x/semaine).</p>
+    </div>
+
+    <div class="card">
+      <h3>🗄️ Base de données (Supabase)</h3>
+      <p>Stocke sujets, articles publiés et logs d’exécution.</p>
+    </div>
+
+    <div class="card">
+      <h3>🌐 Frontend (Vercel)</h3>
+      <p>Affiche dynamiquement les articles publiés en temps réel.</p>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>🔁 Pipeline automatisé</h2>
+
+  <div class="card">
+    <p>
+      1. Gemini détecte des sujets d’actualité<br>
+      2. Node.js vérifie les doublons dans Supabase<br>
+      3. IA rédige un article complet<br>
+      4. IA de review attribue un score (/10)<br>
+      5. Si score ≥ 7 → publication automatique<br>
+      6. Stockage dans Supabase<br>
+      7. Affichage instantané sur le site
+    </p>
+  </div>
+</section>
+
+<section>
+  <h2>🚀 Objectif du projet</h2>
+
+  <div class="card">
+    <p>
+      Créer un <strong>média autonome intelligent</strong> capable de fonctionner comme un véritable journal moderne,
+      entièrement automatisé et évolutif.
+    </p>
+
+    <p>
+      Le projet vise à démontrer la capacité des systèmes multi-agents IA à produire du contenu éditorial réel,
+      structuré et publié en continu.
+    </p>
+  </div>
+</section>
+
+<section>
+  <h2>🔗 Liens</h2>
+
+  <div class="card">
+    <p>
+      🌐 Site en production : <a href="https://le-fil-du-lord.vercel.app/" target="_blank">le-fil-du-lord.vercel.app</a><br>
+      👨‍💻 Développeur : Fairy Lord<br>
+      📁 Projet : Media IA automatisé
+    </p>
+  </div>
+</section>
+
+<footer>
+  © 2026 — Le Fil du Lord | Fairy Lord
+</footer>
+
+</body>
+</html>
