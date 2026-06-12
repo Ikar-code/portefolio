@@ -1,210 +1,251 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Le Fil du Lord — Projet IA</title>
-
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b0f19;
-      color: #eaeaea;
-      line-height: 1.6;
-    }
-
-    header {
-      padding: 80px 20px;
-      text-align: center;
-      background: radial-gradient(circle at top, #1a2440, #0b0f19);
-    }
-
-    header h1 {
-      font-size: 3rem;
-      color: #7dd3fc;
-      margin-bottom: 10px;
-    }
-
-    header p {
-      max-width: 900px;
-      margin: auto;
-      opacity: 0.85;
-      font-size: 1.1rem;
-    }
-
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 16px;
-      background: #2563eb;
-      color: white;
-      border-radius: 8px;
-      text-decoration: none;
-    }
-
-    section {
-      max-width: 950px;
-      margin: auto;
-      padding: 40px 20px;
-    }
-
-    h2 {
-      color: #60a5fa;
-      margin-bottom: 12px;
-    }
-
-    .card {
-      background: #121826;
-      border: 1px solid #1f2937;
-      padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 15px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 12px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      font-size: 13px;
-      opacity: 0.6;
-    }
-
-    .tag {
-      display: inline-block;
-      background: #1d4ed8;
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-size: 12px;
-      margin-right: 5px;
-    }
-
-    a {
-      color: #7dd3fc;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Fil du Lord — Pipeline de publication automatisée par IA</title>
+<style>
+  :root {
+    --bg: #0d0d12;
+    --card: #1a1a24;
+    --border: #2b2b38;
+    --text: #f2f2f5;
+    --muted: #9a9aab;
+    --accent: #8b5cf6;
+    --accent-soft: #8b5cf61a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+  }
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .back {
+    display: inline-block;
+    margin-bottom: 28px;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .back:hover { color: var(--accent); }
+  header { margin-bottom: 40px; }
+  .eyebrow {
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  h1 { font-size: 2.4rem; margin: 0 0 12px; letter-spacing: -0.01em; }
+  .subtitle { color: var(--muted); font-size: 1rem; max-width: 640px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .tag {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 0.78rem;
+    font-weight: 500;
+  }
+  .cta { margin-top: 24px; }
+  .cta a {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .cta a:hover { text-decoration: none; opacity: 0.9; }
+  section { margin-bottom: 44px; }
+  h2 { font-size: 1.3rem; margin: 0 0 18px; font-weight: 600; }
+  h2 .accent { color: var(--accent); font-style: italic; }
+  p { color: var(--muted); margin: 0 0 10px; }
+  ul {
+    padding-left: 0;
+    margin: 0;
+    list-style: none;
+    display: grid;
+    gap: 10px;
+  }
+  li {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    color: var(--text);
+    font-size: 0.92rem;
+  }
+  li strong { color: var(--accent); }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+  }
+  .card h3 {
+    margin: 0 0 6px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card p { margin: 0; font-size: 0.85rem; }
+  .flow { display: flex; flex-direction: column; gap: 10px; }
+  .flow .step {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 0.88rem;
+    color: var(--text);
+  }
+  .flow .num {
+    background: var(--accent);
+    color: #fff;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  footer {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.82rem;
+    text-align: center;
+  }
+</style>
 </head>
-
 <body>
+<div class="container">
 
-<header>
-  <h1>Le Fil du Lord</h1>
-  <p>
-    Projet de média automatisé en production développé par <strong>Fairy Lord</strong>,
-    capable de générer, analyser et publier des articles d’actualité de manière totalement autonome grâce à un système multi-IA.
-  </p>
+  <a class="back" href="https://ikar-code.github.io/portefolio#projets">← Retour au portfolio</a>
 
-  <a class="btn" href="https://le-fil-du-lord.vercel.app/" target="_blank">
-    🔗 Voir le site en production
-  </a>
-</header>
-
-<section>
-  <h2>📌 Présentation du projet</h2>
-
-  <div class="card">
-    <p>
-      <strong>Le Fil du Lord</strong> est un média automatisé fonctionnant comme un journal numérique autonome.
-      Il produit des articles d’actualité récents sans intervention humaine directe.
+  <header>
+    <div class="eyebrow">Projet personnel · Média automatisé par IA</div>
+    <h1>Le Fil du Lord</h1>
+    <p class="subtitle">
+      Média d'actualité francophone entièrement automatisé, du groupe Fairy Lord.
+      Génération, validation et publication d'articles pilotées de bout en bout par des agents IA.
     </p>
+    <div class="tags">
+      <span class="tag">GitHub Actions</span>
+      <span class="tag">Node.js</span>
+      <span class="tag">Gemini</span>
+      <span class="tag">Supabase</span>
+      <span class="tag">React / Vite</span>
+      <span class="tag">Vercel</span>
+    </div>
+    <div class="cta">
+      <a href="https://le-fil-du-lord.vercel.app/" target="_blank" rel="noopener">Voir le site en production ↗</a>
+    </div>
+  </header>
 
+  <section>
+    <h2>Description</h2>
     <p>
-      Le système est déjà en <strong>production</strong> et accessible ici :
-      <a href="https://le-fil-du-lord.vercel.app/" target="_blank">le-fil-du-lord.vercel.app</a>
+      "Le Fil du Lord" est un système de média automatisé en français, conçu pour produire
+      et publier de manière autonome des articles d'actualité récents, à un rythme régulier,
+      en simulant le fonctionnement d'un petit journal moderne entièrement piloté par
+      intelligence artificielle et automatisation.
     </p>
-  </div>
-</section>
+  </section>
 
-<section>
-  <h2>⚙️ Architecture du système</h2>
+  <section>
+    <h2>Ce que le système <span class="accent">fait</span></h2>
+    <ul>
+      <li><strong>Veille d'actualité</strong> — Une IA (Gemini, avec accès à la recherche Google) identifie des sujets d'actualité récents et pertinents, limités à l'année en cours et aux pays francophones, avec un mix de catégories (politique, technologie, société, polémiques, viral).</li>
+      <li><strong>Anti-doublons</strong> — Le script Node.js vérifie dans Supabase que chaque sujet proposé n'a pas déjà été traité avant de poursuivre.</li>
+      <li><strong>Rédaction automatique</strong> — Une IA rédige un article structuré (titre, angle éditorial, contenu) à partir du sujet retenu.</li>
+      <li><strong>Contrôle qualité avec retry</strong> — Une seconde évaluation IA attribue un score sur 10. Si le score est inférieur au seuil (7/10), l'article est régénéré automatiquement (jusqu'à 3 tentatives) avant d'être abandonné.</li>
+      <li><strong>Publication conditionnelle</strong> — Si le score dépasse le seuil, l'article est enregistré dans Supabase avec le statut "published" et une catégorie associée.</li>
+      <li><strong>Traçabilité complète</strong> — Chaque étape du pipeline est consignée dans une table de journaux pour le suivi et le débogage.</li>
+      <li><strong>Site web dynamique</strong> — Le frontend lit directement Supabase et affiche les articles publiés, classés par catégorie, sans nécessiter de rebuild à chaque publication.</li>
+      <li><strong>Dashboard administrateur protégé</strong> — Interface de supervision (articles, sujets, journaux, scores) accessible uniquement via mot de passe.</li>
+      <li><strong>Conformité RGPD</strong> — Page de politique de confidentialité dédiée, en préparation pour l'intégration de publicités (Google AdSense) avec bandeau de consentement aux cookies.</li>
+    </ul>
+  </section>
 
-  <div class="grid">
-
-    <div class="card">
-      <h3>🧠 IA de veille (Gemini)</h3>
-      <p>Analyse l’actualité récente et propose des sujets pertinents.</p>
+  <section>
+    <h2>Pipeline <span class="accent">d'exécution</span></h2>
+    <div class="flow">
+      <div class="step"><span class="num">1</span> GitHub Actions déclenche le script via un cron (2x/semaine)</div>
+      <div class="step"><span class="num">2</span> Recherche de sujets récents via Gemini + Google Search</div>
+      <div class="step"><span class="num">3</span> Vérification des doublons dans Supabase (table "sujets")</div>
+      <div class="step"><span class="num">4</span> Rédaction de l'article par IA</div>
+      <div class="step"><span class="num">5</span> Scoring qualité (retry automatique si score &lt; 7/10)</div>
+      <div class="step"><span class="num">6</span> Publication dans Supabase (table "articles", statut "published")</div>
+      <div class="step"><span class="num">7</span> Journalisation de chaque étape (table "journaux")</div>
+      <div class="step"><span class="num">8</span> Le site React/Vercel affiche les nouveaux articles instantanément</div>
     </div>
+  </section>
 
-    <div class="card">
-      <h3>✍️ IA de rédaction</h3>
-      <p>Grok / Gemini génère des articles structurés et éditoriaux.</p>
+  <section>
+    <h2>Architecture <span class="accent">technique</span></h2>
+    <div class="grid">
+      <div class="card">
+        <h3>⚙️ Automatisation</h3>
+        <p>GitHub Actions + Node.js orchestrent le pipeline complet via un cron, en exécutant les modules de recherche, anti-doublons, rédaction, scoring et publication.</p>
+      </div>
+      <div class="card">
+        <h3>🧠 Intelligence artificielle</h3>
+        <p>Gemini avec grounding via Google Search pour la veille, la rédaction d'articles et l'évaluation qualité avec score sur 10.</p>
+      </div>
+      <div class="card">
+        <h3>🗄️ Base de données</h3>
+        <p>Supabase (PostgreSQL) — tables "sujets", "articles" (contenu, score, statut, catégorie) et "journaux" pour la traçabilité.</p>
+      </div>
+      <div class="card">
+        <h3>🌐 Frontend</h3>
+        <p>React/Vite sur Vercel, lecture dynamique de Supabase, affichage par catégorie, page RGPD et dashboard admin protégé.</p>
+      </div>
     </div>
+  </section>
 
-    <div class="card">
-      <h3>🧪 IA de validation</h3>
-      <p>Évalue les articles et attribue un score de qualité sur 10.</p>
-    </div>
+  <section>
+    <h2>Points <span class="accent">clés</span></h2>
+    <ul>
+      <li>Pipeline entièrement automatisé, sans intervention humaine une fois configuré</li>
+      <li>Double vérification IA avec scoring et boucle de retry avant publication</li>
+      <li>Filtrage géographique et temporel (actualités francophones de l'année en cours)</li>
+      <li>Traçabilité complète via table de journaux pour le monitoring et le débogage</li>
+      <li>Mise à jour instantanée du site sans rebuild grâce à la lecture dynamique de Supabase</li>
+      <li>Dashboard admin sécurisé pour superviser articles, sujets et logs</li>
+      <li>Architecture conforme RGPD, prête pour l'intégration de publicités</li>
+      <li>Évolutif : ajout possible de nouveaux agents IA spécialisés, meilleur scoring éditorial, multi-catégories</li>
+    </ul>
+  </section>
 
-    <div class="card">
-      <h3>⚙️ Orchestration (Node.js)</h3>
-      <p>Script principal déclenché via GitHub Actions (cron 2x/semaine).</p>
-    </div>
+  <footer>
+    © 2026 Le Fil du Lord · Groupe Fairy Lord — Projet personnel d'automatisation éditoriale par IA.
+  </footer>
 
-    <div class="card">
-      <h3>🗄️ Base de données (Supabase)</h3>
-      <p>Stocke sujets, articles publiés et logs d’exécution.</p>
-    </div>
-
-    <div class="card">
-      <h3>🌐 Frontend (Vercel)</h3>
-      <p>Affiche dynamiquement les articles publiés en temps réel.</p>
-    </div>
-
-  </div>
-</section>
-
-<section>
-  <h2>🔁 Pipeline automatisé</h2>
-
-  <div class="card">
-    <p>
-      1. Gemini détecte des sujets d’actualité<br>
-      2. Node.js vérifie les doublons dans Supabase<br>
-      3. IA rédige un article complet<br>
-      4. IA de review attribue un score (/10)<br>
-      5. Si score ≥ 7 → publication automatique<br>
-      6. Stockage dans Supabase<br>
-      7. Affichage instantané sur le site
-    </p>
-  </div>
-</section>
-
-<section>
-  <h2>🚀 Objectif du projet</h2>
-
-  <div class="card">
-    <p>
-      Créer un <strong>média autonome intelligent</strong> capable de fonctionner comme un véritable journal moderne,
-      entièrement automatisé et évolutif.
-    </p>
-
-    <p>
-      Le projet vise à démontrer la capacité des systèmes multi-agents IA à produire du contenu éditorial réel,
-      structuré et publié en continu.
-    </p>
-  </div>
-</section>
-
-<section>
-  <h2>🔗 Liens</h2>
-
-  <div class="card">
-    <p>
-      🌐 Site en production : <a href="https://le-fil-du-lord.vercel.app/" target="_blank">le-fil-du-lord.vercel.app</a><br>
-      👨‍💻 Développeur : Fairy Lord<br>
-      📁 Projet : Media IA automatisé
-    </p>
-  </div>
-</section>
-
-<footer>
-  © 2026 — Le Fil du Lord | Fairy Lord
-</footer>
-
+</div>
 </body>
 </html>
