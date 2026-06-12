@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Veille IA – Lucas Rajany</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #0d0d14;
+      --bg2:       #13131f;
+      --bg3:       #1a1a2e;
+      --card:      #16162a;
+      --border:    #2a2a45;
+      --accent:    #7c6af5;
+      --accent2:   #e05c97;
+      --accent-glow: rgba(124,106,245,0.18);
+      --text:      #e8e8f0;
+      --muted:     #7a7a9a;
+      --white:     #ffffff;
+      --radius:    12px;
+      --radius-lg: 20px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      line-height: 1.8;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 64px;
+      background: rgba(13,13,20,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem; font-weight: 700; color: var(--accent);
+    }
+    .nav-logo span { color: var(--accent2); }
+    .back-link {
+      font-size: 0.85rem; font-weight: 500; color: var(--muted);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .back-link:hover { color: var(--accent); text-decoration: none; }
+
+    main { max-width: 820px; margin: 0 auto; padding: 60px 5% 100px; }
+
+    .page-header { margin-bottom: 2.5rem; }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px;
+      color: var(--accent2); margin-bottom: 0.6rem;
+    }
+    .page-title {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700; color: var(--white); margin-bottom: 0.8rem; line-height: 1.2;
+    }
+    .page-title em { font-style: normal; color: var(--accent); }
+    .page-meta { color: var(--muted); font-size: 0.85rem; }
+    .divider {
+      width: 48px; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 2px; margin: 1.5rem 0 2.5rem;
+    }
+
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+    .project-tag {
+      padding: 2px 9px; background: var(--accent-glow);
+      border: 1px solid rgba(124,106,245,0.3); border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--accent);
+    }
+
+    h2 {
+      font-size: 1.4rem; font-weight: 700; color: var(--white);
+      margin: 2.5rem 0 1rem;
+    }
+    h3 {
+      font-size: 1.1rem; font-weight: 700; color: var(--white);
+      margin: 1.6rem 0 0.6rem;
+    }
+    p { color: var(--text); margin-bottom: 1rem; font-size: 0.975rem; }
+    p.muted { color: var(--muted); }
+    ul { margin: 0 0 1rem 1.2rem; }
+    li { color: var(--text); font-size: 0.95rem; margin-bottom: 0.4rem; list-style: disc; }
+
+    table {
+      width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem;
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; font-size: 0.9rem;
+    }
+    th, td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--border); text-align: left; }
+    th { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; }
+    tr:last-child td { border-bottom: none; }
+
+    .cta-box {
+      margin-top: 3rem; padding: 2rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); text-align: center;
+    }
+    .cta-box p { margin-bottom: 1.2rem; }
+    .btn-primary {
+      display: inline-block; padding: 0.75rem 1.8rem;
+      background: var(--accent); color: var(--white);
+      border-radius: 8px; font-weight: 600; font-size: 0.95rem;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 0 24px rgba(124,106,245,0.3);
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); text-decoration: none; }
+    .btn-outline {
+      display: inline-block; padding: 0.75rem 1.8rem;
+      border: 1px solid var(--border); color: var(--text);
+      border-radius: 8px; font-weight: 500; font-size: 0.95rem;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s; margin-right: 0.8rem;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); text-decoration: none; }
+
+    footer {
+      text-align: center; padding: 2rem 5%;
+      border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.8rem;
+    }
+    footer span { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">lucas<span>.</span>rajany</div>
+  <a class="back-link" href="index.html#projets">← Retour au portfolio</a>
+</nav>
+
+<main>
+  <div class="page-header">
+    <p class="section-label">Projet personnel</p>
+    <div class="project-tags">
+      <span class="project-tag">Streamlit</span>
+      <span class="project-tag">Supabase</span>
+      <span class="project-tag">Groq API</span>
+      <span class="project-tag">LLaMA 3</span>
+      <span class="project-tag">Stripe</span>
+    </div>
+    <h1 class="page-title">Veille IA — Application de veille technologique <em>automatisée</em></h1>
+    <p class="page-meta">Par Lucas Rajany · 8 avril 2026</p>
+    <div class="divider"></div>
+  </div>
+
+  <h2>Présentation du projet</h2>
+  <p>
+    J'ai conçu et développé Veille IA, une application web complète permettant de réaliser des veilles
+    technologiques automatisées, principalement dans le domaine de l'intelligence artificielle.
+  </p>
+  <p>
+    L'objectif : supprimer le travail manuel de recherche et de synthèse. L'app recherche, score, résume
+    et publie automatiquement — sans intervention humaine après configuration.
+  </p>
+
+  <h2>Fonctionnalités principales</h2>
+
+  <h3>1. Recherche multi-sources automatisée</h3>
+  <ul>
+    <li>Saisie de sujets multiples (ex : cybersécurité IA, LLM, deepfake…)</li>
+    <li>Recherche simultanée via DuckDuckGo et flux RSS spécialisés IA</li>
+    <li>Déduplication sémantique des résultats pour éviter les doublons</li>
+  </ul>
+
+  <h3>2. Scoring et filtrage intelligent</h3>
+  <ul>
+    <li>Chaque article reçoit un score basé sur la pertinence, la langue, la fiabilité de la source et la fraîcheur</li>
+    <li>Filtrage automatique des sources gouvernementales, low-quality et hors-sujet</li>
+    <li>Classement des contenus les plus pertinents en tête</li>
+  </ul>
+
+  <h3>3. Résumés IA par article</h3>
+  <ul>
+    <li>Analyse du contenu de chaque page</li>
+    <li>Génération de 3 à 5 points clés en français via Groq API (LLaMA 3)</li>
+    <li>Synthèse globale structurée par thème (menaces, outils, tendances…)</li>
+  </ul>
+
+  <h3>4. Publication automatique</h3>
+  <ul>
+    <li>Mise à jour d'une page WordPress via l'API REST</li>
+    <li>Upload direct sur hébergement FTP en HTML statique</li>
+    <li>Fusion intelligente du contenu : les anciens sujets sont conservés, les nouveaux s'ajoutent</li>
+  </ul>
+
+  <h3>5. Historique et comparaison</h3>
+  <ul>
+    <li>Sauvegarde de toutes les sessions par utilisateur dans Supabase</li>
+    <li>Comparaison entre deux sessions : articles nouveaux, disparus, évolutions</li>
+    <li>Analyse comparative générée par IA</li>
+    <li>Import d'historiques depuis un fichier HTML existant</li>
+  </ul>
+
+  <h3>6. Veille automatique planifiée</h3>
+  <ul>
+    <li>Chaque utilisateur choisit ses sujets et son heure d'envoi</li>
+    <li>Un cron GitHub Actions tourne toutes les heures (gratuit)</li>
+    <li>Envoi automatique d'un email HTML récapitulatif — sans que l'utilisateur soit connecté</li>
+  </ul>
+
+  <h3>7. Personnalisation du thème de publication</h3>
+  <ul>
+    <li>Éditeur de thème visuel intégré (couleurs, police, taille…)</li>
+    <li>4 presets : Catppuccin, Light, Nord, Dracula</li>
+    <li>Aperçu live avant publication</li>
+  </ul>
+
+  <h3>8. Gestion des utilisateurs et abonnements</h3>
+  <ul>
+    <li>Inscription / connexion via Supabase Auth</li>
+    <li>Plan gratuit : 1 recherche offerte</li>
+    <li>Plan payant à 2,99€/mois : recherches illimitées + veille auto + email quotidien</li>
+    <li>Paiement via Stripe</li>
+  </ul>
+
+  <h2>Stack technique</h2>
+  <table>
+    <tr><th>Couche</th><th>Technologie</th></tr>
+    <tr><td>Frontend / Backend</td><td>Streamlit (Python)</td></tr>
+    <tr><td>Base de données & Auth</td><td>Supabase (PostgreSQL)</td></tr>
+    <tr><td>IA résumés & synthèse</td><td>Groq API — LLaMA 3.1 8B + LLaMA 3.3 70B</td></tr>
+    <tr><td>Recherche web</td><td>DuckDuckGo Search + Feedparser (RSS)</td></tr>
+    <tr><td>Hébergement app</td><td>Render.com</td></tr>
+    <tr><td>Cron automatique</td><td>GitHub Actions</td></tr>
+    <tr><td>Paiement</td><td>Stripe</td></tr>
+    <tr><td>Email</td><td>Gmail SMTP</td></tr>
+    <tr><td>Publication</td><td>WordPress REST API + FTP</td></tr>
+  </table>
+
+  <h2>Ce que j'ai appris</h2>
+  <ul>
+    <li>Architecture multi-utilisateurs avec isolation complète des données</li>
+    <li>Gestion de la fusion de données sans écrasement (upsert par clé)</li>
+    <li>Orchestration d'un pipeline IA : recherche → scoring → résumés → publication</li>
+    <li>Déploiement d'un service complet avec authentification, paiement et automatisation</li>
+    <li>Contraintes RGPD pour un service en ligne (hébergement EU, sous-traitants déclarés)</li>
+  </ul>
+
+  <h2>Améliorations prévues</h2>
+  <ul>
+    <li>Export PDF / Markdown des veilles</li>
+    <li>Sources personnalisées par l'utilisateur (ajout de flux RSS propres)</li>
+    <li>Notifications push navigateur</li>
+    <li>Dashboard analytique (tendances sur la durée, mots-clés émergents)</li>
+    <li>Google OAuth</li>
+  </ul>
+
+  <div class="cta-box">
+    <p>L'application est disponible en ligne :</p>
+    <a class="btn-primary" href="https://veille-tech.onrender.com" target="_blank">Accéder à l'application ↗</a>
+  </div>
+
+  <p style="margin-top:2.5rem">
+    <a class="btn-outline" href="index.html#projets">← Retour aux projets</a>
+  </p>
+</main>
+
+<footer>
+  <p>© 2026 <span>Lucas Rajany</span> · Fait avec 💜 depuis La Réunion</p>
+</footer>
+
+</body>
+</html>
