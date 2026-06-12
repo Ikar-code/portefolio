@@ -397,7 +397,18 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      overflow: hidden;
+      padding: 3rem 2rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .veille-icon { font-size: 3rem; }
+    .veille-wrapper p {
+      color: var(--muted);
+      max-width: 480px;
+      font-size: 0.95rem;
     }
 
     /* ── CONTACT ── */
@@ -748,9 +759,9 @@
       <div class="project-thumb">🔍</div>
       <div class="project-body">
         <div class="project-tags">
-          <span class="project-tag">Python</span>
+          <span class="project-tag">Streamlit</span>
           <span class="project-tag">IA</span>
-          <span class="project-tag">Web</span>
+          <span class="project-tag">Supabase</span>
         </div>
         <div class="project-title">Veille IA — Application de veille automatisée</div>
         <p class="project-desc">
@@ -759,7 +770,7 @@
           L'objectif : supprimer la friction de la veille manuelle.
         </p>
         <div class="project-footer">
-          <a class="project-link primary" href="https://lucasrajany.infinityfreeapp.com/veille-ia.html" target="_blank">Voir le projet ↗</a>
+          <a class="project-link primary" href="veille-ia.html">Voir le projet ↗</a>
         </div>
       </div>
     </div>
@@ -780,7 +791,7 @@
           bases du développement back-end et de la gestion de base de données.
         </p>
         <div class="project-footer">
-          <a class="project-link ghost" href="#contact">Me contacter ↗</a>
+          <a class="project-link primary" href="projets-scolaires.html">Voir le projet ↗</a>
         </div>
       </div>
     </div>
@@ -862,7 +873,12 @@
     <p class="section-sub">Résultats de mon outil de veille technologique automatisée sur l'intelligence artificielle.</p>
   </div>
   <div class="veille-wrapper fade-in">
-    <div id="veille-container" style="padding:0;"></div>
+    <div class="veille-icon">🔍</div>
+    <p>
+      Mon application de veille technologique automatisée sur l'IA est hébergée séparément.
+      Cliquez ci-dessous pour la consulter.
+    </p>
+    <a class="btn-primary" href="https://veille-tech.onrender.com" target="_blank">Accéder à la veille IA ↗</a>
   </div>
 </section>
 
@@ -998,11 +1014,6 @@
     document.getElementById('form-msg').style.display = 'block';
     e.target.reset();
   }
-
-  /* ── VEILLE EMBED ── */
-  var url = "https://lucasrajany.infinityfreeapp.com/veille-ia.html?v=" + Date.now();
-  document.getElementById("veille-container").innerHTML =
-    '<iframe src="' + url + '" style="width:100%;border:none;min-height:400px;border-radius:20px;" onload="this.style.height=this.contentDocument.body.scrollHeight+\'px\'"></iframe>';
 </script>
 </body>
 </html>
