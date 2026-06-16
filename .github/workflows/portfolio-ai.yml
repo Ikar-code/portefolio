@@ -1,0 +1,49 @@
+name: 🤖 Portfolio AI Optimizer
+
+on:
+  push:
+    paths:
+      - 'mon-portfolio.txt' # Se déclenche uniquement quand tu modifies ce fichier
+
+permissions:
+  contents: write # Donne le droit à l'action d'écrire sur ton dépôt
+
+jobs:
+  build-and-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Récupérer le code du dépôt
+        uses: actions/checkout@v4
+
+      - name: 🟢 Configurer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 📦 Installer les dépendances
+        run: |
+          npm init -y
+          npm install axios markdown-it # Axios pour l'API OpenAI, markdown-it si tu écris en Markdown
+
+      - name: 🧠 Exécuter l'IA Développeur
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }} # Ta clé secrète OpenAI à ajouter dans les paramètres GitHub
+        run: node scripts/ai-processor.js
+
+      - name: 🚀 Commit et Push des modifications
+        run: |
+          git config --global user.name "Portfolio-AI-Bot"
+          git config --global user.email "portfolio-ai-bot@github.com"
+          
+          # On ajoute toutes les modifications dans le dossier site
+          git add site/index.html
+          git add site/project/*.html || true
+          
+          # On commit seulement s'il y a des changements
+          if ! git diff --cached --exit-code; then
+            git commit -m "🤖 feat(auto): portfolio mis à jour par l'IA"
+            git push
+          else
+            echo "Aucun changement détecté par l'IA."
+          fi
