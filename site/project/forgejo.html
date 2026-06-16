@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet - Déploiement et Audit Forgejo</title>
+    <style>
+        /* Variables de couleurs harmonisées avec un portfolio tech moderne */
+        :root {
+            --bg-main: #0f172a;        /* Fond général très sombre */
+            --bg-card: #1e293b;        /* Fond des blocs et sections */
+            --text-main: #f8fafc;      /* Texte principal clair */
+            --text-muted: #94a3b8;     /* Texte secondaire gris */
+            --accent: #38bdf8;         /* Bleu cyan électrique pour les liens/titres */
+            --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #3b82f6 100%);
+            --border: #334155;         /* Bordures discrètes */
+            --success: #34d399;        /* Vert pour ce qui est validé */
+            --warning: #fb923c;        /* Orange pour les alertes de l'audit */
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* En-tête du projet */
+        header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        .project-category {
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin: 0 0 10px 0;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .project-meta {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Sections / Cartes */
+        section {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: var(--text-main);
+            font-size: 1.4rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: var(--text-muted);
+            margin: 0 0 15px 0;
+        }
+
+        /* Tableaux */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th {
+            background-color: rgba(51, 65, 85, 0.5);
+            color: var(--text-main);
+            font-weight: 600;
+            text-align: left;
+            padding: 12px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Listes de tâches / Validation */
+        .task-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .task-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+        }
+
+        .task-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 18px;
+            height: 18px;
+            background-color: rgba(52, 211, 153, 0.15);
+            color: var(--success);
+            font-weight: bold;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Blocs de Code / Configuration */
+        pre {
+            background-color: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: #e2e8f0;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        /* Badges de statut */
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .badge-success {
+            background-color: rgba(52, 211, 153, 0.15);
+            color: var(--success);
+        }
+
+        .badge-warning {
+            background-color: rgba(251, 146, 60, 0.15);
+            color: var(--warning);
+        }
+
+        /* Boîtes d'alerte / Audit */
+        .alert-box {
+            border-left: 4px solid var(--warning);
+            background-color: rgba(251, 146, 60, 0.05);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+        }
+
+        .alert-title {
+            font-weight: bold;
+            color: var(--warning);
+            margin-bottom: 5px;
+        }
+
+        /* Liens de bas de page */
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: #7dd3fc;
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: 5px;
+            padding-top: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <div class="project-category">Projet de Stage · DevOps & SysAdmin</div>
+            <h1>Installation, Validation et Audit de Sécurité Forgejo</h1>
+            <div class="project-meta">Déploiement d'une solution d'hébergement Git souveraine sur VM Ubuntu</div>
+        </header>
+
+        <!-- 1. Présentation -->
+        <section>
+            <h2>📁 Présentation du Projet</h2>
+            <p>Ce projet réalisé en entreprise durant mon stage a pour objectif l'installation et la mise en service complète de <strong>Forgejo</strong> sur une machine virtuelle Ubuntu afin de doter la structure d'une plateforme de gestion de dépôts Git auto-hébergée.</p>
+            <p>Forgejo s'impose comme une alternative libre et légère à GitHub, permettant un contrôle total sur le code source, le suivi des tickets (Issues), les Pull Requests et les dynamiques collaboratives entre développeurs.</p>
+        </section>
+
+        <!-- 2. Environnement -->
+        <section>
+            <h2>🖥️ Environnement Technique</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Composant</th>
+                        <th>Spécification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Machine virtuelle</strong></td>
+                        <td>Ubuntu Server</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Serveur Git</strong></td>
+                        <td>Forgejo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Accès Web</strong></td>
+                        <td>HTTP / Portails sécurisés</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Contrôle de version</strong></td>
+                        <td>Git</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- 3. Déploiement et Système -->
+        <section>
+            <h2>⚙️ Déploiement & État du Service</h2>
+            <p>Le processus d'installation a couvert la mise en place des dépendances, le déploiement de l'exécutable et l'enregistrement du démon système.</p>
+            
+            <p>Le statut du service système a été vérifié et validé :</p>
+            <p>
+                • Service : <span class="badge badge-success">active (running)</span><br>
+                • Démarrage automatique : <span class="badge badge-success">enabled</span>
+            </p>
+
+            <h3>Durcissement de la configuration (Modifications de <code>app.ini</code>)</h3>
+            <p>Pour des raisons évidentes de confidentialité d'infrastructure, des modifications ciblées ont été apportées :</p>
+            <pre>[service]
+REQUIRE_SIGNIN_VIEW = true      # Force l'authentification pour lire le contenu
+DISABLE_REGISTRATION = true     # Désactive la création autonome de compte
+SHOW_REGISTRATION_BUTTON = false # Masque le bouton d'inscription
+
+[server]
+LANDING_PAGE = login            # Redirection automatique des anonymes vers la mire</pre>
+            <p><strong>Effet immédiat :</strong> La surface d'attaque est réduite, rendant l'inscription fermée et gérée uniquement par l'administrateur.</p>
+        </section>
+
+        <!-- 4. SMTP Local -->
+        <section>
+            <h2>📧 Serveur SMTP Local & Notifications</h2>
+            <p>Afin de propager les notifications de la forge logicielle vers les collaborateurs, un relais mail a été interconnecté localement.</p>
+            <p><strong>Étapes :</strong> Installation de Postfix en mode "Internet Site" et liaison avec Forgejo via le bloc suivant :</p>
+            <pre>[mailer]
+ENABLED = true
+PROTOCOL = smtp
+HOST = 192.168.194.51
+FROM = "Forgejo" &lt;forgejo@localhost&gt;</pre>
+            <p>L'analyse des journaux applicatifs dans <code>/var/log/mail.log</code> confirme le bon traitement et le routage des notifications.</p>
+        </section>
+
+        <!-- 5. Validation -->
+        <section>
+            <h2>🧪 Plan de Tests Majeurs</h2>
+            
+            <h3>Authentification</h3>
+            <ul class="task-list">
+                <li>Connexion du compte administrateur racine</li>
+                <li>Provisionnement de profils et validation des accès utilisateurs tiers</li>
+            </ul>
+
+            <h3>Gestion des dépôts et Cycles Git</h3>
+            <ul class="task-list">
+                <li>Création d'un dépôt centralisé vide</li>
+                <li>Clonage local (<code>git clone</code>) et écriture de commits</li>
+                <li>Vérification des liaisons réseau montantes (<code>git push</code>) et descendantes (<code>git pull</code>)</li>
+            </ul>
+
+            <h3>Collaboration</h3>
+            <ul class="task-list">
+                <li>Gestion et isolation granulaire des permissions d'équipes</li>
+            </ul>
+        </section>
+
+        <!-- 6. Audit de Sécurité -->
+        <section>
+            <h2>🔐 Audit de Sécurité</h2>
+            
+            <h3>Vérification des secrets</h3>
+            <p>L'analyse approfondie du fichier <code>app.ini</code> confirme que les chaînes sensibles (<code>SECRET_KEY</code>, <code>INTERNAL_TOKEN</code>, <code>LFS_JWT_SECRET</code>) sont générées dynamiquement avec une entropie solide et ne sont pas stockées en clair.</p>
+
+            <h3>Audit des permissions du système de fichiers</h3>
+            <div class="alert-box">
+                <div class="alert-title">⚠️ Vulnérabilité Détectée (Permissions)</div>
+                Les répertoires applicatifs sous <code>/var/lib/forgejo</code> (notamment <code>data</code> et <code>log</code>) disposaient initialement de droits en <code>drwxr-xr-x</code>, ouvrant l'accès en lecture (<code>o+r</code>) à la base de données SQLite et aux logs à d'autres utilisateurs du système.
+            </div>
+            <p><strong>Correction appliquée :</strong> Application immédiate du principe de moindre privilège en restreignant l'accès exclusif à l'utilisateur système <code>forgejo</code> et au groupe de sécurité de l'infrastructure.</p>
+        </section>
+
+        <!-- 7. Comparaison -->
+        <section>
+            <h2>⚔️ Analyse : Forgejo vs GitHub</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Critère</th>
+                        <th>Forgejo</th>
+                        <th>GitHub</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Hébergement</strong></td>
+                        <td>Auto-hébergé (Interne)</td>
+                        <td>Cloud (SaaS)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Souveraineté des données</strong></td>
+                        <td>Totale (Contrôle absolu)</td>
+                        <td>Limitée (Hébergeur tiers)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Coût d'exploitation</strong></td>
+                        <td>Gratuit & Open-Source</td>
+                        <td>Modèle commercial / Licences</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Interface</strong></td>
+                        <td>Épurée, focalisée sur l'essentiel</td>
+                        <td>Barres latérales denses, écosystème lourd</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="margin-top: 15px;"><em>Analyse globale :</em> Forgejo offre la légèreté et la gouvernance idéale pour des équipes voulant conserver la maîtrise de leur code, là où GitHub apporte un catalogue d'outils annexes au prix de la dépendance à un acteur tiers.</p>
+        </section>
+
+        <!-- 8. Conclusion -->
+        <section>
+            <h2>📌 Conclusion</h2>
+            <p>L'installation sur l'infrastructure virtuelle s'est soldée par un succès opérationnel. L'audit a apporté une plus-value concrète en identifiant un défaut de permissions de fichiers, résolu immédiatement avant la mise en production. La solution est prête et autonome.</p>
+        </section>
+
+        <footer>
+            <p>Documentation liée au projet : <a href="https://forgejo.org/docs/latest/admin/installation/binary/" target="_blank">Doc Officielle Forgejo</a> · <a href="https://www.youtube.com/watch?v=EqFf9fPJ7J0" target="_blank">Ressources Vidéo</a></p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
