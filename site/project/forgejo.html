@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Installation et Validation de Forgejo</title>
+<title>Forgejo — Mise en place d'une forge Git auto-hébergée</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght=300;400;500;600;700&family=JetBrains+Mono:wght=400;700&display=swap" rel="stylesheet" />
 <style>
@@ -41,6 +41,7 @@
   .nav-logo {
     font-weight: 700;
     font-family: 'Space Grotesk', sans-serif;
+    color: var(--text);
   }
   .nav-logo span { color: var(--accent); }
   .back-link { font-size: 0.9rem; color: var(--muted); }
@@ -71,7 +72,7 @@
   section { margin-bottom: 44px; }
   h2 { font-size: 1.3rem; margin: 0 0 18px; font-weight: 600; }
   h2 .accent { color: var(--accent); font-style: italic; }
-  h3 { margin: 0 0 6px; font-size: 1rem; color: var(--text); }
+  
   p { color: var(--muted); margin: 0 0 10px; }
   
   ul {
@@ -91,16 +92,6 @@
   }
   li strong { color: var(--accent); }
   
-  /* État des tests (cases cochées) */
-  .task-success {
-    border-left: 3px solid #10b981;
-  }
-  .task-success::after {
-    content: " ✓";
-    color: #10b981;
-    font-weight: bold;
-  }
-
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -113,13 +104,11 @@
     padding: 18px;
   }
   .card h3 {
-    margin: 0 0 8px;
+    margin: 0 0 6px;
     font-size: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    color: var(--accent);
   }
-  .card p { margin: 0; font-size: 0.85rem; }
+  .card p { margin: 0; font-size: 0.85rem; color: var(--text); }
   
   .flow { display: flex; flex-direction: column; gap: 10px; }
   .flow .step {
@@ -147,17 +136,25 @@
     flex-shrink: 0;
   }
   
-  /* Blocs de configuration ini */
-  pre {
-    background: var(--card);
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  th {
+    background-color: var(--card);
+    color: var(--accent);
+    font-weight: 600;
+    text-align: left;
+    padding: 12px;
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.85rem;
-    color: #e2e8f0;
-    overflow-x: auto;
-    margin: 10px 0 20px 0;
+    font-size: 0.9rem;
+  }
+  td {
+    padding: 12px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.9rem;
   }
 
   footer {
@@ -180,246 +177,139 @@
 
   <header>
     <div class="eyebrow">Projet de stage · Gestion d'infrastructure Git</div>
-    <h1>Installation et Validation de Forgejo</h1>
+    <h1>Forgejo : Mise en place d'une forge Git auto-hébergée</h1>
     <p class="subtitle">
-      Ce projet a pour objectif l'installation et la mise en service de Forgejo sur une machine virtuelle Ubuntu afin de disposer d'une plateforme de gestion de dépôts Git auto-hébergée.
+      Installation et configuration d'une forge Git auto-hébergée Forgejo sur Ubuntu afin de permettre la gestion de dépôts de code et la collaboration entre développeurs.
     </p>
     <div class="tags">
-      <span class="tag">Ansible</span>
-      <span class="tag">Forgejo</span>
       <span class="tag">Ubuntu</span>
+      <span class="tag">Forgejo</span>
       <span class="tag">Git</span>
-      <span class="tag">Postfix / SMTP</span>
+      <span class="tag">Postfix</span>
       <span class="tag">Sécurité</span>
     </div>
   </header>
 
   <section>
-    <h2>Présentation</h2>
+    <h2>Contexte <span class="accent">du projet</span></h2>
     <p>
-      Forgejo est une forge logicielle libre permettant la gestion de code source, des dépôts Git, des tickets (Issues), des Pull Requests et de la collaboration entre développeurs.
+      Ce projet a été réalisé en environnement virtuel Ubuntu. L'objectif principal était de déployer une forge Git interne sécurisée et performante, offrant une alternative souveraine aux solutions cloud tierces pour les organisations désireuses de conserver le contrôle de leurs données.
     </p>
+  </section>
+
+  <section>
+    <h2>Objectifs <span class="accent">visés</span></h2>
+    <ul>
+      <li><strong>Déploiement initial</strong> — Installer Forgejo sur une machine virtuelle Ubuntu.</li>
+      <li><strong>Configuration système</strong> — Initialiser et configurer le service pour assurer sa persistance.</li>
+      <li><strong>Contrôle des accès</strong> — Gérer l'approvisionnement et les droits des utilisateurs.</li>
+      <li><strong>Validation fonctionnelle</strong> — Tester l'ensemble des opérations courantes liées à Git.</li>
+      <li><strong>Audit de conformité</strong> — Réaliser une analyse complète de la sécurité de la plateforme.</li>
+      <li><strong>Système de notification</strong> — Configurer les alertes et les communications par email.</li>
+    </ul>
   </section>
 
   <section>
     <h2>Environnement <span class="accent">technique</span></h2>
     <div class="grid">
       <div class="card">
-        <h3>🖥️ Machine virtuelle</h3>
+        <h3>OS</h3>
         <p>Ubuntu</p>
       </div>
       <div class="card">
-        <h3>📦 Serveur Git</h3>
+        <h3>Serveur Git</h3>
         <p>Forgejo</p>
       </div>
       <div class="card">
-        <h3>🌐 Accès Web</h3>
-        <p>HTTP</p>
+        <h3>Outils</h3>
+        <p>Git, Postfix</p>
       </div>
       <div class="card">
-        <h3>🔧 Contrôle de version</h3>
-        <p>Git</p>
+        <h3>Virtualisation</h3>
+        <p>Machine virtuelle</p>
       </div>
     </div>
   </section>
 
   <section>
-    <h2>Installation <span class="accent">étapes réalisées</span></h2>
-    <div class="flow">
-      <div class="step"><span class="num">1</span> Installation des dépendances nécessaires.</div>
-      <div class="step"><span class="num">2</span> Installation de Forgejo.</div>
-      <div class="step"><span class="num">3</span> Configuration du service.</div>
-      <div class="step"><span class="num">4</span> Démarrage du serveur Forgejo.</div>
-      <div class="step"><span class="num">5</span> Création du compte administrateur.</div>
-      <div class="step"><span class="num">6</span> Accès à l'interface web.</div>
+    <h2>Compétences <span class="accent">mobilisées (BTS)</span></h2>
+    <div class="grid">
+      <div class="card">
+        <h3>SysAdmin & Réseau</h3>
+        <p>Administration Linux, Gestion des services système, Configuration réseau, Protocole SMTP.</p>
+      </div>
+      <div class="card">
+        <h3>DevOps & Sécurité</h3>
+        <p>Gestion des versions (Git), Gestion fine des utilisateurs, Analyse de sécurité, Rédaction de documentation technique.</p>
+      </div>
     </div>
   </section>
 
   <section>
-    <h2>Tests <span class="accent">réalisés</span></h2>
-    
-    <h3 style="margin-top:15px;">Authentification</h3>
-    <ul style="margin-bottom: 20px;">
-      <li class="task-success">Connexion administrateur</li>
-      <li class="task-success">Création d'un utilisateur</li>
-      <li class="task-success">Connexion utilisateur</li>
-    </ul>
+    <h2>Réalisations <span class="accent">et pipeline</span></h2>
+    <div class="flow">
+      <div class="step"><span class="num">1</span> <strong>Installation Forgejo :</strong> Déploiement du serveur, configuration globale, initialisation du compte administrateur et mise en service de l'interface web.</div>
+      <div class="step"><span class="num">2</span> <strong>Tests Git :</strong> Création de dépôts, validation des commandes de base (Clone, Commit, Push, Pull) depuis les postes clients.</div>
+      <div class="step"><span class="num">3</span> <strong>Sécurisation applicative :</strong> Désactivation complète des inscriptions publiques, obligation stricte de connexion et restriction de l'accès aux utilisateurs autorisés.</div>
+      <div class="step"><span class="num">4</span> <strong>Notifications :</strong> Installation et configuration du serveur SMTP Postfix en mode local, suivi de la validation de l'envoi des emails.</div>
+    </div>
+  </section>
 
-    <h3>Gestion des dépôts</h3>
-    <ul style="margin-bottom: 20px;">
-      <li class="task-success">Création d'un dépôt</li>
-      <li class="task-success">Clonage d'un dépôt</li>
-      <li class="task-success">Commit local</li>
-      <li class="task-success">Push vers le serveur</li>
-      <li class="task-success">Pull depuis le serveur</li>
-    </ul>
-
-    <h3>Collaboration</h3>
+  <section>
+    <h2>Audit de sécurité <span class="accent">& corrections</span></h2>
     <ul>
-      <li class="task-success">Gestion des permissions utilisateurs</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>Audit de sécurité <span class="accent">Forgejo</span></h2>
-    
-    <h3>🔐 Vérification des secrets</h3>
-    <p>Une analyse du fichier de configuration <code>app.ini</code> a été effectuée.</p>
-    <ul style="margin-bottom: 15px;">
-      <li><strong>Constats :</strong> Tous les secrets nécessaires sont présents et correctement configurés. Les clés critiques (<code>SECRET_KEY</code>, <code>INTERNAL_TOKEN</code>, <code>LFS_JWT_SECRET</code>) sont générées automatiquement et suffisamment complexes. Le fichier <code>app.ini</code> est protégé et non accessible aux autres utilisateurs du système.</li>
-      <li><strong>Conclusion :</strong> Aucune exposition directe de secrets en clair n’a été détectée dans la configuration principale.</li>
-    </ul>
-
-    <h3>📁 Audit des permissions</h3>
-    <p>Une analyse des répertoires Forgejo a été réalisée (<code>/var/lib/forgejo</code>).</p>
-    <ul style="margin-bottom: 15px;">
-      <li><strong>Constats :</strong> Les dossiers <code>data</code> et <code>log</code> possèdent des permissions <code>drwxr-xr-x</code>. Ces permissions permettent la lecture par d’autres utilisateurs du système. Un fichier de log et un fichier de base de données (<code>.db</code>) sont accessibles en lecture par d’autres utilisateurs (<code>o+r</code>).</li>
-      <li><strong>Risque :</strong> Exposition potentielle d’informations internes (logs, données applicatives, structure de la base).</li>
-      <li><strong>Recommandation :</strong> Restreindre les permissions des dossiers sensibles à <code>forgejo</code> et <code>root</code> uniquement.</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>⚙️ État du service <span class="accent">système</span></h2>
-    <p>Le service Forgejo a été vérifié.</p>
-    <ul style="margin-bottom: 15px;">
-      <li><strong>Résultat :</strong> Service : <code>active (running)</code> | Démarrage automatique : <code>enabled</code></li>
-      <li><strong>Conclusion :</strong> Forgejo fonctionne correctement et est correctement configuré au niveau du service système.</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>Configuration Forgejo <span class="accent">(modifications)</span></h2>
-    <pre>[service]
-REQUIRE_SIGNIN_VIEW = true
-DISABLE_REGISTRATION = true
-SHOW_REGISTRATION_BUTTON = false
-
-[server]
-LANDING_PAGE = login</pre>
-
-    <h3>Effets des modifications</h3>
-    <ul>
-      <li>La page d’accueil redirige directement vers la page de connexion</li>
-      <li>L’inscription publique est désactivée</li>
-      <li>Seuls les comptes créés par l’administrateur peuvent se connecter</li>
-      <li>Le bouton d’inscription n’apparaît plus dans l’interface</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>📧 Configuration des emails <span class="accent">(SMTP local)</span></h2>
-    
-    <h3>Objectif</h3>
-    <p>Permettre à Forgejo d’envoyer des emails via un serveur SMTP local installé sur la machine virtuelle pour les notifications.</p>
-
-    <h3>Installation du serveur SMTP</h3>
-    <ul style="margin-bottom: 15px;">
-      <li>Installation de Postfix</li>
-      <li>Configuration en mode "Internet Site"</li>
-      <li>Activation du service SMTP local</li>
-    </ul>
-
-    <h3>Configuration de Forgejo</h3>
-    <p>Fichier <code>app.ini</code> :</p>
-    <pre>[mailer]
-ENABLED = true
-PROTOCOL = smtp
-HOST = 192.168.194.51
-FROM = "Forgejo" &lt;forgejo@localhost&gt;</pre>
-
-    <h3>Tests réalisés</h3>
-    <ul>
-      <li>Envoi d’emails de test depuis Forgejo</li>
-      <li>Vérification des logs Postfix <code>/var/log/mail.log</code></li>
-      <li><strong>Résultat :</strong> Emails correctement traités par Postfix. SMTP local fonctionnel (pour l'instant).</li>
+      <li><strong>Points positifs</strong> — Service système pleinement fonctionnel, configuration générale sécurisée et vérification réussie des secrets de sécurité (générés automatiquement avec une complexité suffisante).</li>
+      <li><strong>Point d'amélioration</strong> — Lors de l'analyse des répertoires de l'application, des permissions trop ouvertes ont été détectées sur certains fichiers sensibles (base de données interne et journaux accessibles en lecture globale).</li>
+      <li><strong>Correctif proposé</strong> — Application immédiate du principe de moindre privilège via la restriction stricte des droits d'accès aux seuls utilisateurs autorisés (le compte de service et l'administrateur racine).</li>
     </ul>
   </section>
 
   <section>
     <h2>Résultats <span class="accent">obtenus</span></h2>
-    <p>L'ensemble des fonctionnalités testées fonctionne correctement.</p>
-    <p>Les opérations Git (clone, pull, push et merge) ont été exécutées avec succès depuis les postes clients.</p>
-    <p>L'interface web est accessible et permet l'administration des utilisateurs ainsi que la gestion des dépôts.</p>
-  </section>
-
-  <section>
-    <h2>Comparaison <span class="accent">avec GitHub</span></h2>
-    <div style="overflow-x: auto; margin-bottom: 20px;">
-      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
-        <thead>
-          <tr style="border-bottom: 2px solid var(--border);">
-            <th style="padding: 10px; color: var(--accent);">Critère</th>
-            <th style="padding: 10px; color: var(--accent);">Forgejo</th>
-            <th style="padding: 10px; color: var(--accent);">GitHub</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="border-bottom: 1px solid var(--border);">
-            <td style="padding: 10px;"><strong>Hébergement</strong></td>
-            <td style="padding: 10px; color: var(--muted);">Auto-hébergé</td>
-            <td style="padding: 10px; color: var(--muted);">Cloud</td>
-          </tr>
-          <tr style="border-bottom: 1px solid var(--border);">
-            <td style="padding: 10px;"><strong>Contrôle des données</strong></td>
-            <td style="padding: 10px; color: var(--muted);">Total</td>
-            <td style="padding: 10px; color: var(--muted);">Limité</td>
-          </tr>
-          <tr style="border-bottom: 1px solid var(--border);">
-            <td style="padding: 10px;"><strong>Coût</strong></td>
-            <td style="padding: 10px; color: var(--muted);">Gratuit</td>
-            <td style="padding: 10px; color: var(--muted);">Gratuit ou payant</td>
-          </tr>
-          <tr style="border-bottom: 1px solid var(--border);">
-            <td style="padding: 10px;"><strong>Administration</strong></td>
-            <td style="padding: 10px; color: var(--muted);">À la charge de l'administrateur</td>
-            <td style="padding: 10px; color: var(--muted);">Gérée par GitHub</td>
-          </tr>
-          <tr style="border-bottom: 1px solid var(--border);">
-            <td style="padding: 10px;"><strong>Fonctionnalités avancées</strong></td>
-            <td style="padding: 10px; color: var(--muted);">Essentielles</td>
-            <td style="padding: 10px; color: var(--muted);">Très nombreuses</td>
-          </tr>
-          <tr>
-            <td style="padding: 10px;"><strong>Confidentialité</strong></td>
-            <td style="padding: 10px; color: var(--muted);">Élevée</td>
-            <td style="padding: 10px; color: var(--muted);">Dépend du service</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3>Analyse</h3>
     <p>
-      Forgejo constitue une alternative légère et performante à GitHub pour les organisations souhaitant conserver le contrôle de leurs données et de leur infrastructure.
-    </p>
-    <p>
-      GitHub propose davantage de fonctionnalités avancées et une infrastructure mondiale, mais nécessite de confier l'hébergement des données à un service tiers.
-    </p>
-    <p>
-      Lors de l'utilisation des deux plateformes, plusieurs différences ont été observées concernant l'interface utilisateur et les fonctionnalités disponibles. GitHub propose notamment une barre latérale permettant d'accéder rapidement à différents dépôts sans changer de page, ainsi qu'une autre section regroupant diverses informations sur le projet, comme les contributeurs, les statistiques et d'autres outils de suivi. Forgejo offre une interface plus épurée, centrée sur les fonctionnalités essentielles de gestion de code, avec moins d'options directement accessibles depuis les pages du dépôt. Cette approche permet une utilisation plus légère tout en conservant les fonctionnalités principales.
+      L'ensemble des fonctionnalités a été validé avec succès. Les opérations Git fonctionnent correctement et la plateforme est totalement opérationnelle pour un usage collaboratif fluide et sécurisé.
     </p>
   </section>
 
   <section>
-    <h2>Conclusion</h2>
+    <h2>Comparaison <span class="accent">Forgejo / GitHub</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Critère</th>
+          <th>Forgejo</th>
+          <th>GitHub</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Hébergement</strong></td>
+          <td>Local</td>
+          <td>Cloud</td>
+        </tr>
+        <tr>
+          <td><strong>Contrôle des données</strong></td>
+          <td>Total</td>
+          <td>Limité</td>
+        </tr>
+        <tr>
+          <td><strong>Administration</strong></td>
+          <td>À gérer soi-même</td>
+          <td>Gérée par GitHub</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Conclusion <span class="accent">& bilan</span></h2>
     <p>
-      L'installation de Forgejo sur une machine virtuelle a été réalisée avec succès en suivant la documentation officielle.
-    </p>
-    <p>
-      L'audit de sécurité a permis d'identifier quelques points d'attention concernant les permissions des fichiers système, mais aucune faille critique n'a été détectée au niveau des secrets ou de la configuration principale.
-    </p>
-    <p>
-      Les tests fonctionnels ont permis de valider : l'accès à la plateforme ; la gestion des utilisateurs ; la gestion des dépôts Git ; les opérations de collaboration ; le bon fonctionnement du service système.
-    </p>
-    <p>
-      La solution est opérationnelle et peut être utilisée dans un environnement de développement ou d'enseignement nécessitant une forge Git auto-hébergée.
+      Ce projet de stage m'a permis d'acquérir une compréhension fine du fonctionnement d'une forge Git auto-hébergée et de développer mes compétences en gestion des services Linux. L'exécution de l'audit m'a également sensibilisé aux bonnes pratiques indispensables en matière de sécurité des infrastructures.
     </p>
   </section>
 
   <footer>
-    <p>Références : <a href="https://forgejo.org/docs/latest/admin/installation/binary/" target="_blank">Documentation officielle Forgejo</a> · <a href="https://www.youtube.com/watch?v=EqFf9fPJ7J0" target="_blank">Vidéo YouTube explicative</a></p>
-    <p style="margin-top: 10px; font-size: 0.75rem; color: var(--muted);">Projet réalisé pendant mon stage — Fiche technique d'évaluation.</p>
+    © 2026 · Documentation consultée pour le déploiement de la solution.
   </footer>
 
 </div>
