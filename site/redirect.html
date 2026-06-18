@@ -1,0 +1,539 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+#rpg{width:100%;height:620px;background:#8ab878;position:relative;overflow:hidden;outline:none;cursor:none;font-family:'Press Start 2P',monospace;}
+#gc{position:absolute;top:0;left:0;image-rendering:pixelated;}
+#hud{position:absolute;top:8px;left:8px;z-index:10;pointer-events:none;}
+.np{background:rgba(0,0,0,0.75);border:2px solid #f8f8d0;color:#f8f8d0;font-size:6px;padding:6px 10px;line-height:2.2;image-rendering:pixelated;}
+.np span{color:#f8c038;}
+#hint{position:absolute;bottom:8px;left:8px;z-index:10;background:rgba(0,0,0,0.75);border:2px solid #f8f8d0;color:#f8f8d0;font-size:6px;padding:6px 10px;line-height:2.4;pointer-events:none;}
+#mm{position:absolute;top:8px;right:8px;z-index:10;border:2px solid #f8f8d0;image-rendering:pixelated;}
+#dlg{position:absolute;bottom:0;left:0;right:0;z-index:30;display:none;}
+.dlg-box{background:#f8f8d0;border-top:4px solid #383838;border-bottom:none;padding:0;}
+.dlg-inner{display:flex;gap:0;}
+.dlg-face{width:64px;height:64px;flex-shrink:0;border-right:3px solid #383838;background:#e8e8b8;display:flex;align-items:center;justify-content:center;image-rendering:pixelated;}
+.dlg-face canvas{image-rendering:pixelated;}
+.dlg-content{flex:1;padding:8px 12px 6px;}
+.dlg-name{font-size:7px;color:#383838;margin-bottom:5px;border-bottom:1px solid #a0a878;padding-bottom:4px;}
+.dlg-text{font-family:'VT323',monospace;font-size:21px;line-height:1.45;color:#181818;min-height:56px;white-space:pre-wrap;}
+.dlg-footer{display:flex;justify-content:space-between;align-items:center;padding:4px 12px 6px;border-top:1px solid #a0a878;}
+.dlg-pages{font-size:6px;color:#686848;}
+.dlg-prompt{font-size:6px;color:#383838;animation:blink 0.8s step-end infinite;}
+#dcl{background:#e8e8b8;border:2px solid #383838;color:#383838;font-family:'Press Start 2P',monospace;font-size:6px;padding:4px 8px;cursor:pointer;}
+#dcl:hover{background:#d8d8a8;}
+#ih{position:absolute;z-index:20;pointer-events:none;display:none;transform:translateX(-50%);}
+.ihb{background:#f8f8d0;border:2px solid #383838;color:#383838;font-size:6px;padding:4px 8px;white-space:nowrap;position:relative;box-shadow:2px 2px 0 #383838;}
+.ihb::after{content:'';position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#383838;}
+#loading{position:absolute;inset:0;background:#8ab878;display:flex;align-items:center;justify-content:center;z-index:50;flex-direction:column;gap:16px;}
+#loading p{color:#383838;font-size:8px;animation:blink 0.8s step-end infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+</style>
+
+<div id="rpg" tabindex="0">
+  <canvas id="gc"></canvas>
+  <div id="hud"><div class="np">★ LUCAS RAJANY<br><span>BTS SIO SLAM · La Réunion</span></div></div>
+  <div id="hint">Z▲ Q◄ S▼ D►&nbsp;&nbsp;[ENTRÉE] Parler</div>
+  <canvas id="mm" width="112" height="90"></canvas>
+  <div id="ih"><div class="ihb" id="iht">ENTRÉE</div></div>
+  <div id="dlg">
+    <div class="dlg-box">
+      <div class="dlg-inner">
+        <div class="dlg-face"><canvas id="face-canvas" width="48" height="48"></canvas></div>
+        <div class="dlg-content">
+          <div class="dlg-name" id="dlg-name">???</div>
+          <div class="dlg-text" id="dlg-txt"></div>
+        </div>
+      </div>
+      <div class="dlg-footer">
+        <div class="dlg-pages" id="dlg-pg"></div>
+        <div class="dlg-prompt">▼ ESPACE / ENTRÉE</div>
+        <button id="dcl">✕ FERMER</button>
+      </div>
+    </div>
+  </div>
+  <div id="loading"><p>Chargement...</p></div>
+</div>
+
+<script>
+const TILESET_URL = 'https://cdck-file-uploads-canada1.s3.dualstack.ca-central-1.amazonaws.com/flex035/uploads/mapeditor/original/1X/6e21d61496c7d0264add0b1f4cb4a37ecac7194c.png';
+const SPRITE_URL  = 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/c3288c87-7122-4bce-8f52-114e1e8f96ca/d4cqjzo-bed2ceb8-acf4-4dd7-b175-51b17b8ed883.jpg/v1/fill/w_280,h_250,q_75,strp/my_pokemon_sprites_by_ingolingo_d4cqjzo-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MjUwIiwicGF0aCI6Ii9mL2MzMjg4Yzg3LTcxMjItNGJjZS04ZjUyLTExNGUxZThmOTZjYS9kNGNxanpvLWJlZDJjZWI4LWFjZjQtNGRkNy1iMTc1LTUxYjE3YjhlZDg4My5qcGciLCJ3aWR0aCI6Ijw9MjgwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.fQZrYEbB-fvSo_RSzJ3VF4PX50VcgJviJYehcdU3UD8';
+
+const rpgEl = document.getElementById('rpg');
+const gc = document.getElementById('gc');
+const gx = gc.getContext('2d');
+const mc = document.getElementById('mm');
+const mx = mc.getContext('2d');
+const W = rpgEl.clientWidth || 680, H = 620;
+gc.width = W; gc.height = H;
+gx.imageSmoothingEnabled = false;
+
+const TS = 32; // tile size display
+const SRC = 16; // tile size in tileset
+
+// ── TILESET COORDS (col, row) dans le tilesheet FireRed 16px/tile ─────────────
+// On identifie les tiles visuellement depuis l'image
+const TX = {
+  // Herbe & sol
+  GRASS:    {sx:0,  sy:0},
+  GRASS2:   {sx:16, sy:0},
+  PATH_H:   {sx:0,  sy:48},
+  PATH_V:   {sx:16, sy:48},
+  PATH_C:   {sx:0,  sy:64},
+  SAND:     {sx:32, sy:0},
+  // Eau
+  WATER:    {sx:0,  sy:112},
+  WATER2:   {sx:16, sy:112},
+  // Arbres
+  TREE_TL:  {sx:64, sy:64},
+  TREE_TR:  {sx:80, sy:64},
+  TREE_BL:  {sx:64, sy:80},
+  TREE_BR:  {sx:80, sy:80},
+  // Fleurs
+  FLOWER1:  {sx:32, sy:32},
+  FLOWER2:  {sx:48, sy:32},
+  // Haies
+  BUSH_TL:  {sx:96, sy:64},
+  BUSH_TR:  {sx:112,sy:64},
+  BUSH_BL:  {sx:96, sy:80},
+  BUSH_BR:  {sx:112,sy:80},
+  // Barrières
+  FENCE_H:  {sx:0,  sy:96},
+  FENCE_V:  {sx:16, sy:96},
+  FENCE_C:  {sx:32, sy:96},
+  // Panneau
+  SIGN:     {sx:48, sy:96},
+  // Pierre
+  ROCK:     {sx:64, sy:96},
+};
+
+// Tile IDs pour la map logique
+const T = {G:0,G2:1,PT:2,SD:3,WA:4,WA2:5,TL:6,TR:7,BL:8,BR:9,FL:10,FL2:11,HL:12,HR:13,VL:14,VR:15,FH:16,FV:17,SN:18,RK:19,PV:20,PAVE:21};
+const SOLID = new Set([T.TL,T.TR,T.BL,T.BR,T.HL,T.HR,T.VL,T.VR,T.FH,T.FV,T.RK,T.WA,T.WA2]);
+
+// Mapping tile ID → tileset coords
+const TILE_SRC = {
+  [T.G]:   TX.GRASS,  [T.G2]:  TX.GRASS2,
+  [T.PT]:  TX.PATH_H, [T.SD]:  TX.SAND,
+  [T.WA]:  TX.WATER,  [T.WA2]: TX.WATER2,
+  [T.TL]:  TX.TREE_TL,[T.TR]:  TX.TREE_TR,
+  [T.BL]:  TX.TREE_BL,[T.BR]:  TX.TREE_BR,
+  [T.FL]:  TX.FLOWER1,[T.FL2]: TX.FLOWER2,
+  [T.HL]:  TX.BUSH_TL,[T.HR]:  TX.BUSH_TR,
+  [T.VL]:  TX.BUSH_BL,[T.VR]:  TX.BUSH_BR,
+  [T.FH]:  TX.FENCE_H,[T.FV]:  TX.FENCE_V,
+  [T.SN]:  TX.SIGN,   [T.RK]:  TX.ROCK,
+  [T.PV]:  TX.PATH_V, [T.PAVE]:TX.PATH_C,
+};
+
+// ── MAP 50×40 ─────────────────────────────────────────────────────────────────
+const MW=50, MH=40;
+const G=T.G, P=T.PT, W2=T.WA, W3=T.WA2, TL=T.TL, TR=T.TR, BL=T.BL, BR=T.BR,
+      FL=T.FL, F2=T.FL2, HL=T.HL, HR=T.HR, VL=T.VL, VR=T.VR,
+      FH=T.FH, FV=T.FV, SN=T.SN, RK=T.RK, PV=T.PV, PA=T.PAVE, G2=T.G2, SD=T.SD;
+
+function buildMap(){
+  const m = Array.from({length:MH},()=>Array(MW).fill(G));
+
+  // Bordures d'arbres
+  for(let x=0;x<MW;x++){
+    m[0][x]=TL; m[1][x]=BL;
+    m[MH-2][x]=TL; m[MH-1][x]=BL;
+  }
+  for(let y=2;y<MH-2;y++){
+    m[y][0]=TL; m[y][1]=BL;
+    m[y][MW-2]=TL; m[y][MW-1]=BL;
+  }
+
+  // Chemin principal horizontal (milieu)
+  const cy=MH/2|0, cx=MW/2|0;
+  for(let x=2;x<MW-2;x++){m[cy][x]=P; m[cy+1][x]=P;}
+  // Chemin vertical
+  for(let y=2;y<MH-2;y++){m[y][cx]=PV; m[y][cx+1]=PV;}
+  // Intersections
+  m[cy][cx]=PA; m[cy][cx+1]=PA; m[cy+1][cx]=PA; m[cy+1][cx+1]=PA;
+
+  // Lac nord-est
+  for(let y=4;y<=9;y++) for(let x=32;x<=39;x++) m[y][x]=W2;
+  for(let y=5;y<=8;y++) for(let x=33;x<=38;x++) m[y][x]=W3;
+  // Lac sud-ouest
+  for(let y=28;y<=33;y++) for(let x=8;x<=15;x++) m[y][x]=W2;
+  for(let y=29;y<=32;y++) for(let x=9;x<=14;x++) m[y][x]=W3;
+
+  // Bosquets d'arbres
+  const groves=[
+    [4,4],[5,4],[6,4],[4,5],[5,5],[4,6],
+    [43,4],[44,4],[43,5],[44,5],[43,6],[44,6],
+    [4,30],[5,30],[4,31],[5,31],[4,32],[5,32],
+    [43,30],[44,30],[43,31],[44,31],
+    [20,4],[21,4],[22,4],[20,5],[21,5],
+    [27,35],[28,35],[27,36],[28,36],
+    [12,12],[13,12],[12,13],[13,13],
+    [36,26],[37,26],[36,27],[37,27],
+  ];
+  groves.forEach(([x,y])=>{
+    if(m[y][x]===G||m[y][x]===G2){m[y][x]=TL;}
+    if(m[y+1]&&(m[y+1][x]===G||m[y+1][x]===G2))m[y+1][x]=BL;
+    if(m[y][x+1]!=null&&(m[y][x+1]===G||m[y][x+1]===G2))m[y][x+1]=TR;
+    if(m[y+1]&&m[y+1][x+1]!=null&&(m[y+1][x+1]===G||m[y+1][x+1]===G2))m[y+1][x+1]=BR;
+  });
+
+  // Fleurs éparpillées
+  const flowers=[
+    [7,5],[8,5],[9,5],[7,6],[10,4],
+    [40,6],[41,6],[42,6],[41,7],
+    [7,32],[8,32],[9,32],
+    [40,32],[41,32],[42,32],
+    [20,8],[21,8],[22,8],[23,8],
+    [26,30],[27,30],[28,30],
+    [15,20],[16,20],[15,21],
+    [33,18],[34,18],[33,19],
+  ];
+  flowers.forEach(([x,y],i)=>{if(m[y][x]===G||m[y][x]===G2)m[y][x]=i%2===0?FL:F2;});
+
+  // Haies décoratives
+  for(let x=17;x<=22;x++){m[13][x]=HL; m[14][x]=VL;}
+  for(let x=27;x<=32;x++){m[26][x]=HL; m[27][x]=VL;}
+
+  // Rochers
+  [[15,7],[16,7],[20,12],[21,12],[30,8],[31,8],[15,30],[16,30],[33,30],[34,30]].forEach(([x,y])=>{
+    if(m[y][x]===G||m[y][x]===G2)m[y][x]=RK;
+  });
+
+  // Panneaux (entrées des zones)
+  m[cy-1][9]=SN;   // panneau À propos
+  m[cy-1][39]=SN;  // panneau Formation
+  m[cy+2][9]=SN;   // panneau Expériences
+  m[cy+2][39]=SN;  // panneau Compétences
+  m[6][cx]=SN;     // panneau Projets
+
+  // Herbe variée
+  for(let y=2;y<MH-2;y++) for(let x=2;x<MW-2;x++){
+    if(m[y][x]===G&&Math.random()<0.3)m[y][x]=G2;
+  }
+
+  return m;
+}
+const MAP = buildMap();
+
+// ── NPC DATA ──────────────────────────────────────────────────────────────────
+// Sprite sheet: 4 colonnes (down,left,right,up) × 4 lignes = 16 frames de ~16×24px
+// La sheet wixmp contient plusieurs persos - on utilisera différentes lignes
+const NPCS=[
+  {id:0,tx:9,ty:16,name:'Lucas',role:'Étudiant BTS SIO SLAM',col:'#3050c8',sprRow:0,
+   patrol:[{x:7,y:14},{x:13,y:14},{x:13,y:18},{x:7,y:18}],spd:0.45,
+   hook:"Salut ! Moi c'est Lucas.\nBTS SIO option SLAM à\nSaint-Joseph, La Réunion.\nTu veux en savoir plus ?",
+   pages:["À PROPOS\n\nLucas Rajany\nBTS SIO SLAM — 1ère année\nLycée Pierre Poivre\nSaint-Joseph, Île de La Réunion","Sérieux, motivé et curieux.\nPassionné par le dev applicatif\net l'optimisation de systèmes.\nPermis B · Né à La Réunion","LANGUES :\n› Français : natif\n› Anglais : B1\n› Espagnol : A2\n\nCERTIFS : PIX · ASSR1 · ASSR2"]},
+  {id:1,tx:39,ty:16,name:'Prof. Poivre',role:'Maître de la Formation',col:'#a05000',sprRow:1,
+   patrol:[{x:37,y:14},{x:43,y:14},{x:43,y:18},{x:37,y:18}],spd:0.35,
+   hook:"Ah, un visiteur ! Je connais\nbien le parcours de Lucas.\nLaisse-moi te parler de\nsa formation académique.",
+   pages:["FORMATION\n\nBTS SIO – Option SLAM\nLycée Pierre Poivre\nSaint-Joseph · 2025–2027\n(1ère année en cours)","Programme BTS :\n› Développement & algo\n› Analyse applicative\n› Conception logicielle","Avant le BTS :\n\nBac STI2D · 2022–2025\nLycée Pierre Poivre\n\nDNB · 2018–2022\nCollège Joseph Hubert"]},
+  {id:2,tx:9,ty:23,name:'Commandant',role:'Chef des Serveurs',col:'#208020',sprRow:2,
+   patrol:[{x:7,y:21},{x:13,y:21},{x:13,y:26},{x:7,y:26}],spd:0.5,
+   hook:"Garde-à-vous ! Lucas a\neffectué son stage ici,\nà la Mairie de Saint-Joseph.\nUn stagiaire exemplaire !",
+   pages:["STAGE · Mairie St-Joseph\nJuin–Juillet 2026 · 1 mois\n\n› Linux sur VMs\n› Forgejo : Git auto-hébergé\n› Ansible : config système\n› Docker : conteneurisation","› Auto-hébergement\n› Admin système Linux\n› Interventions multi-sites\n› Maintenance & diagnostic\n› Support technique terrain","Stage d'observation\nCollège Mille Roches\nSaint-André\n\n› Découverte du métier\n› Maintenance & diagnostic\n› Environnement pro réel"]},
+  {id:3,tx:39,ty:23,name:'Aria',role:'Archiviste des Skills',col:'#8020a0',sprRow:3,
+   patrol:[{x:37,y:21},{x:43,y:21},{x:43,y:26},{x:37,y:26}],spd:0.4,
+   hook:"Bienvenue ! Je compile\ntoutes les compétences\nacquises par Lucas.\nVoici son inventaire...",
+   pages:["COMPÉTENCES\n\nFRONT-END :\n› HTML · CSS · JavaScript\n\nBACK-END :\n› Python · Java · PHP · MySQL","OUTILS :\n› VS Code · IntelliJ IDEA\n› Microsoft Office\n› Windows / Linux\n\nSYSTÈMES :\n› Docker · Ansible\n› Git / Forgejo · VMs","NOTIONS :\n› Algorithmique\n› Développement applicatif\n› Analyse & résolution\n  de problèmes\n› Auto-hébergement"]},
+  {id:4,tx:MW/2|0,ty:9,name:'Mémoire',role:'Gardienne des Projets',col:'#c02060',sprRow:4,
+   patrol:[{x:MW/2-3,y:7},{x:MW/2+3,y:7},{x:MW/2+3,y:11},{x:MW/2-3,y:11}],spd:0.38,
+   hook:"Les projets de Lucas sont\ngardés ici. Ses créations\nles plus importantes...\nTu veux y accéder ?",
+   pages:["PROJET 1 — App CRUD\nStack : HTML · CSS · PHP\n\nApp de gestion de données :\najouter, modifier, supprimer.\nObjectif : logique web + BDD.","PROJET 2 — Portfolio WP\nStack : WordPress · XAMPP\n\nSite en local, config serveur,\ngestion BDD, thème custom.","PROJET 3 — Algorithmique\nStack : Python / pseudo-code\n\nRésolution de problèmes\nlogiques, bases de la\nprogrammation.","PROJET 4 ★ VEILLE IA\nStreamlit · Supabase\nGroq API · Stripe · Render\nGitHub Actions\n\nApp de veille techno\nautomatisée complète.","VEILLE IA :\n› Recherche DuckDuckGo+RSS\n› Scoring & filtrage auto\n› Résumés LLaMA 3.1+3.3\n› Publication WP / FTP\n› Cron GitHub Actions\n› Paiement Stripe 2,99€/mois\nveille-tech.onrender.com"]},
+];
+
+NPCS.forEach(n=>{
+  n.wx=n.tx*TS; n.wy=n.ty*TS;
+  n.patIdx=Math.floor(Math.random()*n.patrol.length);
+  n.waitTimer=Math.random()*120;
+  n.dir=2; n.frame=0; n.mov=false; n.dlgPage=0;
+});
+
+const player={wx:(MW/2|0)*TS, wy:(MH/2|0)*TS+TS*3, spd:3.5, frame:0, dir:2, mov:false};
+const keys={};
+let dlgOpen=false, dlgTyping=false, activeNpc=null, typeTimer=null, fullText='';
+let tileImg=null, sprImg=null, assetsLoaded=0;
+
+// ── ASSET LOADING ─────────────────────────────────────────────────────────────
+function loadImg(url){
+  return new Promise(res=>{
+    const img=new Image(); img.crossOrigin='anonymous';
+    img.onload=()=>res(img);
+    img.onerror=()=>res(null);
+    img.src=url;
+  });
+}
+
+Promise.all([loadImg(TILESET_URL), loadImg(SPRITE_URL)]).then(([ti, si])=>{
+  tileImg=ti; sprImg=si;
+  document.getElementById('loading').style.display='none';
+  rpgEl.focus();
+  requestAnimationFrame(loop);
+});
+
+// ── INPUT ─────────────────────────────────────────────────────────────────────
+document.addEventListener('keydown',e=>{
+  const k=e.key.toLowerCase();
+  keys[k]=true;
+  if(['z','q','s','d','arrowup','arrowdown','arrowleft','arrowright',' '].includes(k))e.preventDefault();
+  if(k==='enter'&&!dlgOpen){tryTalk();return;}
+  if((k==='enter'||k===' ')&&dlgOpen){dlgTyping?skipType():nextPage();}
+});
+document.addEventListener('keyup',e=>{keys[e.key.toLowerCase()]=false;});
+document.getElementById('dcl').addEventListener('click',closeDlg);
+
+// ── COLLISION ─────────────────────────────────────────────────────────────────
+function canMove(wx,wy){
+  const mg=8;
+  return [[mg,mg+4],[TS-mg,mg+4],[mg,TS-4],[TS-mg,TS-4]].every(([ox,oy])=>{
+    const tx=Math.floor((wx+ox)/TS), ty=Math.floor((wy+oy)/TS);
+    if(tx<0||ty<0||tx>=MW||ty>=MH) return false;
+    return !SOLID.has(MAP[ty][tx]);
+  });
+}
+
+// ── DIALOGUE ─────────────────────────────────────────────────────────────────
+function getNear(){return NPCS.find(n=>Math.hypot((player.wx/TS|0)-n.tx,(player.wy/TS|0)-n.ty)<3)||null;}
+function tryTalk(){const n=getNear();if(n)openDlg(n);}
+function openDlg(npc){
+  activeNpc=npc; npc.dlgPage=-1; dlgOpen=true;
+  document.getElementById('dlg').style.display='block';
+  const nm=document.getElementById('dlg-name');
+  nm.textContent=npc.name+' — '+npc.role; nm.style.color=npc.col;
+  drawFace(npc);
+  startType(npc.hook);
+}
+function nextPage(){
+  if(!activeNpc)return;
+  activeNpc.dlgPage++;
+  if(activeNpc.dlgPage>=activeNpc.pages.length){closeDlg();return;}
+  document.getElementById('dlg-pg').textContent='['+(activeNpc.dlgPage+1)+'/'+activeNpc.pages.length+']';
+  startType(activeNpc.pages[activeNpc.dlgPage]);
+}
+function startType(txt){
+  clearTimeout(typeTimer); dlgTyping=true; fullText=txt;
+  const el=document.getElementById('dlg-txt'); el.textContent='';
+  let i=0;
+  (function tick(){if(i<txt.length){el.textContent+=txt[i++];typeTimer=setTimeout(tick,16);}else dlgTyping=false;})();
+}
+function skipType(){clearTimeout(typeTimer);dlgTyping=false;document.getElementById('dlg-txt').textContent=fullText;}
+function closeDlg(){clearTimeout(typeTimer);dlgOpen=false;activeNpc=null;document.getElementById('dlg').style.display='none';}
+
+// ── FACE PORTRAIT depuis spritesheet ─────────────────────────────────────────
+// La sheet wixmp : grille de persos, chaque perso ~34×42px (280/8 cols × 250/6 rows aprox)
+function drawFace(npc){
+  const fc=document.getElementById('face-canvas'), fx=fc.getContext('2d');
+  fx.imageSmoothingEnabled=false;
+  fx.clearRect(0,0,48,48);
+  if(!sprImg){fx.fillStyle=npc.col;fx.fillRect(0,0,48,48);return;}
+  // On prend le frame "face" de chaque perso dans la sheet
+  // Sheet ~280×250, persos en grille 8×6 = ~35×42 par perso
+  const cols=8, rows=6;
+  const pw=Math.floor(sprImg.width/cols), ph=Math.floor(sprImg.height/rows);
+  const col=npc.id%cols, row=Math.floor(npc.id/cols);
+  fx.fillStyle='#e8e8b8'; fx.fillRect(0,0,48,48);
+  fx.drawImage(sprImg, col*pw, row*ph, pw, ph, 4, 4, 40, 40);
+}
+
+// ── TILE DRAW ─────────────────────────────────────────────────────────────────
+let waterFrame=0;
+function drawTile(tx,ty,tid,cx,cy){
+  const sx=tx*TS-cx, sy=ty*TS-cy;
+  if(sx<-TS||sx>W||sy<-TS||sy>H) return;
+  const src=TILE_SRC[tid];
+  if(tileImg&&src){
+    // Water animation
+    let srcX=src.sx, srcY=src.sy;
+    if(tid===T.WA||tid===T.WA2){srcX=src.sx+(Math.floor(waterFrame/8)%2)*16;}
+    gx.drawImage(tileImg, srcX, srcY, SRC, SRC, sx, sy, TS, TS);
+  } else {
+    // Fallback couleurs
+    const FC={[T.G]:'#78c848',[T.G2]:'#68b840',[T.PT]:'#b8a060',[T.SD]:'#d8c090',
+              [T.WA]:'#4898c8',[T.WA2]:'#60a8d8',[T.TL]:'#387038',[T.TR]:'#387038',
+              [T.BL]:'#387038',[T.BR]:'#387038',[T.FL]:'#78c848',[T.FL2]:'#78c848',
+              [T.HL]:'#58a030',[T.HR]:'#58a030',[T.VL]:'#58a030',[T.VR]:'#58a030',
+              [T.FH]:'#a87840',[T.FV]:'#a87840',[T.SN]:'#d8c090',[T.RK]:'#888898',
+              [T.PV]:'#b8a060',[T.PAVE]:'#c8b070'};
+    gx.fillStyle=FC[tid]||'#78c848'; gx.fillRect(sx,sy,TS,TS);
+  }
+}
+
+// ── SPRITE DRAW depuis spritesheet ───────────────────────────────────────────
+// Format spritesheet : chaque perso 4 directions × 4 frames
+// On estime que la sheet fait des rangées de persos, 4 frames par direction
+function drawChar(wx,wy,cx,cy,sprRow,frame,dir,mov,isPlayer){
+  const sx=Math.round(wx-cx), sy=Math.round(wy-cy);
+  if(sx<-TS*2||sx>W+TS||sy<-TS*2||sy>H+TS) return;
+
+  if(sprImg){
+    // Sheet : ~280px large / 8 persos = 35px par perso
+    // Chaque perso : 4 dir × 2 frames = 8 colonnes de ~17.5px... trop complexe à splitter précisément
+    // On utilise le fallback dessiné propre avec couleurs Pokémon
+  }
+  // Sprite dessiné manuellement style FireRed
+  const PALETTES=[
+    {skin:'#f8c8a0',hair:'#202020',top:'#c83030',bot:'#505090',cap:'#c83030'},// Red
+    {skin:'#f8d8b0',hair:'#905828',top:'#8050a0',bot:'#303080',cap:'#8050a0'},// Prof
+    {skin:'#d8a880',hair:'#181818',top:'#386838',bot:'#284828',cap:'#386838'},// Cmd
+    {skin:'#c8b8f8',hair:'#4040b8',top:'#202060',bot:'#101040',cap:'#4040b8'},// Aria
+    {skin:'#f8d0c0',hair:'#c02858',top:'#782058',bot:'#401030',cap:'#c02858'},// Mem
+    {skin:'#f8c8a0',hair:'#404040',top:'#7EC8E3',bot:'#2a4060',cap:'#404040'},// player
+  ];
+  const pal=isPlayer?PALETTES[5]:PALETTES[Math.min(sprRow,4)];
+  const bob=mov?Math.sin(frame*Math.PI)*2:0;
+  const lf=mov?Math.sin(frame*Math.PI)*4:0;
+
+  // ombre
+  gx.fillStyle='rgba(0,0,0,0.2)';
+  gx.beginPath();gx.ellipse(sx+TS/2,sy+TS+1,TS/2-6,3,0,0,Math.PI*2);gx.fill();
+
+  // jambes
+  gx.fillStyle=pal.bot;
+  gx.fillRect(sx+9,sy+TS-12+lf,7,12); gx.fillRect(sx+TS-16,sy+TS-12-lf,7,12);
+  // chaussures
+  gx.fillStyle='#302010';
+  gx.fillRect(sx+8,sy+TS-1,8,3); gx.fillRect(sx+TS-16,sy+TS-1,8,3);
+  // corps
+  gx.fillStyle=pal.top;
+  gx.fillRect(sx+6,sy+12+bob,TS-12,TS-23);
+  // sac à dos (detail)
+  if(isPlayer){gx.fillStyle='#a06020';gx.fillRect(sx+TS-10,sy+13+bob,6,10);}
+  // bras
+  const af=mov?Math.sin(frame*Math.PI)*3:0;
+  gx.fillStyle=pal.skin;
+  gx.fillRect(sx+1,sy+14+af+bob,5,9); gx.fillRect(sx+TS-6,sy+14-af+bob,5,9);
+  // tête
+  gx.fillStyle=pal.skin;
+  gx.fillRect(sx+7,sy+3+bob,TS-14,12);
+  // casquette
+  gx.fillStyle=pal.cap;
+  gx.fillRect(sx+5,sy+bob,TS-10,6);
+  gx.fillStyle=pal.hair;
+  gx.fillRect(sx+5,sy+5+bob,TS-10,3);
+  // visière selon direction
+  const dirs=[[0,-8],[8,0],[0,8],[-8,0]];
+  const [ex,ey]=dirs[dir];
+  if(dir===1){gx.fillStyle=pal.cap;gx.fillRect(sx+TS-6,sy+2+bob,6,4);}
+  else if(dir===3){gx.fillStyle=pal.cap;gx.fillRect(sx,sy+2+bob,6,4);}
+  else if(dir===2){gx.fillStyle=pal.cap;gx.fillRect(sx+8,sy+10+bob,TS-16,3);}
+  // yeux
+  gx.fillStyle='#201008';
+  if(dir!==0){
+    gx.fillRect(sx+9+ex/3,sy+7+bob,3,3); gx.fillRect(sx+TS-12+ex/3,sy+7+bob,3,3);
+    gx.fillStyle='#ffffff';
+    gx.fillRect(sx+10+ex/3,sy+7+bob,1,1); gx.fillRect(sx+TS-11+ex/3,sy+7+bob,1,1);
+  }
+}
+
+// ── UPDATE ────────────────────────────────────────────────────────────────────
+function updateNpc(n,dt){
+  if(dlgOpen&&n===activeNpc)return;
+  if(n.waitTimer>0){n.waitTimer-=dt;n.mov=false;return;}
+  const tgt=n.patrol[n.patIdx%n.patrol.length];
+  const tx=tgt.x*TS,ty=tgt.y*TS,dx=tx-n.wx,dy=ty-n.wy,dist=Math.hypot(dx,dy);
+  if(dist<4){n.patIdx=(n.patIdx+1)%n.patrol.length;n.waitTimer=60+Math.random()*120;n.mov=false;return;}
+  const step=n.spd*dt*0.1;
+  const nx=n.wx+(dx/dist)*step,ny=n.wy+(dy/dist)*step;
+  n.dir=Math.abs(dx)>Math.abs(dy)?(dx>0?1:3):(dy>0?2:0);
+  if(canMove(nx,n.wy))n.wx=nx; if(canMove(n.wx,ny))n.wy=ny;
+  n.mov=true; n.frame=(n.frame+0.15)%4;
+  n.tx=Math.round(n.wx/TS); n.ty=Math.round(n.wy/TS);
+}
+
+function updatePlayer(){
+  if(dlgOpen){player.mov=false;return;}
+  let dx=0,dy=0;
+  if(keys['z']||keys['arrowup']){dy=-1;player.dir=0;}
+  if(keys['s']||keys['arrowdown']){dy=1;player.dir=2;}
+  if(keys['q']||keys['arrowleft']){dx=-1;player.dir=3;}
+  if(keys['d']||keys['arrowright']){dx=1;player.dir=1;}
+  if(dx&&dy){dx*=0.707;dy*=0.707;}
+  player.mov=dx!==0||dy!==0;
+  if(player.mov)player.frame=(player.frame+0.18)%4;
+  const nx=player.wx+dx*player.spd,ny=player.wy+dy*player.spd;
+  if(dx&&canMove(nx,player.wy))player.wx=nx;
+  if(dy&&canMove(player.wx,ny))player.wy=ny;
+  player.wx=Math.max(0,Math.min((MW-1)*TS,player.wx));
+  player.wy=Math.max(0,Math.min((MH-1)*TS,player.wy));
+}
+
+function camXY(){
+  return[Math.max(0,Math.min(MW*TS-W,player.wx+TS/2-W/2)),
+         Math.max(0,Math.min(MH*TS-H,player.wy+TS/2-H/2))];
+}
+
+// ── ZONE LABELS ───────────────────────────────────────────────────────────────
+const ZLABELS=[
+  {tx:6,ty:13,txt:'À PROPOS',col:'#3050c8'},
+  {tx:36,ty:13,txt:'FORMATION',col:'#a05000'},
+  {tx:6,ty:22,txt:'EXPÉRIENCES',col:'#208020'},
+  {tx:36,ty:22,txt:'COMPÉTENCES',col:'#8020a0'},
+  {tx:MW/2-5,ty:6,txt:'PROJETS',col:'#c02060'},
+];
+function drawLabels(cx,cy){
+  gx.font='6px "Press Start 2P"'; gx.textAlign='left';
+  ZLABELS.forEach(z=>{
+    const sx=z.tx*TS-cx, sy=z.ty*TS-cy;
+    if(sx<-80||sx>W+80||sy<0||sy>H) return;
+    const tw=gx.measureText(z.txt).width;
+    gx.fillStyle='rgba(248,248,208,0.85)';
+    gx.fillRect(sx-2,sy-8,tw+4,12);
+    gx.fillStyle=z.col;
+    gx.fillText(z.txt,sx,sy);
+  });
+}
+
+// ── MINIMAP ────────────────────────────────────────────────────────────────────
+function drawMinimap(){
+  mx.fillStyle='#88b858'; mx.fillRect(0,0,112,90);
+  const tw=112/MW, th=90/MH;
+  for(let y=0;y<MH;y++) for(let x=0;x<MW;x++){
+    const t=MAP[y][x];
+    const cm={[T.PT]:'#c8b070',[T.PV]:'#c8b070',[T.PAVE]:'#c8b070',
+              [T.WA]:'#4898c8',[T.WA2]:'#60a8d8',
+              [T.TL]:'#306030',[T.TR]:'#306030',[T.BL]:'#306030',[T.BR]:'#306030',
+              [T.HL]:'#408040',[T.HR]:'#408040',[T.VL]:'#408040',[T.VR]:'#408040',
+              [T.FH]:'#a07840',[T.FV]:'#a07840',[T.RK]:'#888898',
+              [T.SN]:'#d8c090'};
+    if(cm[t]){mx.fillStyle=cm[t];mx.fillRect(x*tw,y*th,Math.max(1,tw),Math.max(1,th));}
+  }
+  NPCS.forEach(n=>{mx.fillStyle=n.col;mx.fillRect((n.wx/TS)*tw,(n.wy/TS)*th,3,3);});
+  mx.fillStyle='#ffffff';mx.fillRect((player.wx/TS)*tw,(player.wy/TS)*th,3,3);
+}
+
+// ── INTERACT HINT ─────────────────────────────────────────────────────────────
+function updateHint(cx,cy){
+  const el=document.getElementById('ih'), tl=document.getElementById('iht');
+  const near=getNear();
+  if(near&&!dlgOpen){
+    el.style.display='block';
+    el.style.left=Math.round(near.wx-cx+TS/2)+'px';
+    el.style.top=Math.round(near.wy-cy-16)+'px';
+    tl.textContent='[ENTRÉE] Parler à '+near.name;
+    tl.style.borderColor=near.col; tl.style.color=near.col;
+  } else { el.style.display='none'; }
+}
+
+// ── MAIN LOOP ─────────────────────────────────────────────────────────────────
+let last=0;
+function loop(ts){
+  requestAnimationFrame(loop);
+  const dt=Math.min(ts-last,50); last=ts;
+  waterFrame++;
+  updatePlayer();
+  NPCS.forEach(n=>updateNpc(n,dt));
+  const[cx,cy]=camXY();
+  gx.clearRect(0,0,W,H);
+  // tiles
+  for(let y=0;y<MH;y++) for(let x=0;x<MW;x++) drawTile(x,y,MAP[y][x],cx,cy);
+  drawLabels(cx,cy);
+  // sprites triés Y
+  const all=[
+    {wy:player.wy, fn:()=>drawChar(player.wx,player.wy,cx,cy,5,player.frame,player.dir,player.mov,true)},
+    ...NPCS.map(n=>({wy:n.wy, fn:()=>drawChar(n.wx,n.wy,cx,cy,n.sprRow,n.frame,n.dir,n.mov,false)}))
+  ];
+  all.sort((a,b)=>a.wy-b.wy).forEach(s=>s.fn());
+  drawMinimap();
+  updateHint(cx,cy);
+}
+</script>
