@@ -334,41 +334,43 @@ Publication automatique si le score est suffisant.
 
 
 <section>
-
 <h2>Agents IA utilisés</h2>
 
 <div class="grid">
 
 <div class="card">
-<h3>🔎 Agent recherche</h3>
+<h3>🔎 Agent recherche — Scraping + flux RSS</h3>
 <p>
-Trouve les sujets d'actualité et récupère les informations disponibles.
+Le système récupère automatiquement les informations depuis différentes sources grâce au scraping web et aux flux RSS.
+Les données brutes sont collectées puis transformées en sujets exploitables pour le pipeline éditorial.
 </p>
 </div>
 
 <div class="card">
-<h3>✅ Agent vérification</h3>
+<h3>✅ Agent vérification — Gemini 2.5 Flash Lite</h3>
 <p>
-Contrôle les faits, dates, acteurs et cohérence du sujet.
+Analyse les sujets collectés avant rédaction.
+Il vérifie la cohérence des informations, les dates, les acteurs concernés et les faits disponibles afin de limiter les erreurs et les informations inventées.
 </p>
 </div>
 
 <div class="card">
-<h3>✍️ Agent rédaction</h3>
+<h3>✍️ Agent rédaction — Qwen3-32B (Groq)</h3>
 <p>
-Transforme les informations validées en article journalistique.
+Transforme les informations vérifiées en article journalistique complet.
+Le modèle génère le titre, l'angle éditorial et le contenu final en respectant la ligne éditoriale du média Le Fil du Lord.
 </p>
 </div>
 
 <div class="card">
-<h3>⭐ Agent qualité</h3>
+<h3>⭐ Agent qualité — Gemini 3.1 Flash Lite</h3>
 <p>
-Analyse la fiabilité, la structure et la qualité avant publication.
+Évalue chaque article avant publication avec un score sur 10.
+Il analyse la fiabilité, la structure, la qualité rédactionnelle et le respect des règles éditoriales avant validation.
 </p>
 </div>
 
 </div>
-
 </section>
 
 
