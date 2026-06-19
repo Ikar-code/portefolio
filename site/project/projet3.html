@@ -3,255 +3,648 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Le Fil du Lord — Pipeline de publication automatisée par IA</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght=300;400;500;600;700&family=JetBrains+Mono:wght=400;700&display=swap" rel="stylesheet" />
-<!-- L'IA va chercher le CSS en sortant du dossier project/ -->
+
+<title>Le Fil du Lord — Pipeline média IA automatisé</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+
 <style>
-  :root {
-    --bg: #0d0d12;
-    --card: #1a1a24;
-    --border: #2b2b38;
-    --text: #f2f2f5;
-    --muted: #9a9aab;
-    --accent: #8b5cf6;
-    --accent-soft: #8b5cf61a;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.65;
-  }
-  .container {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 56px 24px 80px;
-  }
-  a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  .back {
-    display: inline-block;
-    margin-bottom: 28px;
-    font-size: 0.85rem;
-    color: var(--muted);
-  }
-  .back:hover { color: var(--accent); }
-  header { margin-bottom: 40px; }
-  .eyebrow {
-    color: var(--accent);
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-  h1 { font-size: 2.4rem; margin: 0 0 12px; letter-spacing: -0.01em; }
-  .subtitle { color: var(--muted); font-size: 1rem; max-width: 640px; }
-  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-  .tag {
-    background: var(--accent-soft);
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    border-radius: 999px;
-    padding: 4px 12px;
-    font-size: 0.78rem;
-    font-weight: 500;
-  }
-  .cta { margin-top: 24px; }
-  .cta a {
-    display: inline-block;
-    background: var(--accent);
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 600;
-  }
-  .cta a:hover { text-decoration: none; opacity: 0.9; }
-  section { margin-bottom: 44px; }
-  h2 { font-size: 1.3rem; margin: 0 0 18px; font-weight: 600; }
-  h2 .accent { color: var(--accent); font-style: italic; }
-  p { color: var(--muted); margin: 0 0 10px; }
-  ul {
-    padding-left: 0;
-    margin: 0;
-    list-style: none;
-    display: grid;
-    gap: 10px;
-  }
-  li {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    color: var(--text);
-    font-size: 0.92rem;
-  }
-  li strong { color: var(--accent); }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 14px;
-  }
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px;
-  }
-  .card h3 {
-    margin: 0 0 6px;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .card p { margin: 0; font-size: 0.85rem; }
-  .flow { display: flex; flex-direction: column; gap: 10px; }
-  .flow .step {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 16px;
-    font-size: 0.88rem;
-    color: var(--text);
-  }
-  .flow .num {
-    background: var(--accent);
-    color: #fff;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.78rem;
-    font-weight: 600;
-    flex-shrink: 0;
-  }
-  footer {
-    border-top: 1px solid var(--border);
-    padding-top: 24px;
-    margin-top: 40px;
-    color: var(--muted);
-    font-size: 0.82rem;
-    text-align: center;
-  }
+
+:root{
+--bg:#0d0d12;
+--card:#181822;
+--border:#292938;
+--text:#f4f4f5;
+--muted:#a1a1aa;
+--accent:#8b5cf6;
+}
+
+*{
+box-sizing:border-box;
+}
+
+body{
+
+margin:0;
+background:var(--bg);
+color:var(--text);
+font-family:"Space Grotesk",sans-serif;
+line-height:1.6;
+
+}
+
+
+.container{
+
+max-width:900px;
+margin:auto;
+padding:60px 25px;
+
+}
+
+
+a{
+
+color:var(--accent);
+text-decoration:none;
+
+}
+
+
+header{
+
+margin-bottom:50px;
+
+}
+
+
+.eyebrow{
+
+color:var(--accent);
+text-transform:uppercase;
+font-size:.8rem;
+letter-spacing:.1em;
+
+}
+
+
+h1{
+
+font-size:2.7rem;
+margin:10px 0;
+
+}
+
+
+.subtitle{
+
+color:var(--muted);
+max-width:700px;
+
+}
+
+
+.tags{
+
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:20px;
+
+}
+
+
+.tag{
+
+border:1px solid var(--accent);
+padding:5px 12px;
+border-radius:20px;
+color:var(--accent);
+font-size:.8rem;
+
+}
+
+
+section{
+
+margin-bottom:50px;
+
+}
+
+
+h2{
+
+font-size:1.4rem;
+
+}
+
+
+.accent{
+
+color:var(--accent);
+
+}
+
+
+p{
+
+color:var(--muted);
+
+}
+
+
+ul{
+
+padding:0;
+list-style:none;
+display:grid;
+gap:12px;
+
+}
+
+
+li,
+.card,
+.step{
+
+background:var(--card);
+border:1px solid var(--border);
+border-radius:12px;
+padding:18px;
+
+}
+
+
+strong{
+
+color:var(--accent);
+
+}
+
+
+
+.flow{
+
+display:grid;
+gap:12px;
+
+}
+
+
+.step{
+
+display:flex;
+gap:15px;
+align-items:center;
+
+}
+
+
+.num{
+
+background:var(--accent);
+width:28px;
+height:28px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+
+}
+
+
+
+.grid{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:15px;
+
+}
+
+
+
+.card h3{
+
+margin-top:0;
+
+}
+
+
+
+footer{
+
+border-top:1px solid var(--border);
+padding-top:25px;
+text-align:center;
+color:var(--muted);
+
+}
+
 </style>
+
 </head>
+
+
 <body>
+
+
 <div class="container">
 
-  <nav>
-    <div class="nav-logo">lucas<span>.</span>rajany</div>
-    <a class="back-link" href="https://ikar-code.github.io/portefolio/site/#projets">← Retour au portfolio</a>
-  </nav>
 
-  <header>
-    <div class="eyebrow">Projet personnel · Média automatisé par IA</div>
-    <h1>Le Fil du Lord</h1>
-    <p class="subtitle">
-      Média d'actualité francophone entièrement automatisé, du groupe Fairy Lord.
-      Génération, validation et publication d'articles pilotées de bout en bout par des agents IA.
-    </p>
-    <div class="tags">
-      <span class="tag">GitHub Actions</span>
-      <span class="tag">Node.js</span>
-      <span class="tag">Gemini</span>
-      <span class="tag">Supabase</span>
-      <span class="tag">React / Vite</span>
-      <span class="tag">Vercel</span>
-    </div>
-    <div class="cta">
-      <a href="https://lefildulord.vercel.app/" target="_blank" rel="noopener">Voir le site en production ↗</a>
-    </div>
-  </header>
+<header>
 
-  <section>
-    <h2>Description</h2>
-    <p>
-      "Le Fil du Lord" est un système de média automatisé en français, conçu pour produire
-      et publier de manière autonome des articles d'actualité récents, à un rythme régulier,
-      en simulant le fonctionnement d'un petit journal moderne entièrement piloté par
-      intelligence artificielle et automatisation.
-    </p>
-  </section>
+<div class="eyebrow">
+Projet personnel · Média automatisé par IA
+</div>
 
-  <section>
-    <h2>Ce que le système <span class="accent">fait</span></h2>
-    <ul>
-      <li><strong>Veille d'actualité</strong> — Une IA (Gemini, avec accès à la recherche Google) identifie des sujets d'actualité récents et pertinents, limités à l'année en cours et aux pays francophones, avec un mix de catégories (politique, technologie, société, polémiques, viral).</li>
-      <li><strong>Anti-doublons</strong> — Le script Node.js vérifie dans Supabase que chaque sujet proposé n'a pas déjà été traité avant de poursuivre.</li>
-      <li><strong>Rédaction automatique</strong> — Une IA rédige un article structuré (titre, angle éditorial, contenu) à partir du sujet retenu.</li>
-      <li><strong>Contrôle qualité avec retry</strong> — Une seconde évaluation IA attribue un score sur 10. Si le score est inférieur au seuil (7/10), l'article est régénéré automatiquement (jusqu'à 3 tentatives) avant d'être abandonné.</li>
-      <li><strong>Publication conditionnelle</strong> — Si le score dépasse le seuil, l'article est enregistré dans Supabase avec le statut "published" et une catégorie associée.</li>
-      <li><strong>Traçabilité complète</strong> — Chaque étape du pipeline est consignée dans une table de journaux pour le suivi et le débogage.</li>
-      <li><strong>Site web dynamique</strong> — Le frontend lit directement Supabase et affiche les articles publiés, classés par catégorie, sans nécessiter de rebuild à chaque publication.</li>
-      <li><strong>Dashboard administrateur protégé</strong> — Interface de supervision (articles, sujets, journaux, scores) accessible uniquement via mot de passe.</li>
-      <li><strong>Conformité RGPD</strong> — Page de politique de confidentialité dédiée, en préparation pour l'intégration de publicités (Google AdSense) avec bandeau de consentement aux cookies.</li>
-    </ul>
-  </section>
 
-  <section>
-    <h2>Pipeline <span class="accent">d'exécution</span></h2>
-    <div class="flow">
-      <div class="step"><span class="num">1</span> GitHub Actions déclenche le script via un cron (2x/semaine)</div>
-      <div class="step"><span class="num">2</span> Recherche de sujets récents via Gemini + Google Search</div>
-      <div class="step"><span class="num">3</span> Vérification des doublons dans Supabase (table "sujets")</div>
-      <div class="step"><span class="num">4</span> Rédaction de l'article par IA</div>
-      <div class="step"><span class="num">5</span> Scoring qualité (retry automatique si score &lt; 7/10)</div>
-      <div class="step"><span class="num">6</span> Publication dans Supabase (table "articles", statut "published")</div>
-      <div class="step"><span class="num">7</span> Journalisation de chaque étape (table "journaux")</div>
-      <div class="step"><span class="num">8</span> Le site React/Vercel affiche les nouveaux articles instantanément</div>
-    </div>
-  </section>
+<h1>
+Le Fil du Lord
+</h1>
 
-  <section>
-    <h2>Architecture <span class="accent">technique</span></h2>
-    <div class="grid">
-      <div class="card">
-        <h3>⚙️ Automatisation</h3>
-        <p>GitHub Actions + Node.js orchestrent le pipeline complet via un cron, en exécutant les modules de recherche, anti-doublons, rédaction, scoring et publication.</p>
-      </div>
-      <div class="card">
-        <h3>🧠 Intelligence artificielle</h3>
-        <p>Gemini avec grounding via Google Search pour la veille, la rédaction d'articles et l'évaluation qualité avec score sur 10.</p>
-      </div>
-      <div class="card">
-        <h3>🗄️ Base de données</h3>
-        <p>Supabase (PostgreSQL) — tables "sujets", "articles" (contenu, score, statut, catégorie) et "journaux" pour la traçabilité.</p>
-      </div>
-      <div class="card">
-        <h3>🌐 Frontend</h3>
-        <p>React/Vite sur Vercel, lecture dynamique de Supabase, affichage par catégorie, page RGPD et dashboard admin protégé.</p>
-      </div>
-    </div>
-  </section>
 
-  <section>
-    <h2>Points <span class="accent">clés</span></h2>
-    <ul>
-      <li>Pipeline entièrement automatisé, sans intervention humaine une fois configuré</li>
-      <li>Double vérification IA avec scoring et boucle de retry avant publication</li>
-      <li>Filtrage géographique et temporel (actualités francophones de l'année en cours)</li>
-      <li>Traçabilité complète via table de journaux pour le monitoring et le débogage</li>
-      <li>Mise à jour instantanée du site sans rebuild grâce à la lecture dynamique de Supabase</li>
-      <li>Dashboard admin sécurisé pour superviser articles, sujets et logs</li>
-      <li>Architecture conforme RGPD, prête pour l'intégration de publicités</li>
-      <li>Évolutif : ajout possible de nouveaux agents IA spécialisés, meilleur scoring éditorial, multi-catégories</li>
-    </ul>
-  </section>
+<p class="subtitle">
 
-  <footer>
-    © 2026 Le Fil du Lord · Groupe Fairy Lord — Projet personnel d'automatisation éditoriale par IA.
-  </footer>
+Système complet de création d'articles automatisé par intelligence artificielle.
+Le pipeline combine recherche d'actualité, vérification factuelle, génération rédactionnelle,
+contrôle qualité et publication automatique.
+
+</p>
+
+
+
+<div class="tags">
+
+<span class="tag">Node.js</span>
+<span class="tag">React</span>
+<span class="tag">TypeScript</span>
+<span class="tag">Gemini API</span>
+<span class="tag">Groq API</span>
+<span class="tag">Supabase</span>
+<span class="tag">GitHub Actions</span>
+<span class="tag">Vercel</span>
 
 </div>
+
+
+</header>
+
+
+
+
+<section>
+
+<h2>Description</h2>
+
+
+<p>
+
+Le Fil du Lord est une plateforme média automatisée capable de transformer
+un sujet d'actualité en article publiable.
+
+Le système fonctionne grâce à plusieurs étapes IA spécialisées :
+recherche de sujets, validation des informations, détection de doublons,
+rédaction journalistique et contrôle qualité avant publication.
+
+</p>
+
+
+</section>
+
+
+
+
+
+<section>
+
+
+<h2>
+Pipeline <span class="accent">IA</span>
+</h2>
+
+
+<div class="flow">
+
+
+<div class="step">
+<span class="num">1</span>
+Cron GitHub Actions déclenche automatiquement le pipeline.
+</div>
+
+
+
+<div class="step">
+<span class="num">2</span>
+Gemini recherche des sujets récents grâce au grounding Google Search.
+</div>
+
+
+
+<div class="step">
+<span class="num">3</span>
+Analyse anti-doublons : comparaison des événements déjà traités.
+</div>
+
+
+
+<div class="step">
+<span class="num">4</span>
+Vérification factuelle du sujet avant rédaction.
+</div>
+
+
+
+<div class="step">
+<span class="num">5</span>
+Groq génère l'article journalistique à partir uniquement des faits validés.
+</div>
+
+
+
+<div class="step">
+<span class="num">6</span>
+Gemini évalue la qualité de l'article avec un score sur 10.
+</div>
+
+
+
+<div class="step">
+<span class="num">7</span>
+Si le score est insuffisant, le système change de sujet ou régénère.
+</div>
+
+
+
+<div class="step">
+<span class="num">8</span>
+Publication automatique dans Supabase puis affichage sur le site React.
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<section>
+
+
+<h2>
+Anti-doublons <span class="accent">intelligent</span>
+</h2>
+
+
+<p>
+
+Le système ne compare pas uniquement les titres.
+Chaque sujet est analysé selon trois éléments :
+
+</p>
+
+
+<ul>
+
+
+<li>
+<strong>Acteurs :</strong>
+les personnes, entreprises ou organisations impliquées.
+</li>
+
+
+<li>
+<strong>Projet / Objet :</strong>
+le produit, événement ou œuvre concernée.
+</li>
+
+
+<li>
+<strong>Événement :</strong>
+l'action principale (annonce, sortie, lancement, partenariat...).
+</li>
+
+
+<li>
+
+Une correspondance sur 2 éléments déclenche une vérification supplémentaire IA.
+
+</li>
+
+
+</ul>
+
+
+</section>
+
+
+
+
+
+
+<section>
+
+
+<h2>
+Agents IA utilisés
+</h2>
+
+
+<div class="grid">
+
+
+<div class="card">
+
+<h3>🔎 Recherche</h3>
+
+<p>
+
+Gemini avec recherche Google identifie les sujets récents,
+les sources disponibles et les informations importantes.
+
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>✅ Vérification</h3>
+
+<p>
+
+Un agent contrôle la réalité du sujet,
+les dates, acteurs et informations avant validation.
+
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>✍️ Rédaction</h3>
+
+<p>
+
+Groq génère un article journalistique structuré
+avec titre, angle éditorial et contenu.
+
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>⭐ Scoring</h3>
+
+<p>
+
+Gemini analyse la qualité finale :
+fiabilité, structure, précision et intérêt éditorial.
+
+</p>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<section>
+
+
+<h2>
+Architecture <span class="accent">technique</span>
+</h2>
+
+
+<div class="grid">
+
+
+<div class="card">
+
+<h3>⚙️ Backend</h3>
+
+<p>
+
+Node.js orchestre les appels IA,
+les retries, la génération et la publication.
+
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>🗄️ Base de données</h3>
+
+<p>
+
+Supabase stocke les sujets,
+articles, scores, logs et statuts du pipeline.
+
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>🌐 Frontend</h3>
+
+<p>
+
+React + TypeScript affiche les articles publiés
+et fournit une interface administrateur.
+
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>🚀 Déploiement</h3>
+
+<p>
+
+GitHub Actions automatise l'exécution,
+Vercel héberge l'application web.
+
+</p>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<section>
+
+
+<h2>
+Points <span class="accent">forts</span>
+</h2>
+
+
+<ul>
+
+
+<li>
+Pipeline complet automatisé de la recherche à la publication.
+</li>
+
+
+<li>
+Validation factuelle avant génération d'article.
+</li>
+
+
+<li>
+Système anti-doublons basé sur les événements et non seulement les titres.
+</li>
+
+
+<li>
+Contrôle qualité IA avec score et boucle de correction.
+</li>
+
+
+<li>
+Traçabilité complète grâce aux logs.
+</li>
+
+
+<li>
+Architecture évolutive permettant l'ajout de nouveaux agents IA spécialisés.
+</li>
+
+
+</ul>
+
+
+</section>
+
+
+
+
+
+<footer>
+
+© 2026 Le Fil du Lord · Groupe Fairy Lord
+
+</footer>
+
+
+
+</div>
+
+
 </body>
 </html>
