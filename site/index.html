@@ -463,127 +463,20 @@
 <section id="veille">
   <div class="fade-in">
     <p class="section-label">Veille technologique</p>
-    <h2 class="section-title">Ma veille <em>IA</em></h2>
+    <h2 class="section-title">L'impact de l'IA sur la <em>cybersécurité IoT</em></h2>
     <p class="section-sub">
-      Veille technologique centrée sur l'actualité de l'intelligence artificielle :
-      nouveaux modèles de langage (LLM), agents IA, outils d'automatisation et frameworks IA.
+      Veille technologique centrée sur l'intelligence artificielle appliquée à la cybersécurité
+      des systèmes IoT (AIoT) : menaces émergentes, défenses adaptatives, vulnérabilités
+      des objets connectés et détection d'anomalies par machine learning.
     </p>
   </div>
-
-  <!-- Pourquoi ce sujet -->
-  <div class="fade-in" style="display:grid;gap:2.5rem;grid-template-columns:1fr 1.3fr;margin-top:2rem">
-    <div>
-      <h3 style="font-size:1.4rem">Pourquoi ce sujet</h3>
-    </div>
-    <p style="line-height:1.7;color:var(--text-muted, #94a3b8)">
-      L'IA générative évolue extrêmement vite et impacte directement mon métier futur : nouveaux modèles,
-      nouveaux outils d'automatisation, nouvelles pratiques de développement. Suivre ces évolutions me permet
-      de rester à jour et d'intégrer les bonnes pratiques dans mes propres projets (Le Fil du Lord, RIKA...).
+  <div class="veille-wrapper fade-in">
+    <div class="veille-icon">🛡️</div>
+    <p>
+      Mon application de veille technologique automatisée sur l'impact de l'IA dans la
+      cybersécurité des systèmes IoT est hébergée séparément. Cliquez ci-dessous pour la consulter.
     </p>
-  </div>
-
-  <!-- Méthode -->
-  <div class="fade-in" style="display:grid;gap:2.5rem;grid-template-columns:1fr 1.3fr;margin-top:3rem">
-    <div>
-      <h3 style="font-size:1.4rem">Ma méthode</h3>
-      <p style="margin-top:0.5rem;font-size:0.9rem;color:var(--text-muted, #94a3b8)">
-        Comment j'organise ma veille au quotidien.
-      </p>
-    </div>
-    <ol style="display:flex;flex-direction:column;gap:1rem;list-style:none;padding:0">
-      <li style="display:flex;gap:1rem">
-        <span style="flex-shrink:0;width:1.75rem;height:1.75rem;border-radius:50%;background:rgba(139,92,246,0.15);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:600">1</span>
-        <span style="line-height:1.7;color:var(--text-muted, #94a3b8)">Collecte automatisée des articles via mon application de veille (flux RSS + scraping)</span>
-      </li>
-      <li style="display:flex;gap:1rem">
-        <span style="flex-shrink:0;width:1.75rem;height:1.75rem;border-radius:50%;background:rgba(139,92,246,0.15);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:600">2</span>
-        <span style="line-height:1.7;color:var(--text-muted, #94a3b8)">Tri et sélection des articles pertinents parmi ceux remontés</span>
-      </li>
-      <li style="display:flex;gap:1rem">
-        <span style="flex-shrink:0;width:1.75rem;height:1.75rem;border-radius:50%;background:rgba(139,92,246,0.15);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:600">3</span>
-        <span style="line-height:1.7;color:var(--text-muted, #94a3b8)">Rédaction d'une fiche de lecture personnelle avec résumé et ce que j'en retiens</span>
-      </li>
-    </ol>
-  </div>
-
-  <!-- Outil de veille -->
-  <div class="fade-in" style="margin-top:3.5rem">
-    <p class="section-label">Automatisation</p>
-    <h3 style="font-size:1.4rem;margin-top:0.5rem">L'outil qui alimente ma collecte</h3>
-
-    <div style="margin-top:2rem;display:grid;gap:2rem;grid-template-columns:1fr 1.1fr">
-      <div>
-        <h4 style="font-size:1.15rem">Veille IA</h4>
-        <p style="margin-top:1.25rem;line-height:1.7;color:var(--text-muted, #94a3b8)">
-          Application web que j'ai développée pour automatiser la collecte de contenu lié à l'IA.
-          Elle centralise les nouvelles sources, les trie et me signale les articles à analyser.
-        </p>
-
-        <ul style="margin-top:1.5rem;display:flex;flex-direction:column;gap:0.75rem;padding:0;list-style:none">
-          <li style="display:flex;gap:0.75rem;font-size:0.9rem;color:var(--text-muted, #94a3b8)">
-            <span style="margin-top:0.45rem;width:0.4rem;height:0.4rem;border-radius:50%;background:var(--accent);flex-shrink:0"></span>
-            Collecte automatisée via flux RSS
-          </li>
-          <li style="display:flex;gap:0.75rem;font-size:0.9rem;color:var(--text-muted, #94a3b8)">
-            <span style="margin-top:0.45rem;width:0.4rem;height:0.4rem;border-radius:50%;background:var(--accent);flex-shrink:0"></span>
-            Stockage et gestion des articles via Supabase
-          </li>
-          <li style="display:flex;gap:0.75rem;font-size:0.9rem;color:var(--text-muted, #94a3b8)">
-            <span style="margin-top:0.45rem;width:0.4rem;height:0.4rem;border-radius:50%;background:var(--accent);flex-shrink:0"></span>
-            Interface Streamlit hébergée sur Render
-          </li>
-        </ul>
-
-        <div style="margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:0.5rem">
-          <span class="tag">Streamlit</span>
-          <span class="tag">Supabase</span>
-          <span class="tag">Render</span>
-          <span class="tag">Python</span>
-        </div>
-
-        <a class="btn-primary" style="margin-top:1.75rem;display:inline-block" href="https://lucasrajany.infinityfreeapp.com/veille-ia.html?v=" target="_blank">
-          Accéder à l'app de veille ↗
-        </a>
-      </div>
-
-      <div class="veille-wrapper" style="margin:0">
-        <div class="veille-icon">🔍</div>
-        <p>
-          L'app me sert à <strong style="color:#e2e8f0">collecter et trier</strong> l'information.
-          Les fiches ci-dessous restent rédigées par mes soins : c'est mon analyse, pas celle de la machine.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Sources -->
-  <div class="fade-in" style="margin-top:3.5rem">
-    <h3 style="font-size:1.4rem">Les sources que je suis</h3>
-    <div style="margin-top:2rem;display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
-      <a href="https://huggingface.co/blog" target="_blank" rel="noreferrer" class="project-card" style="padding:1.25rem">
-        <h4 style="font-size:1.05rem">Hugging Face Blog</h4>
-        <p style="margin-top:0.5rem;font-size:0.85rem;color:var(--text-muted, #94a3b8)">Nouveaux modèles, papers et outils open-source pour le ML.</p>
-      </a>
-      <a href="https://www.anthropic.com/news" target="_blank" rel="noreferrer" class="project-card" style="padding:1.25rem">
-        <h4 style="font-size:1.05rem">Anthropic News</h4>
-        <p style="margin-top:0.5rem;font-size:0.85rem;color:var(--text-muted, #94a3b8)">Annonces produits et recherche sur les modèles Claude.</p>
-      </a>
-      <a href="https://news.ycombinator.com" target="_blank" rel="noreferrer" class="project-card" style="padding:1.25rem">
-        <h4 style="font-size:1.05rem">Hacker News</h4>
-        <p style="margin-top:0.5rem;font-size:0.85rem;color:var(--text-muted, #94a3b8)">Discussions techniques et actualités dev/IA de la communauté.</p>
-      </a>
-    </div>
-  </div>
-
-  <!-- Fiches de lecture -->
-  <div class="fade-in" style="margin-top:3.5rem">
-    <h3 style="font-size:1.4rem">Mes fiches de veille</h3>
-    <div style="margin-top:2rem;border:1px dashed rgba(255,255,255,0.15);border-radius:1rem;padding:2.5rem;text-align:center;background:rgba(255,255,255,0.02)">
-      <p style="color:var(--text-muted, #94a3b8)">Mes fiches de veille sont en cours de rédaction.</p>
-      <p style="margin-top:0.75rem;font-size:0.85rem;color:#475569;max-width:32rem;margin-left:auto;margin-right:auto">
-        Chaque fiche présente un article lu, sa source, un résumé et ce que j'en retiens pour mes propres projets.
-      </p>
-    </div>
+    <a class="btn-primary" href="https://lucasrajany.infinityfreeapp.com/veille-ia.html?v=" target="_blank">Accéder à la veille ↗</a>
   </div>
 </section>
 
