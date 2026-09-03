@@ -465,16 +465,75 @@
     <p class="section-label">Veille technologique</p>
     <h2 class="section-title">L'impact de l'IA sur la <em>cybersécurité IoT</em></h2>
     <p class="section-sub">
-      Veille technologique centrée sur l'intelligence artificielle appliquée à la cybersécurité
-      des systèmes IoT (AIoT) : menaces émergentes, défenses adaptatives, vulnérabilités
-      des objets connectés et détection d'anomalies par machine learning.
+      Veille centrée sur l'intelligence artificielle appliquée à la sécurité des objets
+      connectés (AIoT) : menaces émergentes, défenses adaptatives, vulnérabilités matérielles
+      et détection d'anomalies par machine learning.
     </p>
   </div>
+
+  <div class="about-text fade-in" style="max-width:800px;margin:0 auto 3rem">
+    <h3>Pourquoi ce sujet</h3>
+    <div class="divider"></div>
+    <p>
+      Mon stage à la Mairie de Saint-Joseph m'a fait manipuler des serveurs, des VM et des
+      services exposés au quotidien (Forgejo, Postfix, comptes utilisateurs). Les objets
+      connectés multiplient ce type de surface d'attaque à une échelle beaucoup plus grande,
+      avec des ressources bien plus limitées pour se défendre. Je voulais comprendre comment
+      l'IA change à la fois l'attaque et la défense sur ce terrain.
+    </p>
+  </div>
+
+  <div class="about-text fade-in" style="max-width:800px;margin:0 auto 3rem">
+    <h3>Les repères du sujet</h3>
+    <div class="divider"></div>
+    <p><strong>Détection d'anomalies par IA</strong><br>
+    Des modèles de machine learning apprennent le trafic « normal » d'un objet connecté
+    (fréquence, volume, destinataires) pour repérer un comportement suspect en temps réel,
+    là où les signatures classiques ne suffisent plus face à des attaques inédites.</p>
+    <p><strong>IA offensive</strong><br>
+    Les mêmes techniques sont utilisées par les attaquants : génération de malwares
+    polymorphes, automatisation de la recherche de failles sur des firmwares IoT, phishing
+    ciblé généré par LLM.</p>
+    <p><strong>Contraintes matérielles</strong><br>
+    Un objet connecté a peu de mémoire, de calcul et de batterie. Les modèles de détection
+    doivent donc être allégés (edge AI, modèles compressés) pour tourner directement sur
+    l'appareil plutôt que dans le cloud.</p>
+  </div>
+
+  <div class="about-text fade-in" style="max-width:800px;margin:0 auto 3rem">
+    <h3>Ma méthode</h3>
+    <div class="divider"></div>
+    <ol class="timeline-list" style="font-size:1rem;line-height:1.7">
+      <li>Collecte automatisée avec l'application <strong>Veille IA</strong> présentée
+      ci-dessous : elle rassemble les articles publiés sur mon thème via le web et des flux
+      RSS spécialisés.</li>
+      <li>Tri manuel des résultats : je ne garde que ce qui concerne vraiment l'IA appliquée
+      à la sécurité IoT, avec une source fiable.</li>
+      <li>Lecture directe de publications techniques et de retours d'expérience sur des
+      incidents IoT réels pour compléter la synthèse automatique.</li>
+    </ol>
+  </div>
+
   <div class="veille-wrapper fade-in">
     <div class="veille-icon">🛡️</div>
+    <h3 style="margin-bottom:0.5rem">L'outil qui alimente ma collecte</h3>
+    <p style="margin-bottom:0.5rem"><strong>Veille IA</strong></p>
     <p>
-      Mon application de veille technologique automatisée sur l'impact de l'IA dans la
-      cybersécurité des systèmes IoT est hébergée séparément. Cliquez ci-dessous pour la consulter.
+      Outil que j'ai développé moi-même pour automatiser la collecte. Il agrège des articles
+      depuis le web et des flux RSS, filtre les contenus pertinents, en génère des synthèses
+      via un enchaînement d'agents IA (recherche, vérification, rédaction, contrôle qualité),
+      puis publie le résultat automatiquement.
+    </p>
+    <div class="about-tags" style="justify-content:center;margin:1.25rem 0">
+      <span class="tag accent">Python</span>
+      <span class="tag">Streamlit</span>
+      <span class="tag">Groq API</span>
+      <span class="tag">Supabase</span>
+      <span class="tag">GitHub Actions</span>
+    </div>
+    <p>
+      L'application est hébergée sur une offre gratuite qui se met en veille après quelques
+      minutes d'inactivité : le premier chargement peut prendre une trentaine de secondes.
     </p>
     <a class="btn-primary" href="https://lucasrajany.infinityfreeapp.com/veille-ia.html?v=" target="_blank">Accéder à la veille ↗</a>
   </div>
