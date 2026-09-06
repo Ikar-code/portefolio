@@ -449,8 +449,16 @@ body:not(.project-body-wrapper) section { padding: 100px 5% 80px; }
 .veille-repere-card h4 { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 0.6rem; }
 .veille-repere-card p { color: var(--muted); font-size: 0.85rem; line-height: 1.7; margin: 0; }
 
-/* Ma méthode */
-.veille-method-flow { display: flex; flex-direction: column; gap: 1rem; max-width: 720px; }
+/* Ma méthode + Résultat côte à côte */
+.veille-method-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2rem;
+  align-items: stretch;
+}
+.veille-method-col { display: flex; flex-direction: column; }
+
+.veille-method-flow { display: flex; flex-direction: column; gap: 1rem; }
 .veille-method-step {
   display: flex;
   align-items: flex-start;
@@ -474,17 +482,27 @@ body:not(.project-body-wrapper) section { padding: 100px 5% 80px; }
 }
 .veille-method-step p { color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin: 0; }
 
-/* Outil */
-.veille-wrapper {
+/* Résultat de la veille */
+.veille-result-card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 3rem 2rem;
-  text-align: center;
-  display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.9rem;
+  text-align: left;
 }
-.veille-icon { font-size: 3rem; }
-.veille-wrapper p { color: var(--muted); max-width: 480px; font-size: 0.95rem; }
+.veille-result-card .veille-icon { font-size: 2.2rem; }
+.veille-result-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--white); margin: 0; }
+.veille-result-card p { color: var(--muted); font-size: 0.85rem; line-height: 1.65; margin: 0; }
+.veille-result-card .veille-note { font-size: 0.78rem; color: var(--accent2); }
+.veille-result-card .btn-primary { margin-top: 0.4rem; }
+
+@media (max-width: 900px) {
+  .veille-method-row { grid-template-columns: 1fr; }
+}
 
 /* ── CONTACT ── */
 #contact { background: var(--bg); }
