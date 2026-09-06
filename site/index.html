@@ -520,63 +520,50 @@
     </div>
   </div>
 
-  <!-- Ma méthode -->
-  <div class="fade-in veille-block">
-    <h3 class="veille-subheading">Ma méthode</h3>
-    <div class="veille-method-flow">
-      <div class="veille-method-step">
-        <div class="veille-method-num">1</div>
-        <p>
-          Collecte automatisée avec l'application <strong>Veille IA</strong> présentée
-          ci-dessous : elle rassemble les articles publiés sur mon thème via le web et des flux
-          RSS spécialisés.
-        </p>
+  <!-- Ma méthode + Résultat de la veille (côte à côte) -->
+  <div class="fade-in veille-method-row">
+    <div class="veille-method-col">
+      <h3 class="veille-subheading">Ma méthode</h3>
+      <div class="veille-method-flow">
+        <div class="veille-method-step">
+          <div class="veille-method-num">1</div>
+          <p>
+            Collecte automatisée avec l'application <strong>Veille IA</strong> présentée
+            ci-dessous : elle rassemble les articles publiés sur mon thème via le web et des flux
+            RSS spécialisés.
+          </p>
+        </div>
+        <div class="veille-method-step">
+          <div class="veille-method-num">2</div>
+          <p>
+            Tri manuel des résultats : je ne garde que ce qui concerne vraiment l'IA appliquée
+            à la sécurité IoT, avec une source fiable.
+          </p>
+        </div>
+        <div class="veille-method-step">
+          <div class="veille-method-num">3</div>
+          <p>
+            Lecture directe de publications techniques et de retours d'expérience sur des
+            incidents IoT réels pour compléter la synthèse automatique.
+          </p>
+        </div>
       </div>
-      <div class="veille-method-step">
-        <div class="veille-method-num">2</div>
-        <p>
-          Tri manuel des résultats : je ne garde que ce qui concerne vraiment l'IA appliquée
-          à la sécurité IoT, avec une source fiable.
-        </p>
-      </div>
-      <div class="veille-method-step">
-        <div class="veille-method-num">3</div>
-        <p>
-          Lecture directe de publications techniques et de retours d'expérience sur des
-          incidents IoT réels pour compléter la synthèse automatique.
-        </p>
-      </div>
+    </div>
+
+    <div class="veille-result-card">
+      <div class="veille-icon">🛡️</div>
+      <h3>Résultat de ma veille</h3>
+      <p>
+        Retrouvez ici les articles collectés et synthétisés automatiquement sur mon sujet
+        (voir le projet <strong>Veille IA</strong> ci-dessus pour le détail de l'outil).
+      </p>
+      <p class="veille-note">
+        Premier chargement ~30s (hébergement gratuit qui se met en veille).
+      </p>
+      <a class="btn-primary" href="https://lucasrajany.infinityfreeapp.com/veille-ia.html?v=" target="_blank">Accéder à la veille ↗</a>
     </div>
   </div>
 
-  <!-- Outil -->
-  <div class="veille-wrapper fade-in">
-    <div class="veille-icon">🛡️</div>
-    <h3 style="margin-bottom:0.5rem">L'outil qui alimente ma collecte</h3>
-    <p style="margin-bottom:0.5rem"><strong>Veille IA</strong></p>
-    <p>
-      Outil que j'ai développé moi-même pour automatiser la collecte. Il agrège des articles
-      depuis le web et des flux RSS, filtre les contenus pertinents, en génère des synthèses
-      via un enchaînement d'agents IA (recherche, vérification, rédaction, contrôle qualité),
-      puis publie le résultat automatiquement.
-    </p>
-    <div class="about-tags" style="justify-content:center;margin:1.25rem 0">
-      <span class="tag accent">Python</span>
-      <span class="tag">Streamlit</span>
-      <span class="tag">Groq API</span>
-      <span class="tag">Supabase</span>
-      <span class="tag">GitHub Actions</span>
-    </div>
-    <p>
-      L'application est hébergée sur une offre gratuite qui se met en veille après quelques
-      minutes d'inactivité : le premier chargement peut prendre une trentaine de secondes(voir dans projet).
-    </p>
-    <p>
-      Ici ce trouve le resultat des recherche de ma veille sur mon sujet.
-    </p>
-
-    <a class="btn-primary" href="https://lucasrajany.infinityfreeapp.com/veille-ia.html?v=" target="_blank">Accéder à la veille ↗</a>
-  </div>
 </section>
 
 <!-- CONTACT -->
