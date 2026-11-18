@@ -49,6 +49,11 @@
     </span>
   </button>
 
+  <div class="lang-switch choice-lang" role="group" aria-label="Langue / Language">
+    <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+  </div>
+
   <p class="choice-hint">Choisissez votre ambiance pour entrer</p>
 </div>
 
@@ -78,7 +83,13 @@
     <a href="#veille">Veille</a>
     <a href="#contact">Contact</a>
   </div>
-  <a class="nav-cta" href="cv.pdf" download>Télécharger CV</a>
+  <div class="nav-right">
+    <a class="nav-cta" href="cv.pdf" download>Télécharger CV</a>
+    <div class="lang-switch" role="group" aria-label="Langue / Language">
+      <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
   <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -546,6 +557,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="i18n.js"></script>
 <script src="portfolio.js"></script>
 </body>
 </html>
