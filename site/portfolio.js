@@ -4,10 +4,12 @@
    ============================================================ */
 (function () {
   'use strict';
+  window.__portfolioReady = true;   // lu par le filet de sécurité de index.html
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isTouch = window.matchMedia('(hover: none)').matches;
   const isMobile = window.innerWidth < 820;
+  const root = document.documentElement;
   if (reduced) document.documentElement.classList.add('reduced');
 
   /* ── 1. LENIS : scroll fluide ───────────────────────────── */
@@ -44,9 +46,12 @@
     });
   });
 
-  /* ── 2. VANTA : fond animé du hero ──────────────────────── */
+  /* ── 2. THÈME + VANTA : fond animé du hero ──────────────── */
   let vanta = null;
-  if (window.VANTA && window.THREE && !reduced) {
+  function startVanta(theme) {
+    if (vanta) { try { vanta.destroy(); } catch (e) {} vanta = null; }
+    if (!(window.VANTA && window.THREE) || reduced) return;
+    const light = theme === 'light';
     try {
       vanta = VANTA.NET({
         el: '#vanta-bg',
@@ -57,8 +62,8 @@
         minWidth: 200,
         scale: 1.0,
         scaleMobile: 1.0,
-        color: 0x38bdf8,
-        backgroundColor: 0x07070d,
+        color: light ? 0x0369a1 : 0x38bdf8,
+        backgroundColor: light ? 0xf3f6fc : 0x07070d,
         points: isMobile ? 7 : 11,
         maxDistance: isMobile ? 18 : 22,
         spacing: isMobile ? 20 : 17,
@@ -67,6 +72,10 @@
     } catch (err) {
       console.warn('Vanta indisponible :', err);
     }
+  }
+  function applyTheme(theme) {
+    root.setAttribute('data-theme', theme);   // les variables CSS font le reste
+    startVanta(theme);
   }
 
   /* ── 3. Menu mobile ─────────────────────────────────────── */
@@ -215,6 +224,48 @@
     form.reset();
   });
 
+  /* ── 9b. CHOIX DU MODE : nuit / jour ────────────────────────
+     Les deux moitiés se « confrontent » (animation CSS). Au survol, la moitié
+     visée gagne du terrain ; au clic, elle envahit l'écran, le thème est
+     appliqué, puis l'intro (section 10) démarre. */
+  const choice = document.getElementById('choice');
+  let chosenResolve;
+  const chosen = new Promise((r) => (chosenResolve = r));
+
+  function finishChoice() {
+    root.classList.remove('is-choosing');
+    chosenResolve();
+  }
+
+  if (!choice) {
+    applyTheme('dark');          // pas d'écran de choix : mode nuit par défaut
+    finishChoice();
+  } else {
+    let picked = false;
+    const lean = (t) => { if (!picked) choice.dataset.lean = t; };
+
+    choice.querySelectorAll('.choice-side').forEach((btn) => {
+      const t = btn.dataset.theme;
+      btn.addEventListener('pointerenter', () => lean(t));
+      btn.addEventListener('pointerleave', () => lean(''));
+      btn.addEventListener('focus', () => lean(t));
+      btn.addEventListener('blur', () => lean(''));
+      btn.addEventListener('click', () => pick(t));
+    });
+
+    function pick(t) {
+      if (picked) return;
+      picked = true;
+      choice.dataset.lean = '';
+      choice.dataset.pick = t;                       // la moitié choisie envahit l'écran
+      setTimeout(() => {
+        applyTheme(t);                               // thème + fond Vanta
+        choice.classList.add('is-leaving');          // fondu de l'écran de choix
+        setTimeout(finishChoice, reduced ? 0 : 600); // puis l'intro démarre
+      }, reduced ? 0 : 950);
+    }
+  }
+
   /* ── 10. INTRO façon lenis.dev ──────────────────────────────
      1) écran de couleur unie
      2) les 5 lettres apparaissent EN MÊME TEMPS, déjà dans l'ordre (zigzag haut/bas)
@@ -222,7 +273,6 @@
         pendant que le fond rose se retire par le bas
      ----------------------------------------------------------- */
   const intro = document.getElementById('intro');
-  const root = document.documentElement;
   const heroLetters = [...document.querySelectorAll('.hero-name .hl')];
 
   function endIntro() {
@@ -236,9 +286,11 @@
   window.scrollTo(0, 0);
 
   if (!intro || !window.anime || reduced) {
-    heroLetters.forEach((l) => (l.style.opacity = 1));
-    endIntro();
-    playHero();
+    chosen.then(() => {
+      heroLetters.forEach((l) => (l.style.opacity = 1));
+      endIntro();
+      playHero();
+    });
   } else {
     const bg = document.getElementById('intro-bg');
     const wrappers = [...document.querySelectorAll('#intro-letters .il')];
@@ -254,7 +306,7 @@
       : new Promise((r) => window.addEventListener('load', r, { once: true }));
     const pageReady = Promise.race([pageLoaded, new Promise((r) => setTimeout(r, 5000))]);
 
-    Promise.all([fontReady, pageReady]).then(() => {
+    Promise.all([fontReady, pageReady, chosen]).then(() => {
       // 2) Les 5 lettres arrivent toutes ensemble, déjà dans l'ordre (L U C A S en zigzag)
       anime({
         targets: wrappers,
