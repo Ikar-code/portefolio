@@ -14,13 +14,43 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.css" />
   <link rel="stylesheet" href="portfolio.css" />
 
-  <!-- Intro : bloque le scroll pendant le préchargeur (filet de sécurité à 9 s) -->
+  <!-- Écran de choix + intro : on bloque le scroll tant qu'ils sont affichés.
+       Filet de sécurité : si portfolio.js ne démarre pas (CDN bloqué…), on libère la page après 8 s. -->
   <script>
-    document.documentElement.classList.add('is-loading');
-    setTimeout(function () { document.documentElement.classList.remove('is-loading'); }, 9000);
+    (function () {
+      var h = document.documentElement;
+      h.classList.add('is-loading', 'is-choosing');
+      setTimeout(function () {
+        if (!window.__portfolioReady) { h.classList.remove('is-loading', 'is-choosing'); h.classList.add('js-failed'); }
+      }, 8000);
+    })();
   </script>
 </head>
 <body>
+
+<!-- ÉCRAN DE CHOIX : nuit ou jour -->
+<div class="choice" id="choice" role="dialog" aria-modal="true" aria-label="Choisissez le mode d'affichage du portfolio">
+  <div class="choice-head">
+    <span class="choice-kicker">Lucas Rajany · Portfolio</span>
+    <h2 class="choice-title">Nuit ou jour&nbsp;?</h2>
+  </div>
+
+  <button type="button" class="choice-side choice-night" data-theme="dark" aria-label="Entrer en mode nuit">
+    <span class="choice-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <span>Mode nuit</span>
+    </span>
+  </button>
+
+  <button type="button" class="choice-side choice-day" data-theme="light" aria-label="Entrer en mode jour">
+    <span class="choice-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+      <span>Mode jour</span>
+    </span>
+  </button>
+
+  <p class="choice-hint">Choisissez votre ambiance pour entrer</p>
+</div>
 
 <!-- INTRO : fond uni + lettres géantes qui rejoignent le titre -->
 <div class="intro" id="intro" aria-hidden="true">
