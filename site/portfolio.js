@@ -86,15 +86,18 @@
   });
 
   /* ── 4. Texte tapé (rôles) ──────────────────────────────── */
-  const roles = [
+  const FR_ROLES = [
     'Étudiant BTS SIO SLAM',
     'Développeur en formation',
     "Passionné d'automatisation IA",
     'Curieux de systèmes & DevOps'
   ];
+  const getRoles = () => (window.I18N ? window.I18N.roles() : FR_ROLES);
+  const tr = (key, fallback) => (window.I18N ? window.I18N.t(key) : fallback);
   const typedEl = document.getElementById('typed');
   let ri = 0, ci = 0, deleting = false;
   function type() {
+    const roles = getRoles();
     const cur = roles[ri];
     if (!deleting) {
       typedEl.textContent = cur.slice(0, ++ci);
@@ -106,6 +109,8 @@
     setTimeout(type, deleting ? 45 : 80);
   }
   type();
+  // Changement de langue : on repart du premier rôle dans la nouvelle langue
+  document.addEventListener('languagechange', () => { ri = 0; ci = 0; deleting = false; });
 
   /* ── 5. ANIME.JS : entrée du hero ───────────────────────── */
   // Lancée pendant la fin de l'intro (voir section 10)
@@ -213,9 +218,9 @@
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const v = (id) => document.getElementById(id).value.trim();
-    const subject = v('f-sujet') || 'Contact depuis le portfolio';
+    const subject = v('f-sujet') || tr('mailSubject', 'Contact depuis le portfolio');
     const body =
-      'Bonjour Lucas,\n\n' + v('f-message') +
+      tr('mailHello', 'Bonjour Lucas,') + '\n\n' + v('f-message') +
       '\n\n— ' + v('f-prenom') + ' ' + v('f-nom') + ' (' + v('f-email') + ')';
     document.getElementById('form-msg').style.display = 'block';
     window.location.href =
@@ -387,10 +392,10 @@
       if (pinned) {
         travel = Math.max(track.scrollWidth - hs.clientWidth, 0);
         hs.style.height = (travel * SPEED + window.innerHeight) + 'px';
-        hint.textContent = 'Faites défiler ↓';
+        hint.textContent = tr('hsDown', 'Faites défiler ↓');
       } else {
         hs.style.height = '';
-        hint.textContent = 'Glissez →';
+        hint.textContent = tr('hsSwipe', 'Glissez →');
       }
       update();
     }
@@ -398,6 +403,9 @@
     window.addEventListener('scroll', update, { passive: true });
     track.addEventListener('scroll', () => { if (!pinned) update(); }, { passive: true });
     window.addEventListener('resize', measure);
+    document.addEventListener('languagechange', () => {
+      hint.textContent = pinned ? tr('hsDown', 'Faites défiler ↓') : tr('hsSwipe', 'Glissez →');
+    });
     window.addEventListener('load', measure);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
     measure();
