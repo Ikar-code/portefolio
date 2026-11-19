@@ -1,284 +1,429 @@
 /* ============================================================
-   Portfolio – Lucas Rajany : traduction FR / EN
-   Le HTML reste en français (langue par défaut). Chaque texte français
-   est cherché dans le dictionnaire ci-dessous et remplacé par sa version
-   anglaise quand on clique sur « EN ». Pour corriger une traduction,
-   il suffit de modifier la ligne correspondante.
+   Portfolio – Lucas Rajany
+   Librairies : Vanta.js (fond), anime.js v3 (animations), Lenis (scroll)
    ============================================================ */
 (function () {
   'use strict';
+  window.__portfolioReady = true;   // lu par le filet de sécurité de index.html
 
-  /* ── Dictionnaire : texte français (espaces normalisés) → anglais ── */
-  var DICT = {
-    // Écran de choix
-    'Lucas Rajany · Portfolio': 'Lucas Rajany · Portfolio',
-    'Nuit ou jour ?': 'Night or day?',
-    'Mode nuit': 'Night mode',
-    'Mode jour': 'Day mode',
-    'Choisissez votre ambiance pour entrer': 'Pick your mood to enter',
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouch = window.matchMedia('(hover: none)').matches;
+  const isMobile = window.innerWidth < 820;
+  const root = document.documentElement;
+  if (reduced) document.documentElement.classList.add('reduced');
 
-    // Navigation
-    'À propos': 'About',
-    'Compétences': 'Skills',
-    'Projets': 'Projects',
-    'Parcours': 'Background',
-    'Veille': 'Watch',
-    'Contact': 'Contact',
-    'Télécharger CV': 'Download CV',
+  /* ── 1. LENIS : scroll fluide ───────────────────────────── */
+  let lenis = null;
+  const progress = document.getElementById('scroll-progress');
+  const nav = document.getElementById('nav');
 
-    // Hero
-    'Disponible pour un stage · Réunion': 'Available for an internship · Réunion',
-    'Étudiant': 'Student in the',
-    'passionné par le développement applicatif, l\'automatisation et les nouvelles technologies. Basé à Saint-Joseph, Île de La Réunion.':
-      ', passionate about application development, automation and new technologies. Based in Saint-Joseph, Réunion Island.',
-    'Voir mes projets': 'View my projects',
-    'Me contacter': 'Contact me',
-
-    // À propos
-    'Étudiant BTS SIO SLAM': 'BTS SIO SLAM student',
-    'Saint-Joseph, Île de La Réunion': 'Saint-Joseph, Réunion Island',
-    'Permis B': 'Driving licence (B)',
-    'Certification PIX': 'PIX certification',
-    'À propos de moi': 'About me',
-    'Développeur en': 'Developer in the',
-    'devenir': 'making',
-    'Je m\'appelle Lucas Rajany, étudiant en': 'My name is Lucas Rajany, a student in the',
-    'BTS SIO option SLAM (Solutions Logicielles et Applications Métiers)': 'BTS SIO, SLAM option (Software Solutions and Business Applications)',
-    'au Lycée Pierre Poivre à Saint-Joseph, Île de La Réunion. Passionné par la résolution de problèmes et le développement applicatif, je cherche à construire un parcours professionnel solide dans l\'informatique.':
-      'at Lycée Pierre Poivre in Saint-Joseph, Réunion Island. Passionate about problem solving and application development, I aim to build a solid career in IT.',
-    'Sérieux, motivé et organisé, j\'accorde une grande importance à l\'analyse et à l\'optimisation des solutions que je développe. Mon stage à la Mairie de Saint-Joseph m\'a permis de mettre en pratique l\'administration système, la conteneurisation et l\'automatisation avec des outils modernes.':
-      'Serious, motivated and organised, I place great importance on analysing and optimising the solutions I build. My internship at Saint-Joseph Town Hall let me put system administration, containerisation and automation into practice with modern tools.',
-    'Je suis actuellement ouvert à toute opportunité de stage en développement ou administration système sur La Réunion.':
-      'I am currently open to any internship opportunity in development or system administration in Réunion.',
-    'Travail d\'équipe': 'Teamwork',
-    'Organisation': 'Organisation',
-    'Adaptabilité': 'Adaptability',
-    'Esprit d\'analyse': 'Analytical mind',
-    'Curiosité': 'Curiosity',
-
-    // Compétences
-    'Mon': 'My technical',
-    'technique': '',
-    'Les outils et technologies utilisés dans mes projets.': 'The tools and technologies used in my projects.',
-    'IA & Automatisation': 'AI & Automation',
-    'Agents IA': 'AI agents',
-    'Automatisation': 'Automation',
-    'DevOps & Déploiement': 'DevOps & Deployment',
-    'Outils': 'Tools',
-    'Notions transverses': 'Cross-cutting skills',
-    'Algorithmique': 'Algorithmics',
-    'Architecture logicielle': 'Software architecture',
-    'Pipeline IA': 'AI pipeline',
-    'Analyse de données': 'Data analysis',
-
-    // Projets
-    'Ce que j\'ai': 'What I\'ve',
-    'construit': 'built',
-    'Projets personnels et scolaires, du développement web à l\'automatisation IA.':
-      'Personal and school projects, from web development to AI automation.',
-    'Projet personnel': 'Personal project',
-    'Projet scolaire': 'School project',
-    'Projet de stage': 'Internship project',
-    'Média automatisé par IA': 'AI-automated news media',
-    'Système complet de génération d\'articles d\'actualité automatisé. Le pipeline collecte des informations via scraping et flux RSS, vérifie les faits avec IA, rédige des articles journalistiques, effectue un contrôle qualité puis publie automatiquement le contenu.':
-      'A complete system for automated news article generation. The pipeline collects information through scraping and RSS feeds, fact-checks with AI, writes journalistic articles, runs a quality check and then publishes the content automatically.',
-    'Application de veille automatisée': 'Automated watch application',
-    'Application web complète permettant de réaliser des veilles technologiques automatisées dans le domaine de l\'intelligence artificielle. L\'objectif : supprimer la friction de la veille manuelle.':
-      'A complete web application for running automated technology watch in the field of artificial intelligence. The goal: remove the friction of manual monitoring.',
-    'Projets scolaires BTS SIO': 'BTS SIO school projects',
-    'Application': 'Application',
-    'Application web simple permettant de gérer des données (ajout, modification, suppression). Développée dans le cadre du BTS SIO pour maîtriser les bases du développement back-end et de la gestion de base de données.':
-      'A simple web application to manage data (add, edit, delete). Built as part of the BTS SIO to master the basics of back-end development and database management.',
-    'Forge Git auto-hébergée & sécurisée': 'Self-hosted & secured Git forge',
-    'Installation et mise en service de Forgejo sur une machine virtuelle Ubuntu pour l\'entreprise. Création des comptes utilisateurs, configuration des alertes par email et vérification de la sécurité des fichiers.':
-      'Installation and commissioning of Forgejo on an Ubuntu virtual machine for the company. User account creation, email alert configuration and file security checks.',
-
-    // Parcours
-    'Formation &': 'Education &',
-    'expériences': 'experience',
-    'Mon cheminement académique et professionnel jusqu\'ici.': 'My academic and professional journey so far.',
-    'Formation': 'Education',
-    'Expériences': 'Experience',
-    '2025 – 2027 · En cours': '2025 – 2027 · Ongoing',
-    'BTS SIO – Option SLAM': 'BTS SIO – SLAM option',
-    'Lycée Pierre Poivre · Saint-Joseph': 'Lycée Pierre Poivre · Saint-Joseph',
-    'Bases en développement et algorithmique': 'Fundamentals of development and algorithmics',
-    'Analyse de solutions applicatives': 'Analysis of application solutions',
-    'Progression en programmation et conception logicielle': 'Progress in programming and software design',
-    'Baccalauréat STI2D': 'STI2D Baccalaureate',
-    'Diplôme National du Brevet (DNB)': 'National Diploma (DNB)',
-    'Collège Joseph Hubert · Saint-Joseph': 'Collège Joseph Hubert · Saint-Joseph',
-    'Juin – Juillet 2026 · 1 mois': 'June – July 2026 · 1 month',
-    'Stage informatique': 'IT internship',
-    'Mairie de Saint-Joseph': 'Saint-Joseph Town Hall',
-    'Installation et config. d\'environnements Linux sur VM': 'Installing and configuring Linux environments on VMs',
-    'Utilisation de Forgejo pour la gestion de dépôts Git auto-hébergés': 'Using Forgejo to manage self-hosted Git repositories',
-    'Ansible pour l\'automatisation et la gestion de configurations': 'Ansible for automation and configuration management',
-    'Docker pour l\'exécution d\'applications conteneurisées': 'Docker to run containerised applications',
-    'Interventions techniques sur différents sites': 'Technical interventions on various sites',
-    'Maintenance, diagnostic et support technique': 'Maintenance, diagnostics and technical support',
-    'Stage d\'observation': 'Observation internship',
-    'Observation informatique': 'IT observation',
-    'Collège Mille Roches · Saint-André': 'Collège Mille Roches · Saint-André',
-    'Découverte du métier d\'informaticien': 'Discovering the IT profession',
-    'Observation d\'interventions techniques': 'Observing technical interventions',
-    'Initiation à la maintenance et au diagnostic': 'Introduction to maintenance and diagnostics',
-
-    // Veille
-    'Veille technologique': 'Technology watch',
-    'L\'impact de l\'IA sur la': 'The impact of AI on',
-    'cybersécurité IoT': 'IoT cybersecurity',
-    'Veille centrée sur l\'intelligence artificielle appliquée à la sécurité des objets connectés (AIoT) : menaces émergentes, défenses adaptatives, vulnérabilités matérielles et détection d\'anomalies par machine learning.':
-      'A watch focused on artificial intelligence applied to the security of connected objects (AIoT): emerging threats, adaptive defences, hardware vulnerabilities and anomaly detection through machine learning.',
-    'Pourquoi ce sujet': 'Why this topic',
-    'Mon stage à la Mairie de Saint-Joseph m\'a fait manipuler des serveurs, des VM et des services exposés au quotidien (Forgejo, Postfix, comptes utilisateurs). Les objets connectés multiplient ce type de surface d\'attaque à une échelle beaucoup plus grande, avec des ressources bien plus limitées pour se défendre. Je voulais comprendre comment l\'IA change à la fois l\'attaque et la défense sur ce terrain.':
-      'My internship at Saint-Joseph Town Hall had me working daily with servers, VMs and exposed services (Forgejo, Postfix, user accounts). Connected objects multiply this kind of attack surface on a much larger scale, with far more limited resources to defend themselves. I wanted to understand how AI changes both attack and defence in this field.',
-    'Les repères du sujet': 'Key points of the topic',
-    'Détection d\'anomalies par IA': 'AI-based anomaly detection',
-    'Des modèles de machine learning apprennent le trafic « normal » d\'un objet connecté (fréquence, volume, destinataires) pour repérer un comportement suspect en temps réel, là où les signatures classiques ne suffisent plus face à des attaques inédites.':
-      'Machine learning models learn the "normal" traffic of a connected object (frequency, volume, recipients) to spot suspicious behaviour in real time, where classic signatures are no longer enough against novel attacks.',
-    'IA offensive': 'Offensive AI',
-    'Les mêmes techniques sont utilisées par les attaquants : génération de malwares polymorphes, automatisation de la recherche de failles sur des firmwares IoT, phishing ciblé généré par LLM.':
-      'The same techniques are used by attackers: generation of polymorphic malware, automated vulnerability hunting in IoT firmware, and LLM-generated targeted phishing.',
-    'Contraintes matérielles': 'Hardware constraints',
-    'Un objet connecté a peu de mémoire, de calcul et de batterie. Les modèles de détection doivent donc être allégés (edge AI, modèles compressés) pour tourner directement sur l\'appareil plutôt que dans le cloud.':
-      'A connected object has little memory, computing power and battery. Detection models therefore have to be lightweight (edge AI, compressed models) to run directly on the device rather than in the cloud.',
-    'Ma méthode': 'My method',
-    'Collecte automatisée avec l\'application': 'Automated collection with the',
-    'présentée ci-dessus : elle rassemble les articles publiés sur mon thème via le web et des flux RSS spécialisés.':
-      'application presented above: it gathers articles published on my topic from the web and specialised RSS feeds.',
-    'Tri manuel des résultats : je ne garde que ce qui concerne vraiment l\'IA appliquée à la sécurité IoT, avec une source fiable.':
-      'Manual sorting of the results: I only keep what really concerns AI applied to IoT security, from a reliable source.',
-    'Lecture directe de publications techniques et de retours d\'expérience sur des incidents IoT réels pour compléter la synthèse automatique.':
-      'Direct reading of technical publications and feedback on real IoT incidents to complete the automatic summary.',
-    'Résultat de ma veille': 'Results of my watch',
-    'Retrouvez ici les articles collectés et synthétisés automatiquement sur mon sujet (voir le projet':
-      'Find here the articles collected and automatically summarised on my topic (see the',
-    'ci-dessus pour le détail de l\'outil).': 'project above for details on the tool).',
-    'Accéder à la veille ↗': 'Open the watch ↗',
-
-    // Contact
-    'Travaillons': 'Let\'s work',
-    'ensemble': 'together',
-    'Ouvert à toute opportunité de stage ou collaboration. N\'hésitez pas à me contacter !':
-      'Open to any internship or collaboration opportunity. Feel free to get in touch!',
-    'Restons en contact': 'Let\'s keep in touch',
-    'Étudiant en BTS SIO à La Réunion, je suis ouvert à toute opportunité de stage. Que vous ayez un projet ou une question, je réponds rapidement.':
-      'A BTS SIO student in Réunion, I am open to any internship opportunity. Whether you have a project or a question, I reply quickly.',
-    'Mon profil LinkedIn': 'My LinkedIn profile',
-    'Mon GitHub': 'My GitHub',
-    'Localisation': 'Location',
-    'Prénom': 'First name',
-    'Nom': 'Last name',
-    'Sujet': 'Subject',
-    'Envoyer le message →': 'Send message →',
-    '✓ Votre application mail va s\'ouvrir avec le message prêt à envoyer.': '✓ Your mail app will open with the message ready to send.',
-    '· Fait avec 💜 depuis La Réunion': '· Made with 💜 from La Réunion'
-  };
-
-  /* ── Attributs (aria-label, placeholder, title) ── */
-  var ATTR = {
-    'Choisissez le mode d\'affichage du portfolio': 'Choose how to display the portfolio',
-    'Entrer en mode nuit': 'Enter in night mode',
-    'Entrer en mode jour': 'Enter in day mode',
-    'Voir le projet : Le Fil du Lord': 'View project: Le Fil du Lord',
-    'Voir le projet : Veille IA': 'View project: Veille IA',
-    'Voir le projet : Projets scolaires BTS SIO': 'View project: BTS SIO school projects',
-    'Voir le projet : Forgejo': 'View project: Forgejo',
-    'Opportunité de stage': 'Internship opportunity',
-    'Bonjour Lucas, je souhaite vous proposer...': 'Hello Lucas, I would like to offer you...'
-  };
-
-  /* ── Textes pilotés par le JavaScript : [français, anglais] ── */
-  var JS = {
-    hsDown: ['Faites défiler ↓', 'Scroll down ↓'],
-    hsSwipe: ['Glissez →', 'Swipe →'],
-    mailSubject: ['Contact depuis le portfolio', 'Contact from the portfolio'],
-    mailHello: ['Bonjour Lucas,', 'Hello Lucas,'],
-    desc: [
-      'Portfolio de Lucas Rajany, étudiant BTS SIO SLAM à La Réunion : développement, automatisation IA et DevOps.',
-      'Portfolio of Lucas Rajany, BTS SIO SLAM student in Réunion Island: development, AI automation and DevOps.'
-    ],
-    title: ['Lucas Rajany – Portfolio', 'Lucas Rajany – Portfolio']
-  };
-  var ROLES = {
-    fr: ['Étudiant BTS SIO SLAM', 'Développeur en formation', 'Passionné d\'automatisation IA', 'Curieux de systèmes & DevOps'],
-    en: ['BTS SIO SLAM student', 'Developer in training', 'Passionate about AI automation', 'Curious about systems & DevOps']
-  };
-
-  var KEY = 'portfolio-lang';
-  var SKIP = 'SCRIPT,STYLE,#typed,#hs-count,#hs-hint';
-  var doc = document;
-  var norm = function (s) { return s.replace(/\s+/g, ' ').trim(); };
-
-  /* Langue de départ : choix mémorisé, sinon langue du navigateur (anglais si « en », français sinon) */
-  var lang = 'fr';
-  try {
-    var saved = localStorage.getItem(KEY);
-    if (saved === 'fr' || saved === 'en') lang = saved;
-    else if (/^en/i.test(navigator.language || '')) lang = 'en';
-  } catch (e) {}
-
-  /* Repérage unique de tous les nœuds à traduire */
-  var texts = [];
-  var attrs = [];
-  (function collect() {
-    var walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT, null);
-    var n;
-    while ((n = walker.nextNode())) {
-      var p = n.parentElement;
-      if (!p || p.closest(SKIP)) continue;
-      var k = norm(n.data);
-      if (k && Object.prototype.hasOwnProperty.call(DICT, k)) texts.push({ node: n, raw: n.data, key: k });
-    }
-    doc.querySelectorAll('[aria-label],[placeholder],[title]').forEach(function (el) {
-      ['aria-label', 'placeholder', 'title'].forEach(function (a) {
-        var v = el.getAttribute(a);
-        if (v && Object.prototype.hasOwnProperty.call(ATTR, v)) attrs.push({ el: el, attr: a, raw: v });
-      });
-    });
-  })();
-
-  var metaDesc = doc.querySelector('meta[name="description"]');
-
-  function render() {
-    var en = lang === 'en';
-    texts.forEach(function (t) {
-      if (!en) { t.node.data = t.raw; return; }
-      var tr = DICT[t.key];
-      var lead = /^\s*/.exec(t.raw)[0];
-      var trail = /\s*$/.exec(t.raw)[0];
-      if (/^[,.;:!?]/.test(tr)) lead = '';          // pas d'espace avant la ponctuation
-      t.node.data = lead + tr + trail;
-    });
-    attrs.forEach(function (a) { a.el.setAttribute(a.attr, en ? ATTR[a.raw] : a.raw); });
-    doc.documentElement.lang = lang;
-    doc.title = JS.title[en ? 1 : 0];
-    if (metaDesc) metaDesc.setAttribute('content', JS.desc[en ? 1 : 0]);
-    doc.querySelectorAll('.lang-switch [data-lang]').forEach(function (b) {
-      b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
-    });
+  function onScroll(y) {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
+    nav.classList.toggle('scrolled', y > 40);
   }
 
-  function set(next) {
-    if (next !== 'fr' && next !== 'en') return;
-    var changed = next !== lang;
-    lang = next;
-    try { localStorage.setItem(KEY, lang); } catch (e) {}
-    render();
-    if (changed) doc.dispatchEvent(new CustomEvent('languagechange', { detail: lang }));
+  if (window.Lenis && !reduced) {
+    lenis = new Lenis({ duration: 1.15, smoothWheel: true });
+    lenis.on('scroll', (e) => onScroll(e.scroll));
+    (function raf(time) { lenis.raf(time); requestAnimationFrame(raf); })(0);
+    // Le scroll reste bloqué pendant l'intro
+    if (document.documentElement.classList.contains('is-loading')) lenis.stop();
+  } else {
+    window.addEventListener('scroll', () => onScroll(window.scrollY), { passive: true });
   }
 
-  doc.querySelectorAll('.lang-switch [data-lang]').forEach(function (b) {
-    b.addEventListener('click', function () { set(b.dataset.lang); });
+  // Liens d'ancre → défilement fluide via Lenis
+  document.querySelectorAll('a[href^="#"]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      if (lenis) lenis.scrollTo(target, { offset: -60 });
+      else target.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('nav-links').classList.remove('open');
+      if (lenis) lenis.start();
+    });
   });
 
-  render();
+  /* ── 2. THÈME + VANTA : fond animé du hero ──────────────── */
+  let vanta = null;
+  function startVanta(theme) {
+    if (vanta) { try { vanta.destroy(); } catch (e) {} vanta = null; }
+    if (!(window.VANTA && window.THREE) || reduced) return;
+    const light = theme === 'light';
+    try {
+      vanta = VANTA.NET({
+        el: '#vanta-bg',
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200,
+        minWidth: 200,
+        scale: 1.0,
+        scaleMobile: 1.0,
+        color: light ? 0xc2410c : 0x38bdf8,
+        backgroundColor: light ? 0xd8c7b0 : 0x07070d,
+        points: isMobile ? 7 : 11,
+        maxDistance: isMobile ? 18 : 22,
+        spacing: isMobile ? 20 : 17,
+        showDots: true
+      });
+    } catch (err) {
+      console.warn('Vanta indisponible :', err);
+    }
+  }
+  function applyTheme(theme) {
+    root.setAttribute('data-theme', theme);   // les variables CSS font le reste
+    startVanta(theme);
+    try { localStorage.setItem('portfolio-theme', theme); } catch (e) {}   // les pages projet reprennent ce choix
+  }
+  const themeBtn = document.getElementById('theme-toggle');
+  if (themeBtn) themeBtn.addEventListener('click', () => applyTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
 
-  window.I18N = {
-    get lang() { return lang; },
-    set: set,
-    t: function (key) { return JS[key][lang === 'en' ? 1 : 0]; },
-    roles: function () { return ROLES[lang]; }
-  };
+  /* ── 3. Menu mobile ─────────────────────────────────────── */
+  const navLinks = document.getElementById('nav-links');
+  document.getElementById('nav-toggle').addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    if (lenis) open ? lenis.stop() : lenis.start();
+  });
+
+  /* ── 4. Texte tapé (rôles) ──────────────────────────────── */
+  const FR_ROLES = [
+    'Étudiant BTS SIO SLAM',
+    'Développeur en formation',
+    "Passionné d'automatisation IA",
+    'Curieux de systèmes & DevOps'
+  ];
+  const getRoles = () => (window.I18N ? window.I18N.roles() : FR_ROLES);
+  const tr = (key, fallback) => (window.I18N ? window.I18N.t(key) : fallback);
+  const typedEl = document.getElementById('typed');
+  let ri = 0, ci = 0, deleting = false;
+  function type() {
+    const roles = getRoles();
+    const cur = roles[ri];
+    if (!deleting) {
+      typedEl.textContent = cur.slice(0, ++ci);
+      if (ci === cur.length) { deleting = true; setTimeout(type, 2200); return; }
+    } else {
+      typedEl.textContent = cur.slice(0, --ci);
+      if (ci === 0) { deleting = false; ri = (ri + 1) % roles.length; }
+    }
+    setTimeout(type, deleting ? 45 : 80);
+  }
+  type();
+  // Changement de langue : on repart du premier rôle dans la nouvelle langue
+  document.addEventListener('languagechange', () => { ri = 0; ci = 0; deleting = false; });
+
+  /* ── 5. ANIME.JS : entrée du hero ───────────────────────── */
+  // Lancée pendant la fin de l'intro (voir section 10)
+  function playHero() {
+    if (window.anime && !reduced) {
+      anime.timeline({ easing: 'easeOutExpo' })
+        .add({ targets: '.hero-badge', opacity: [0, 1], translateY: [24, 0], duration: 900 })
+        .add({ targets: '.hero-last', opacity: [0, 1], translateX: [80, 0], duration: 1100 }, '-=700')
+        .add({ targets: ['.hero-role', '.hero-desc'], opacity: [0, 1], translateY: [24, 0], duration: 900, delay: anime.stagger(120) }, '-=800')
+        .add({ targets: ['.hero-actions', '.hero-socials'], opacity: [0, 1], translateY: [24, 0], duration: 900, delay: anime.stagger(120) }, '-=700');
+    } else {
+      document.querySelectorAll('.a-hero').forEach((el) => (el.style.opacity = 1));
+    }
+  }
+
+  /* ── 6. ANIME.JS : révélation au scroll ─────────────────── */
+  const reveals = document.querySelectorAll('.reveal');
+  if (window.anime && !reduced && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        io.unobserve(el);
+        anime({
+          targets: el,
+          opacity: [0, 1],
+          translateY: [40, 0],
+          duration: 900,
+          easing: 'easeOutCubic',
+          complete: () => { el.style.transform = ''; }
+        });
+        // Les pastilles/tags à l'intérieur apparaissent en cascade
+        const kids = el.querySelectorAll('.skill-pill, .project-tag, .tag, .timeline-list li');
+        if (kids.length) {
+          anime({
+            targets: kids,
+            opacity: [0, 1],
+            translateX: [-12, 0],
+            duration: 600,
+            delay: anime.stagger(45, { start: 250 }),
+            easing: 'easeOutQuad'
+          });
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach((el) => io.observe(el));
+  } else {
+    reveals.forEach((el) => (el.style.opacity = 1));
+  }
+
+  /* ── 7. Lien actif dans la nav (scrollspy) ──────────────── */
+  const sections = [...document.querySelectorAll('main section, section[id]')];
+  const links = [...document.querySelectorAll('.nav-links a')];
+  if ('IntersectionObserver' in window) {
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          links.forEach((l) => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+        }
+      });
+    }, { threshold: 0.45 });
+    sections.forEach((s) => spy.observe(s));
+  }
+
+  /* ── 8. Effets souris (desktop uniquement) ──────────────── */
+  if (!isTouch && !reduced) {
+    // Halo qui suit le curseur
+    const glow = document.getElementById('cursor-glow');
+    window.addEventListener('mousemove', (e) => {
+      glow.style.transform = 'translate(' + e.clientX + 'px,' + e.clientY + 'px)';
+    }, { passive: true });
+
+    // Inclinaison 3D des cartes
+    document.querySelectorAll('.tilt').forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = 'perspective(900px) rotateY(' + x * 7 + 'deg) rotateX(' + -y * 7 + 'deg) translateY(-4px)';
+      });
+      card.addEventListener('mouseleave', () => {
+        if (window.anime) {
+          anime({ targets: card, rotateX: 0, rotateY: 0, translateY: 0, duration: 500, easing: 'easeOutQuad', complete: () => (card.style.transform = '') });
+        } else card.style.transform = '';
+      });
+    });
+
+    // Boutons « magnétiques »
+    document.querySelectorAll('.magnetic').forEach((btn) => {
+      btn.addEventListener('mousemove', (e) => {
+        const r = btn.getBoundingClientRect();
+        const dx = e.clientX - (r.left + r.width / 2);
+        const dy = e.clientY - (r.top + r.height / 2);
+        btn.style.transform = 'translate(' + dx * 0.25 + 'px,' + dy * 0.35 + 'px)';
+      });
+      btn.addEventListener('mouseleave', () => {
+        if (window.anime) anime({ targets: btn, translateX: 0, translateY: 0, duration: 600, easing: 'easeOutElastic(1, .6)', complete: () => (btn.style.transform = '') });
+        else btn.style.transform = '';
+      });
+    });
+  }
+
+  /* ── 9. Formulaire : ouvre le client mail avec le message ── */
+  const form = document.getElementById('contact-form');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const v = (id) => document.getElementById(id).value.trim();
+    const subject = v('f-sujet') || tr('mailSubject', 'Contact depuis le portfolio');
+    const body =
+      tr('mailHello', 'Bonjour Lucas,') + '\n\n' + v('f-message') +
+      '\n\n— ' + v('f-prenom') + ' ' + v('f-nom') + ' (' + v('f-email') + ')';
+    document.getElementById('form-msg').style.display = 'block';
+    window.location.href =
+      'mailto:lucas.lbruno2007@gmail.com?subject=' + encodeURIComponent(subject) +
+      '&body=' + encodeURIComponent(body);
+    form.reset();
+  });
+
+  /* ── 9b. CHOIX DU MODE : nuit / jour ────────────────────────
+     Les deux moitiés se « confrontent » (animation CSS). Au survol, la moitié
+     visée gagne du terrain ; au clic, elle envahit l'écran, le thème est
+     appliqué, puis l'intro (section 10) démarre. */
+  const choice = document.getElementById('choice');
+  let chosenResolve;
+  const chosen = new Promise((r) => (chosenResolve = r));
+
+  function finishChoice() {
+    root.classList.remove('is-choosing');
+    chosenResolve();
+  }
+
+  if (!choice) {
+    applyTheme('dark');          // pas d'écran de choix : mode nuit par défaut
+    finishChoice();
+  } else {
+    let picked = false;
+    const lean = (t) => { if (!picked) choice.dataset.lean = t; };
+
+    choice.querySelectorAll('.choice-side').forEach((btn) => {
+      const t = btn.dataset.theme;
+      btn.addEventListener('pointerenter', () => lean(t));
+      btn.addEventListener('pointerleave', () => lean(''));
+      btn.addEventListener('focus', () => lean(t));
+      btn.addEventListener('blur', () => lean(''));
+      btn.addEventListener('click', () => pick(t));
+    });
+
+    function pick(t) {
+      if (picked) return;
+      picked = true;
+      choice.dataset.lean = '';
+      choice.dataset.pick = t;                       // la moitié choisie envahit l'écran
+      setTimeout(() => {
+        applyTheme(t);                               // thème + fond Vanta
+        choice.classList.add('is-leaving');          // fondu de l'écran de choix
+        setTimeout(finishChoice, reduced ? 0 : 600); // puis l'intro démarre
+      }, reduced ? 0 : 950);
+    }
+  }
+
+  /* ── 10. INTRO façon lenis.dev ──────────────────────────────
+     1) écran de couleur unie
+     2) les 5 lettres apparaissent EN MÊME TEMPS, déjà dans l'ordre (zigzag haut/bas)
+     3) elles glissent à la verticale pour s'aligner sur le titre du hero
+        pendant que le fond rose se retire par le bas
+     ----------------------------------------------------------- */
+  const intro = document.getElementById('intro');
+  const heroLetters = [...document.querySelectorAll('.hero-name .hl')];
+
+  function endIntro() {
+    root.classList.remove('is-loading');
+    if (intro) intro.remove();
+    window.dispatchEvent(new Event('resize'));
+    if (lenis) lenis.start();
+  }
+
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+
+  if (!intro || !window.anime || reduced) {
+    chosen.then(() => {
+      heroLetters.forEach((l) => (l.style.opacity = 1));
+      endIntro();
+      playHero();
+    });
+  } else {
+    const bg = document.getElementById('intro-bg');
+    const wrappers = [...document.querySelectorAll('#intro-letters .il')];
+    const glyphs = [...document.querySelectorAll('#intro-letters .il-g')];
+
+    // On attend la police gothique + le chargement de la page (filets de sécurité)
+    const fontReady = Promise.race([
+      document.fonts ? document.fonts.load('900 100px "Grenze Gotisch"', 'LUCAS') : Promise.resolve(),
+      new Promise((r) => setTimeout(r, 3000))
+    ]);
+    const pageLoaded = document.readyState === 'complete'
+      ? Promise.resolve()
+      : new Promise((r) => window.addEventListener('load', r, { once: true }));
+    const pageReady = Promise.race([pageLoaded, new Promise((r) => setTimeout(r, 5000))]);
+
+    Promise.all([fontReady, pageReady, chosen]).then(() => {
+      // 2) Les 5 lettres arrivent toutes ensemble, déjà dans l'ordre (L U C A S en zigzag)
+      anime({
+        targets: wrappers,
+        opacity: [0, 1],
+        translateY: [80, 0],
+        duration: 1000,
+        delay: 500,
+        easing: 'easeOutExpo'
+      }).finished.then(() => setTimeout(fly, 700));
+    });
+
+    // 3) Les lettres glissent (vers le haut / vers le bas) pour s'aligner sur le titre,
+    //    pendant que le fond rose se retire et que la couleur s'inverse.
+    function fly() {
+      const to = heroLetters.map((l) => l.getBoundingClientRect());
+      const from = glyphs.map((g) => g.getBoundingClientRect());
+
+      const flight = anime({
+        targets: glyphs,
+        translateX: (el, i) => to[i].left - from[i].left,
+        translateY: (el, i) => to[i].top - from[i].top,
+        duration: 1400,
+        easing: 'easeInOutExpo'
+      });
+
+      // Mode jour : les lettres passent du brun foncé (sur le rideau orange) à l'orange du titre
+      if (root.getAttribute('data-theme') === 'light') {
+        const cs = getComputedStyle(root);
+        anime({
+          targets: glyphs,
+          color: [cs.getPropertyValue('--ink').trim() || '#26140a', cs.getPropertyValue('--title').trim() || '#d4541c'],
+          duration: 1100, delay: 250, easing: 'easeInOutQuad'
+        });
+      }
+
+      const wipe = { v: 0 };
+      anime({
+        targets: wipe, v: 100, duration: 1300, delay: 150, easing: 'easeInOutQuart',
+        update: () => { bg.style.clipPath = 'inset(0 0 ' + wipe.v + '% 0)'; }
+      });
+
+      setTimeout(playHero, 1000);
+
+      flight.finished.then(() => {
+        heroLetters.forEach((l) => (l.style.opacity = 1)); // le vrai titre prend le relais
+        requestAnimationFrame(endIntro);
+      });
+    }
+  }
+
+  /* ── 11. PROJETS : défilé horizontal ─────────────────────────
+     Desktop : la section s'épingle, le scroll vertical (Lenis) fait
+     défiler les cartes horizontalement.
+     Mobile / tactile / animations réduites : carrousel natif (swipe). */
+  const hs = document.getElementById('hscroll');
+  if (hs) {
+    const track = document.getElementById('hscroll-track');
+    const bar = document.getElementById('hs-bar');
+    const count = document.getElementById('hs-count');
+    const hint = document.getElementById('hs-hint');
+    const nCards = track.querySelectorAll('.proj').length;
+    const SPEED = 1.15; // > 1 = défilé un peu plus lent
+    let pinned = false, travel = 0;
+    const pad = (n) => String(n).padStart(2, '0');
+
+    function setUI(p) {
+      bar.style.transform = 'scaleX(' + Math.max(p, 0.04) + ')';
+      count.textContent = pad(Math.round(p * (nCards - 1)) + 1) + ' / ' + pad(nCards);
+    }
+
+    function update() {
+      if (pinned) {
+        const r = hs.getBoundingClientRect();
+        const max = hs.offsetHeight - window.innerHeight;
+        const p = max > 0 ? Math.min(Math.max(-r.top / max, 0), 1) : 0;
+        track.style.transform = 'translate3d(' + (-p * travel) + 'px,0,0)';
+        setUI(p);
+      } else {
+        const max = track.scrollWidth - track.clientWidth;
+        setUI(max > 0 ? track.scrollLeft / max : 0);
+      }
+    }
+
+    function measure() {
+      pinned = !reduced && !isTouch && window.innerWidth >= 900 && window.innerHeight >= 720;
+      hs.classList.toggle('hs-pinned', pinned);
+      track.style.transform = '';
+      if (pinned) {
+        travel = Math.max(track.scrollWidth - hs.clientWidth, 0);
+        hs.style.height = (travel * SPEED + window.innerHeight) + 'px';
+        hint.textContent = tr('hsDown', 'Faites défiler ↓');
+      } else {
+        hs.style.height = '';
+        hint.textContent = tr('hsSwipe', 'Glissez →');
+      }
+      update();
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    track.addEventListener('scroll', () => { if (!pinned) update(); }, { passive: true });
+    window.addEventListener('resize', measure);
+    document.addEventListener('languagechange', () => {
+      hint.textContent = pinned ? tr('hsDown', 'Faites défiler ↓') : tr('hsSwipe', 'Glissez →');
+    });
+    window.addEventListener('load', measure);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+    measure();
+  }
+
+  // Nettoyage Vanta si la page est quittée
+  window.addEventListener('beforeunload', () => { if (vanta) vanta.destroy(); });
 })();
