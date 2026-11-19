@@ -229,6 +229,7 @@ nav.scrolled {
 /* ───────── Skills ───────── */
 .skills-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.4rem; }
 .skill-group { padding: 1.6rem; }
+.skills-grid .skill-group:last-child:nth-child(3n+1) { grid-column: 1 / -1; }   /* dernière carte seule sur sa ligne : pleine largeur */
 .skill-group-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.1rem; }
 .skill-icon { width: 36px; height: 36px; border-radius: 10px; background: rgba(var(--accent-rgb), 0.12); display: grid; place-items: center; }
 .skill-group-title { font-weight: 600; font-size: 1.05rem; }
