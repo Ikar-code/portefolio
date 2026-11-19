@@ -3,149 +3,126 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Veille IA – Lucas Rajany</title>
+  <title>Veille IA — Application de veille technologique | Lucas Rajany</title>
+  <meta name="description" content="Veille IA : application web de veille technologique automatisée (recherche multi-sources, scoring, résumés IA, publication automatique)." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  
-<link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Grenze+Gotisch:wght@900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.css" />
+  <link rel="stylesheet" href="project.css" />
+  <script>
+    /* Thème choisi sur l'écran d'accueil + filet de sécurité si project.js ne se charge pas */
+    (function () {
+      var h = document.documentElement;
+      try { var t = localStorage.getItem('portfolio-theme'); if (t === 'light' || t === 'dark') h.setAttribute('data-theme', t); } catch (e) {}
+      h.classList.add('js');
+      setTimeout(function () { if (!window.__projReady) h.classList.remove('js'); }, 3000);
+    })();
+  </script>
 </head>
 <body>
 
-<nav>
-  <div class="nav-logo">lucas<span>.</span>rajany</div>
-  <a class="back-link" href="https://ikar-code.github.io/portefolio/site/#projets">← Retour au portfolio</a>
+<div class="scroll-progress" id="scroll-progress"></div>
+
+<nav id="nav">
+  <a class="nav-logo" href="../index.html">lucas<span>.</span>rajany</a>
+  <div class="nav-right">
+    <a class="back-link" href="../index.html#projets">← Retour au portfolio</a>
+    <div class="lang-switch" role="group" aria-label="Langue / Language">
+      <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Changer de mode jour / nuit">
+      <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
 </nav>
 
-<main>
-  <div class="page-header">
-    <p class="section-label">Projet personnel</p>
-    <div class="project-tags">
-      <span class="project-tag">Streamlit</span>
-      <span class="project-tag">Supabase</span>
-      <span class="project-tag">Groq API</span>
-      <span class="project-tag">LLaMA 3</span>
-      <span class="project-tag">Stripe</span>
+<header class="p-hero">
+  <span class="p-hero-emoji" aria-hidden="true">🔍</span>
+  <div class="p-hero-inner">
+    <p class="p-kicker a-in">Projet personnel · Application de veille automatisée</p>
+    <h1 class="p-title a-in">Veille IA</h1>
+    <p class="p-sub a-in">Application de veille technologique automatisée, principalement dans le domaine de l'intelligence artificielle : elle recherche, score, résume et publie sans intervention humaine après configuration.</p>
+    <div class="p-tags a-in"><span class="p-tag">Streamlit</span><span class="p-tag">Supabase</span><span class="p-tag">Groq API</span><span class="p-tag">LLaMA 3</span><span class="p-tag">Stripe</span></div>
+    <div class="p-cta a-in"><a class="btn-primary" href="https://veille-tech.onrender.com" target="_blank" rel="noopener">Accéder à l'application ↗</a><a class="btn-outline" href="#fonctionnalites">Voir les fonctionnalités</a></div>
+  </div>
+  <dl class="p-meta a-in">
+    <div><dt>Type</dt><dd>Projet personnel</dd></div>
+    <div><dt>Publié le</dt><dd>8 avril 2026</dd></div>
+    <div><dt>Application</dt><dd>Streamlit (Python)</dd></div>
+    <div><dt>Hébergement</dt><dd>Render.com</dd></div>
+  </dl>
+</header>
+
+<main class="p-main">
+  <section class="p-sec">
+    <div class="sec-head reveal"><span class="sec-num">01</span><h2>Présentation du <em>projet</em></h2><span class="sec-line"></span></div>
+    <p class="reveal">J'ai conçu et développé Veille IA, une application web complète permettant de réaliser des veilles technologiques automatisées, principalement dans le domaine de l'intelligence artificielle.</p>
+    <p class="reveal">L'objectif : supprimer le travail manuel de recherche et de synthèse. L'app recherche, score, résume et publie automatiquement — sans intervention humaine après configuration.</p>
+  </section>
+<div id="fonctionnalites"></div>  <section class="p-sec">
+    <div class="sec-head reveal"><span class="sec-num">02</span><h2>Fonctionnalités <em>principales</em></h2><span class="sec-line"></span></div>
+    <div class="grid">
+      <div class="card reveal"><span class=ico aria-hidden=true>🌐</span><h3>1. Recherche multi-sources automatisée</h3><p>Saisie de sujets multiples (ex : cybersécurité IA, LLM, deepfake…). Recherche simultanée via DuckDuckGo et flux RSS spécialisés IA. Déduplication sémantique des résultats pour éviter les doublons.</p></div>
+      <div class="card reveal"><span class=ico aria-hidden=true>🎯</span><h3>2. Scoring et filtrage intelligent</h3><p>Chaque article reçoit un score basé sur la pertinence, la langue, la fiabilité de la source et la fraîcheur. Filtrage automatique des sources gouvernementales, low-quality et hors-sujet. Classement des contenus les plus pertinents en tête.</p></div>
+      <div class="card reveal"><span class=ico aria-hidden=true>🧠</span><h3>3. Résumés IA par article</h3><p>Analyse du contenu de chaque page. Génération de 3 à 5 points clés en français via Groq API (LLaMA 3). Synthèse globale structurée par thème (menaces, outils, tendances…).</p></div>
+      <div class="card reveal"><span class=ico aria-hidden=true>📤</span><h3>4. Publication automatique</h3><p>Mise à jour d'une page WordPress via l'API REST. Upload direct sur hébergement FTP en HTML statique. Fusion intelligente du contenu : les anciens sujets sont conservés, les nouveaux s'ajoutent.</p></div>
+      <div class="card reveal"><span class=ico aria-hidden=true>🕑</span><h3>5. Historique et comparaison</h3><p>Sauvegarde de toutes les sessions par utilisateur dans Supabase. Comparaison entre deux sessions : articles nouveaux, disparus, évolutions. Analyse comparative générée par IA. Import d'historiques depuis un fichier HTML existant.</p></div>
+      <div class="card reveal"><span class=ico aria-hidden=true>⏰</span><h3>6. Veille automatique planifiée</h3><p>Chaque utilisateur choisit ses sujets et son heure d'envoi. Un cron GitHub Actions tourne toutes les heures (gratuit). Envoi automatique d'un email HTML récapitulatif — sans que l'utilisateur soit connecté.</p></div>
+      <div class="card reveal"><span class=ico aria-hidden=true>🎨</span><h3>7. Personnalisation du thème de publication</h3><p>Éditeur de thème visuel intégré (couleurs, police, taille…). 4 presets : Catppuccin, Light, Nord, Dracula. Aperçu live avant publication.</p></div>
+      <div class="card reveal"><span class=ico aria-hidden=true>👤</span><h3>8. Gestion des utilisateurs et abonnements</h3><p>Inscription / connexion via Supabase Auth. Plan gratuit : 1 recherche offerte. Plan payant à 2,99€/mois : recherches illimitées + veille auto + email quotidien. Paiement via Stripe.</p></div>
     </div>
-    <h1 class="page-title">Veille IA — Application de veille technologique <em>automatisée</em></h1>
-    <p class="page-meta">Par Lucas Rajany · 8 avril 2026</p>
-    <div class="divider"></div>
-  </div>
-
-  <h2>Présentation du projet</h2>
-  <p>
-    J'ai conçu et développé Veille IA, une application web complète permettant de réaliser des veilles
-    technologiques automatisées, principalement dans le domaine de l'intelligence artificielle.
-  </p>
-  <p>
-    L'objectif : supprimer le travail manuel de recherche et de synthèse. L'app recherche, score, résume
-    et publie automatiquement — sans intervention humaine après configuration.
-  </p>
-
-  <h2>Fonctionnalités principales</h2>
-
-  <h3>1. Recherche multi-sources automatisée</h3>
-  <ul>
-    <li>Saisie de sujets multiples (ex : cybersécurité IA, LLM, deepfake…)</li>
-    <li>Recherche simultanée via DuckDuckGo et flux RSS spécialisés IA</li>
-    <li>Déduplication sémantique des résultats pour éviter les doublons</li>
-  </ul>
-
-  <h3>2. Scoring et filtrage intelligent</h3>
-  <ul>
-    <li>Chaque article reçoit un score basé sur la pertinence, la langue, la fiabilité de la source et la fraîcheur</li>
-    <li>Filtrage automatique des sources gouvernementales, low-quality et hors-sujet</li>
-    <li>Classement des contenus les plus pertinents en tête</li>
-  </ul>
-
-  <h3>3. Résumés IA par article</h3>
-  <ul>
-    <li>Analyse du contenu de chaque page</li>
-    <li>Génération de 3 à 5 points clés en français via Groq API (LLaMA 3)</li>
-    <li>Synthèse globale structurée par thème (menaces, outils, tendances…)</li>
-  </ul>
-
-  <h3>4. Publication automatique</h3>
-  <ul>
-    <li>Mise à jour d'une page WordPress via l'API REST</li>
-    <li>Upload direct sur hébergement FTP en HTML statique</li>
-    <li>Fusion intelligente du contenu : les anciens sujets sont conservés, les nouveaux s'ajoutent</li>
-  </ul>
-
-  <h3>5. Historique et comparaison</h3>
-  <ul>
-    <li>Sauvegarde de toutes les sessions par utilisateur dans Supabase</li>
-    <li>Comparaison entre deux sessions : articles nouveaux, disparus, évolutions</li>
-    <li>Analyse comparative générée par IA</li>
-    <li>Import d'historiques depuis un fichier HTML existant</li>
-  </ul>
-
-  <h3>6. Veille automatique planifiée</h3>
-  <ul>
-    <li>Chaque utilisateur choisit ses sujets et son heure d'envoi</li>
-    <li>Un cron GitHub Actions tourne toutes les heures (gratuit)</li>
-    <li>Envoi automatique d'un email HTML récapitulatif — sans que l'utilisateur soit connecté</li>
-  </ul>
-
-  <h3>7. Personnalisation du thème de publication</h3>
-  <ul>
-    <li>Éditeur de thème visuel intégré (couleurs, police, taille…)</li>
-    <li>4 presets : Catppuccin, Light, Nord, Dracula</li>
-    <li>Aperçu live avant publication</li>
-  </ul>
-
-  <h3>8. Gestion des utilisateurs et abonnements</h3>
-  <ul>
-    <li>Inscription / connexion via Supabase Auth</li>
-    <li>Plan gratuit : 1 recherche offerte</li>
-    <li>Plan payant à 2,99€/mois : recherches illimitées + veille auto + email quotidien</li>
-    <li>Paiement via Stripe</li>
-  </ul>
-
-  <h2>Stack technique</h2>
-  <table>
-    <tr><th>Couche</th><th>Technologie</th></tr>
-    <tr><td>Frontend / Backend</td><td>Streamlit (Python)</td></tr>
-    <tr><td>Base de données & Auth</td><td>Supabase (PostgreSQL)</td></tr>
-    <tr><td>IA résumés & synthèse</td><td>Groq API — LLaMA 3.1 8B + LLaMA 3.3 70B</td></tr>
-    <tr><td>Recherche web</td><td>DuckDuckGo Search + Feedparser (RSS)</td></tr>
-    <tr><td>Hébergement app</td><td>Render.com</td></tr>
-    <tr><td>Cron automatique</td><td>GitHub Actions</td></tr>
-    <tr><td>Paiement</td><td>Stripe</td></tr>
-    <tr><td>Email</td><td>Gmail SMTP</td></tr>
-    <tr><td>Publication</td><td>WordPress REST API + FTP</td></tr>
-  </table>
-
-  <h2>Ce que j'ai appris</h2>
-  <ul>
-    <li>Architecture multi-utilisateurs avec isolation complète des données</li>
-    <li>Gestion de la fusion de données sans écrasement (upsert par clé)</li>
-    <li>Orchestration d'un pipeline IA : recherche → scoring → résumés → publication</li>
-    <li>Déploiement d'un service complet avec authentification, paiement et automatisation</li>
-    <li>Contraintes RGPD pour un service en ligne (hébergement EU)</li>
-  </ul>
-
-  <h2>Améliorations prévues</h2>
-  <ul>
-    <li>Export PDF / Markdown des veilles</li>
-    <li>Sources personnalisées par l'utilisateur (ajout de flux RSS propres)</li>
-    <li>Notifications push navigateur</li>
-    <li>Dashboard analytique (tendances sur la durée, mots-clés émergents)</li>
-    <li>Google OAuth</li>
-  </ul>
-
-  <div class="cta-box">
-    <p>L'application est disponible en ligne :</p>
-    <a class="btn-primary" href="https://veille-tech.onrender.com" target="_blank">Accéder à l'application ↗</a>
-  </div>
-
-  <p style="margin-top:2.5rem">
-    <a class="btn-outline" href="https://ikar-code.github.io/portefolio/site#projets">← Retour aux projets</a>
-  </p>
+  </section>
+  <section class="p-sec">
+    <div class="sec-head reveal"><span class="sec-num">03</span><h2>Stack <em data-en="stack">technique</em></h2><span class="sec-line"></span></div>
+    <div class="table-wrap reveal"><table><thead><tr><th>Couche</th><th>Technologie</th></tr></thead><tbody><tr><td>Frontend / Backend</td><td>Streamlit (Python)</td></tr><tr><td>Base de données & Auth</td><td>Supabase (PostgreSQL)</td></tr><tr><td>IA résumés & synthèse</td><td>Groq API — LLaMA 3.1 8B + LLaMA 3.3 70B</td></tr><tr><td>Recherche web</td><td>DuckDuckGo Search + Feedparser (RSS)</td></tr><tr><td>Hébergement app</td><td>Render.com</td></tr><tr><td>Cron automatique</td><td>GitHub Actions</td></tr><tr><td>Paiement</td><td>Stripe</td></tr><tr><td>Email</td><td>Gmail SMTP</td></tr><tr><td>Publication</td><td>WordPress REST API + FTP</td></tr></tbody></table></div>
+  </section>
+  <section class="p-sec">
+    <div class="sec-head reveal"><span class="sec-num">04</span><h2>Ce que j'ai <em>appris</em></h2><span class="sec-line"></span></div>
+    <ul class="bullets">
+      <li class="reveal">Architecture multi-utilisateurs avec isolation complète des données</li>
+      <li class="reveal">Gestion de la fusion de données sans écrasement (upsert par clé)</li>
+      <li class="reveal">Orchestration d'un pipeline IA : recherche → scoring → résumés → publication</li>
+      <li class="reveal">Déploiement d'un service complet avec authentification, paiement et automatisation</li>
+      <li class="reveal">Contraintes RGPD pour un service en ligne (hébergement EU)</li>
+    </ul>
+  </section>
+  <section class="p-sec">
+    <div class="sec-head reveal"><span class="sec-num">05</span><h2>Améliorations <em>prévues</em></h2><span class="sec-line"></span></div>
+    <ul class="bullets">
+      <li class="reveal">Export PDF / Markdown des veilles</li>
+      <li class="reveal">Sources personnalisées par l'utilisateur (ajout de flux RSS propres)</li>
+      <li class="reveal">Notifications push navigateur</li>
+      <li class="reveal">Dashboard analytique (tendances sur la durée, mots-clés émergents)</li>
+      <li class="reveal">Google OAuth</li>
+    </ul>
+  </section>
+  <section class="p-sec"><div class="cta-box reveal"><p>L'application est disponible en ligne :</p><a class="btn-primary" href="https://veille-tech.onrender.com" target="_blank" rel="noopener">Accéder à l'application ↗</a></div></section>
 </main>
+
+<section class="p-next">
+  <p class="p-next-label reveal">Continuer la visite</p>
+  <div class="p-next-grid">
+    <a class="next-card is-prev reveal" href="projet3.html">
+      <span class="em" aria-hidden="true">📰</span><span class="arrow" aria-hidden="true">←</span>
+      <span class="dir">Projet précédent</span><span class="nm">Le Fil du Lord</span>
+    </a>
+    <a class="next-card is-next reveal" href="projets-scolaires.html">
+      <span class="em" aria-hidden="true">📚</span><span class="arrow" aria-hidden="true">→</span>
+      <span class="dir">Projet suivant</span><span class="nm">Projets scolaires</span>
+    </a>
+  </div>
+  <p class="p-back reveal"><a class="btn-outline" href="../index.html#projets">← Retour aux projets</a></p>
+</section>
 
 <footer>
   <p>© 2026 <span>Lucas Rajany</span> · Fait avec 💜 depuis La Réunion</p>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="project.js"></script>
 </body>
 </html>
