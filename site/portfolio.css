@@ -28,33 +28,36 @@
 }
 
 /* ───────── Thème clair (mode jour) ─────────
-   --intro / --title : le titre du hero est le résultat du mélange « difference »
-   entre le rideau d'intro et le fond, donc  --title = | --intro − --bg |
-   (#f08d5b − #f3f6fc = #0369a1). Si vous changez l'un, recalculez l'autre. */
+   Palette « sable chaud » : fond adouci (pas de blanc éclatant) + accent orange,
+   dans la continuité du côté « jour » de l'écran d'entrée.
+   Intro en mode jour : rideau orange (--intro), lettres d'abord brun foncé puis
+   qui prennent la couleur du titre (--title) pendant leur glissement. */
 :root[data-theme="light"] {
   color-scheme: light;
-  --bg: #f3f6fc;
-  --bg-2: #e7edf8;
-  --card: rgba(12, 24, 56, 0.04);
-  --card-border: rgba(12, 24, 56, 0.12);
-  --text: #0b1224;
-  --muted: #4b5873;
-  --accent: #0369a1;
-  --accent-2: #0369a1;
-  --accent-rgb: 3, 105, 161;
-  --accent2-rgb: 2, 132, 199;
-  --grad: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+  --bg: #d8c7b0;
+  --bg-2: #cdb99f;
+  --card: rgba(70, 35, 10, 0.07);
+  --card-border: rgba(70, 35, 10, 0.17);
+  --text: #26140a;
+  --muted: #5b4430;
+  --accent: #b4400d;
+  --accent-2: #d9622b;
+  --accent-bright: #f08d5b;               /* badges / flèches des cartes projets (tuiles sombres) */
+  --accent-rgb: 180, 64, 13;
+  --accent2-rgb: 217, 98, 43;
+  --grad: linear-gradient(135deg, #c2410c 0%, #ea7a3a 100%);
   --on-accent: #ffffff;
-  --pill: rgba(12, 24, 56, 0.06);
-  --line: rgba(12, 24, 56, 0.1);
-  --nav-bg: rgba(243, 246, 252, 0.8);
-  --nav-solid: rgba(243, 246, 252, 0.97);
-  --fade: rgba(243, 246, 252, 0.75);
-  --shadow: rgba(20, 40, 90, 0.2);
-  --amber: #b45309;
+  --pill: rgba(70, 35, 10, 0.08);
+  --line: rgba(70, 35, 10, 0.15);
+  --nav-bg: rgba(216, 199, 176, 0.84);
+  --nav-solid: rgba(216, 199, 176, 0.97);
+  --fade: rgba(216, 199, 176, 0.75);
+  --shadow: rgba(60, 30, 8, 0.3);
+  --amber: #8a4b05;
   --green: #047857;
   --intro: #f08d5b;
-  --title: #0369a1;
+  --title: #d4541c;
+  --ink: #26140a;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -340,6 +343,8 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
   color: var(--intro); mix-blend-mode: difference;
 }
 .il { position: relative; display: flex; opacity: 0; }
+/* Mode jour : pas de « difference » (il donnerait du bleu sur fond sable) ; la couleur est animée en JS */
+:root[data-theme="light"] .intro-letters { mix-blend-mode: normal; color: var(--ink); }
 .il:nth-child(odd)  { top: -0.42em; }   /* L · C · S : en haut */
 .il:nth-child(even) { top:  0.42em; }   /* U · A     : en bas  */
 .il-g { display: block; will-change: transform; }
@@ -496,7 +501,7 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
 }
 /* JOUR : fond clair, soleil chaud côté centre */
 .choice-day {
-  background: #f3f6fc; color: #0b1224; justify-content: flex-start;
+  background: #dfcdb3; color: #26140a; justify-content: flex-start;
   box-shadow: inset 110px 0 140px -80px rgba(240, 141, 91, 0.6);
 }
 .choice-day::before {
@@ -515,7 +520,7 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
 .choice-btn svg { width: 1.35em; height: 1.35em; flex-shrink: 0; }
 .choice-night .choice-btn { --dir: -1; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.28); color: #ecebf5; }
 .choice-night .choice-btn svg { color: #7dd3fc; }
-.choice-day .choice-btn { --dir: 1; background: rgba(12, 24, 56, 0.06); border: 1px solid rgba(12, 24, 56, 0.25); color: #0b1224; }
+.choice-day .choice-btn { --dir: 1; background: rgba(70, 35, 10, 0.08); border: 1px solid rgba(70, 35, 10, 0.3); color: #26140a; }
 .choice-day .choice-btn svg { color: #e4651f; }
 
 .choice-side:hover .choice-btn, .choice-side:focus-visible .choice-btn { transform: scale(1.08); }
@@ -581,3 +586,9 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
 /* Secours : si portfolio.js ne se charge pas, on affiche quand même le contenu */
 .js-failed .a-hero, .js-failed .hero-name .hl, .js-failed .reveal { opacity: 1 !important; }
 .js-failed #intro, .js-failed #choice { display: none !important; }
+
+/* Mode jour : tuiles projets orange (les dégradés bleus sont écrits en ligne dans le HTML → !important) */
+:root[data-theme="light"] .proj:nth-child(1) .proj-visual { --art: radial-gradient(circle at 18% 15%, rgba(240,141,91,.58), transparent 55%), radial-gradient(circle at 90% 95%, rgba(251,191,120,.30), transparent 50%), #1f130b !important; }
+:root[data-theme="light"] .proj:nth-child(2) .proj-visual { --art: radial-gradient(circle at 85% 12%, rgba(240,141,91,.52), transparent 55%), radial-gradient(circle at 10% 95%, rgba(228,101,31,.30), transparent 52%), #22140c !important; }
+:root[data-theme="light"] .proj:nth-child(3) .proj-visual { --art: radial-gradient(circle at 50% 0%, rgba(251,191,120,.46), transparent 58%), radial-gradient(circle at 5% 100%, rgba(240,141,91,.34), transparent 50%), #1c120b !important; }
+:root[data-theme="light"] .proj:nth-child(4) .proj-visual { --art: radial-gradient(circle at 15% 85%, rgba(240,141,91,.52), transparent 55%), radial-gradient(circle at 92% 10%, rgba(251,191,120,.30), transparent 48%), #21150d !important; }
