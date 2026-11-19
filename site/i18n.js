@@ -94,6 +94,9 @@
     'Forge Git auto-hébergée & sécurisée': 'Self-hosted & secured Git forge',
     'Installation et mise en service de Forgejo sur une machine virtuelle Ubuntu pour l\'entreprise. Création des comptes utilisateurs, configuration des alertes par email et vérification de la sécurité des fichiers.':
       'Installation and commissioning of Forgejo on an Ubuntu virtual machine for the company. User account creation, email alert configuration and file security checks.',
+    'Championnat sportif inter-villes': 'Inter-city sports championship',
+    'Application web de gestion d\'une compétition sportive inspirée d\'Intervilles : équipes des villes de La Réunion, épreuves, saisie des résultats et classement public. Développée en PHP natif avec une architecture MVC.':
+      'A web application to manage a sports competition inspired by Intervilles: teams from the towns of Réunion, events, results entry and a public ranking. Built in native PHP with an MVC architecture.',
 
     // Parcours
     'Formation &': 'Education &',
@@ -188,6 +191,7 @@
     'Voir le projet : Veille IA': 'View project: Veille IA',
     'Voir le projet : Projets scolaires BTS SIO': 'View project: BTS SIO school projects',
     'Voir le projet : Forgejo': 'View project: Forgejo',
+    'Voir le projet : Entrevilles-Reu': 'View project: Entrevilles-Reu',
     'Opportunité de stage': 'Internship opportunity',
     'Bonjour Lucas, je souhaite vous proposer...': 'Hello Lucas, I would like to offer you...'
   };
