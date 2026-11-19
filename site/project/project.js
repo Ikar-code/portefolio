@@ -207,6 +207,246 @@
       'Projects completed in the BTS SIO SLAM option: a PHP web application, a local WordPress site and algorithmics exercises.',
     'Projets scolaires BTS SIO | Lucas Rajany': 'BTS SIO school projects | Lucas Rajany',
 
+    // Entrevilles-Reu
+    'Projet scolaire · BTS SIO SLAM':
+      'School project · BTS SIO SLAM',
+    'Application web de gestion d\'une compétition sportive inspirée des jeux Intervilles : des équipes représentant les villes de La Réunion s\'affrontent dans des épreuves, les organisateurs saisissent les résultats et le public suit le classement.':
+      'A web application for managing a sports competition inspired by the Intervilles games: teams representing the towns of La Réunion compete in events, organisers enter the results and the public follows the rankings.',
+    'PHP 8 natif':
+      'Native PHP 8',
+    'Architecture MVC':
+      'MVC architecture',
+    'Voir le site en ligne ↗':
+      'View the live site ↗',
+    'Voir le code sur GitHub ↗':
+      'View the code on GitHub ↗',
+    'Voir l\'architecture':
+      'View the architecture',
+    'Mon rôle':
+      'My role',
+    'Site, back-end & déploiement':
+      'Website, back-end & deployment',
+    'InfinityFree (PHP gratuit)':
+      'InfinityFree (free PHP hosting)',
+    'En pause, remise en ligne avant les épreuves':
+      'On hold, back online before the exams',
+    'Projet du BTS SIO (option SLAM), parmi mes réalisations de fin d\'année. Le sujet « Intervilles Challenge » demande une application permettant d\'organiser et de gérer une compétition où plusieurs équipes de villes différentes enchaînent des épreuves sportives. Les organisateurs gèrent équipes, participants, épreuves et résultats, tandis que les visiteurs consultent scores et classement.':
+      'Project from the BTS SIO programme (SLAM option), one of my end-of-year projects. The “Intervilles Challenge” brief calls for an application to organise and run a competition in which several teams from different towns go through a series of sports events. Organisers manage teams, participants, events and results, while visitors view scores and rankings.',
+    'Projet mené en équipe :':
+      'Team project:',
+    'la conception de la base de données a été réalisée par un coéquipier, et j\'ai développé le site (back-end PHP, vues, authentification, déploiement).':
+      'the database was designed by a teammate, and I built the website (PHP back-end, views, authentication, deployment).',
+    'Ce que l\'application':
+      'What the application',
+    'permet':
+      'does',
+    'Espace public':
+      'Public area',
+    'Tableau de bord':
+      'Dashboard',
+    'Nombre de villes, de sports, d\'équipes et d\'épreuves, répartition par statut (à venir, en cours, terminées) et prochaines épreuves.':
+      'Number of towns, sports, teams and events, breakdown by status (upcoming, ongoing, finished) and next events.',
+    'Calendrier chronologique de toutes les épreuves.':
+      'Chronological schedule of all the events.',
+    'Détail d\'une épreuve':
+      'Event details',
+    'Équipes participantes, score et classement.':
+      'Participating teams, score and ranking.',
+    'Équipes':
+      'Teams',
+    'Liste des équipes, puis détail avec les membres : capitaine, pénalités, récompenses individuelles.':
+      'List of teams, then a detail page with the members: captain, penalties, individual awards.',
+    'Classement général':
+      'Overall ranking',
+    'Classement inter-villes calculé automatiquement.':
+      'Inter-town ranking calculated automatically.',
+    'Thème clair / sombre':
+      'Light / dark theme',
+    'Choix mémorisé dans le navigateur du visiteur.':
+      'Choice remembered in the visitor\'s browser.',
+    'Comptes utilisateurs':
+      'User accounts',
+    'Inscription et connexion':
+      'Sign-up and login',
+    'Création de compte avec choix facultatif de la ville, connexion sécurisée.':
+      'Account creation with an optional choice of town, secure login.',
+    'Page profil':
+      'Profile page',
+    'Équipes de l\'utilisateur et rôle associé.':
+      'The user\'s teams and associated role.',
+    'Espace administrateur':
+      'Admin area',
+    'Accès réservé':
+      'Restricted access',
+    'Réservé aux administrateurs, avec gestion des rôles.':
+      'Reserved for administrators, with role management.',
+    'Gestion des données':
+      'Data management',
+    'Création, modification et suppression des villes, sports, équipes et épreuves.':
+      'Create, edit and delete towns, sports, teams and events.',
+    'Gestion des épreuves':
+      'Event management',
+    'Changement de statut, inscription des équipes et saisie des résultats (score, classement).':
+      'Status changes, team registration and result entry (score, ranking).',
+    'utilisées':
+      'used',
+    'PHP 8 natif, sans Composer ni framework : tout est écrit à la main.':
+      'Native PHP 8, with no Composer and no framework: everything is hand-written.',
+    'PostgreSQL hébergé sur Supabase, interrogé via son API REST (PostgREST) avec cURL.':
+      'PostgreSQL hosted on Supabase, queried through its REST API (PostgREST) with cURL.',
+    'HTML5, CSS3 et un peu de JavaScript pour le thème. Design « dashboard esport » sombre à accents néon, variante claire, variables CSS, polices Rajdhani et Inter, responsive.':
+      'HTML5, CSS3 and a little JavaScript for the theme. Dark “esport dashboard” design with neon accents, a light variant, CSS variables, Rajdhani and Inter fonts, responsive.',
+    'Git et GitHub, avec un workflow GitHub Actions qui envoie les fichiers en FTP à chaque git push vers InfinityFree (hébergement PHP gratuit).':
+      'Git and GitHub, with a GitHub Actions workflow that sends the files over FTP on every git push to InfinityFree (free PHP hosting).',
+    'Tout est écrit à la main, sans Composer ni framework, pour comprendre et pouvoir expliquer chaque brique. Voici le chemin d\'une requête :':
+      'Everything is hand-written, with no Composer and no framework, to understand and be able to explain every building block. Here is the path of a request:',
+    'Front controller :':
+      'Front controller:',
+    'index.php est l\'unique point d\'entrée, et .htaccess y redirige toutes les requêtes.':
+      'index.php is the single entry point, and .htaccess redirects every request to it.',
+    'Routeur maison :':
+      'Custom router:',
+    'associe l\'URL à un contrôleur et à une méthode, avec gestion des paramètres comme /epreuves/{id}.':
+      'maps the URL to a controller and a method, handling parameters such as /epreuves/{id}.',
+    'Contrôleurs :':
+      'Controllers:',
+    'un par domaine fonctionnel (accueil, authentification, épreuves, équipes, classement, profil, administration).':
+      'one per functional area (home, authentication, events, teams, ranking, profile, administration).',
+    'Modèles :':
+      'Models:',
+    'une classe par entité (Ville, Sport, Equipe, MembreEquipe, Epreuve, Participation, Utilisateur), qui contiennent toutes les requêtes.':
+      'one class per entity (Ville, Sport, Equipe, MembreEquipe, Epreuve, Participation, Utilisateur), holding all the queries.',
+    'Vues :':
+      'Views:',
+    'un fichier PHP par page, assemblé dans un layout commun avec des partials (navbar, footer).':
+      'one PHP file per page, assembled in a shared layout with partials (navbar, footer).',
+    'Le dossier Core regroupe aussi une classe Auth, un client Supabase, un autoloader et un contrôleur de base.':
+      'The Core folder also holds an Auth class, a Supabase client, an autoloader and a base controller.',
+    'en 7 tables':
+      'in 7 tables',
+    'Rôle':
+      'Role',
+    'Villes participantes':
+      'Participating towns',
+    'Disciplines proposées dans les épreuves':
+      'Sports offered in the events',
+    'Comptes, identifiants et rôles':
+      'Accounts, credentials and roles',
+    'Équipes représentant une ville':
+      'Teams representing a town',
+    'Membres d\'une équipe, avec rôle, pénalités et récompenses':
+      'Team members, with role, penalties and awards',
+    'Épreuves, planning et statut':
+      'Events, schedule and status',
+    'Inscription d\'une équipe à une épreuve et son résultat':
+      'A team\'s registration to an event, and its result',
+    'Deux choix de conception':
+      'Two design choices',
+    'fusionne l\'inscription d\'une équipe à une épreuve et son résultat. Le statut sert à l\'inscription, tandis que le score et le classement restent vides tant que l\'épreuve n\'a pas eu lieu : une table de moins.':
+      'merges the registration of a team to an event and its result. The status is used for the registration, while the score and ranking stay empty until the event has taken place: one table fewer.',
+    'porte le rôle interne (capitaine ou joueur) ainsi que les pénalités et récompenses individuelles, avec une clé primaire composée qui empêche un doublon dans une équipe.':
+      'holds the internal role (captain or player) as well as individual penalties and awards, with a composite primary key that prevents duplicates within a team.',
+    'Le classement par ville n\'est pas stocké : il est recalculé à la volée par une vue SQL qui additionne les scores des équipes de chaque ville.':
+      'The ranking by town is not stored: it is recomputed on the fly by an SQL view that adds up the scores of each town\'s teams.',
+    'de l\'application':
+      'of the application',
+    'Mots de passe hachés avec password_hash() et password_verify(), jamais stockés en clair ni en session.':
+      'Passwords hashed with password_hash() and password_verify(), never stored in plain text or in the session.',
+    'Sessions PHP natives et contrôle d\'accès par rôle (exigerConnexion(), exigerAdmin()).':
+      'Native PHP sessions and role-based access control (exigerConnexion(), exigerAdmin()).',
+    'Échappement systématique des sorties (htmlspecialchars) contre les failles XSS.':
+      'Systematic output escaping (htmlspecialchars) against XSS flaws.',
+    'Dossiers sensibles protégés par .htaccess (Require all denied).':
+      'Sensitive folders protected by .htaccess (Require all denied).',
+    'Clés Supabase hors du dépôt Git, dans un fichier ignoré par .gitignore.':
+      'Supabase keys kept out of the Git repository, in a file ignored by .gitignore.',
+    'Mutations passées uniquement en POST.':
+      'State-changing actions only sent through POST.',
+    'Défis':
+      'Challenges',
+    'rencontrés':
+      'faced',
+    'Un hébergement qui n\'exécute pas le PHP':
+      'A host that does not run PHP',
+    'Problème :':
+      'Problem:',
+    'sur Vercel, le navigateur téléchargeait les fichiers au lieu de les exécuter, et GitHub Pages n\'exécute pas le PHP non plus.':
+      'on Vercel, the browser downloaded the files instead of running them, and GitHub Pages does not run PHP either.',
+    'Solution :':
+      'Solution:',
+    'passage à un hébergeur PHP gratuit, en gardant GitHub pour le code.':
+      'switch to a free PHP host, keeping GitHub for the code.',
+    'Pilote PostgreSQL absent':
+      'Missing PostgreSQL driver',
+    'Accès aux données':
+      'Data access',
+    'l\'extension PDO PostgreSQL n\'était pas disponible sur l\'hébergement gratuit.':
+      'the PDO PostgreSQL extension was not available on the free hosting.',
+    'PDO remplacé par des appels à l\'API REST de Supabase en cURL, via un client dédié.':
+      'PDO replaced with calls to Supabase\'s REST API through cURL, via a dedicated client.',
+    'Fichiers .env refusés':
+      '.env files rejected',
+    'l\'hébergeur refuse les fichiers dont le nom commence par un point.':
+      'the host rejects files whose name starts with a dot.',
+    'la configuration se charge désormais depuis un fichier PHP (env.local.php) créé sur le serveur et exclu de Git.':
+      'the configuration is now loaded from a PHP file (env.local.php) created on the server and excluded from Git.',
+    'Authentification absente du schéma':
+      'Authentication missing from the schema',
+    'la table utilisateur n\'avait pas de colonne mot de passe.':
+      'the user table had no password column.',
+    'écriture d\'une migration SQL séparée, pour ne pas modifier le travail de l\'équipe sans validation.':
+      'wrote a separate SQL migration, so as not to change the team\'s work without approval.',
+    'Changement de pile en cours de route':
+      'Switching stacks midway',
+    'Choix techniques':
+      'Technical choices',
+    'le projet a démarré en Next.js et React.':
+      'the project started in Next.js and React.',
+    'reprise complète en PHP et MVC, pour maîtriser le code et pouvoir le défendre à l\'oral.':
+      'complete rewrite in PHP and MVC, to master the code and be able to defend it in the oral exam.',
+    'Fonctionnalités manquantes détectées en test':
+      'Missing features found during testing',
+    'Tests':
+      'Testing',
+    'pas d\'inscription, lien de profil sans route, vue de classement non créée.':
+      'no sign-up, a profile link with no route, ranking view not created.',
+    'ajout des routes, des contrôleurs et des vues correspondants.':
+      'added the matching routes, controllers and views.',
+    'mobilisées':
+      'used',
+    'Développement web back-end en PHP et conception d\'un routeur MVC.':
+      'Back-end web development in PHP and design of an MVC router.',
+    'Modélisation et requêtes sur base relationnelle (PostgreSQL, jointures, vues, clés composées).':
+      'Modelling and querying a relational database (PostgreSQL, joins, views, composite keys).',
+    'Consommation d\'une API REST (PostgREST / Supabase) en cURL.':
+      'Consuming a REST API (PostgREST / Supabase) with cURL.',
+    'Authentification, gestion de rôles et sécurité applicative.':
+      'Authentication, role management and application security.',
+    'CI/CD avec GitHub Actions et déploiement FTP.':
+      'CI/CD with GitHub Actions and FTP deployment.',
+    'HTML/CSS responsive, variables CSS, thème clair / sombre.':
+      'Responsive HTML/CSS, CSS variables, light / dark theme.',
+    'Travail en équipe, Git, diagnostic et contournement de contraintes d\'hébergement.':
+      'Teamwork, Git, diagnosing and working around hosting constraints.',
+    'Pistes':
+      'Room for',
+    'd\'amélioration':
+      'improvement',
+    'Jeton CSRF sur tous les formulaires.':
+      'CSRF token on every form.',
+    'Upload de logos de villes et de photos de participants.':
+      'Upload of town logos and participant photos.',
+    'Historique détaillé des résultats par épreuve et export PDF du classement.':
+      'Detailed history of results per event and PDF export of the ranking.',
+    'Notifications par e-mail à la validation d\'une inscription.':
+      'Email notifications when a registration is approved.',
+    'Remplacer la clé service_role par des règles RLS et une clé à droits limités.':
+      'Replace the service_role key with RLS rules and a limited-privilege key.',
+    'Envie de voir le code ou d\'essayer l\'application ?':
+      'Want to see the code or try the application?',
+    'Application web PHP en architecture MVC pour gérer un championnat sportif inter-villes à La Réunion : équipes, épreuves, résultats et classement. Projet BTS SIO SLAM.':
+      'PHP web application with an MVC architecture to manage an inter-town sports championship in La Réunion: teams, events, results and ranking. BTS SIO SLAM project.',
+
     // Forgejo
     'Projet de stage · Gestion d\'infrastructure Git': 'Internship project · Git infrastructure management',
     'Installation et configuration d\'une forge Git auto-hébergée Forgejo sur Ubuntu afin de permettre la gestion de dépôts de code et la collaboration entre développeurs.':
@@ -319,6 +559,7 @@
   var meta = doc.querySelector('meta[name="description"]');
   var origDesc = meta ? meta.getAttribute('content') : '';
   var T_TITLE = {
+    'Entrevilles-Reu — Championnat sportif inter-villes | Lucas Rajany': 'Entrevilles-Reu — Inter-town sports championship | Lucas Rajany',
     'Forgejo — Forge Git auto-hébergée | Lucas Rajany': 'Forgejo — Self-hosted Git forge | Lucas Rajany',
     'Le Fil du Lord — Média automatisé par IA | Lucas Rajany': 'Le Fil du Lord — AI-automated news media | Lucas Rajany',
     'Projets scolaires BTS SIO | Lucas Rajany': 'BTS SIO school projects | Lucas Rajany',
