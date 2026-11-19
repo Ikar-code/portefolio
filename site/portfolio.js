@@ -62,8 +62,8 @@
         minWidth: 200,
         scale: 1.0,
         scaleMobile: 1.0,
-        color: light ? 0x0369a1 : 0x38bdf8,
-        backgroundColor: light ? 0xf3f6fc : 0x07070d,
+        color: light ? 0xc2410c : 0x38bdf8,
+        backgroundColor: light ? 0xd8c7b0 : 0x07070d,
         points: isMobile ? 7 : 11,
         maxDistance: isMobile ? 18 : 22,
         spacing: isMobile ? 20 : 17,
@@ -336,6 +336,16 @@
         duration: 1400,
         easing: 'easeInOutExpo'
       });
+
+      // Mode jour : les lettres passent du brun foncé (sur le rideau orange) à l'orange du titre
+      if (root.getAttribute('data-theme') === 'light') {
+        const cs = getComputedStyle(root);
+        anime({
+          targets: glyphs,
+          color: [cs.getPropertyValue('--ink').trim() || '#26140a', cs.getPropertyValue('--title').trim() || '#d4541c'],
+          duration: 1100, delay: 250, easing: 'easeInOutQuad'
+        });
+      }
 
       const wipe = { v: 0 };
       anime({
