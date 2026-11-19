@@ -76,7 +76,10 @@
   function applyTheme(theme) {
     root.setAttribute('data-theme', theme);   // les variables CSS font le reste
     startVanta(theme);
+    try { localStorage.setItem('portfolio-theme', theme); } catch (e) {}   // les pages projet reprennent ce choix
   }
+  const themeBtn = document.getElementById('theme-toggle');
+  if (themeBtn) themeBtn.addEventListener('click', () => applyTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
 
   /* ── 3. Menu mobile ─────────────────────────────────────── */
   const navLinks = document.getElementById('nav-links');
