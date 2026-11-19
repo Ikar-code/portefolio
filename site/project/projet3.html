@@ -1,292 +1,143 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Le Fil du Lord — Média automatisé par IA</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="style.css">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Fil du Lord — Média automatisé par IA | Lucas Rajany</title>
+  <meta name="description" content="Le Fil du Lord : média d'actualité francophone entièrement automatisé par IA (recherche, vérification, rédaction, contrôle qualité, publication)." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Grenze+Gotisch:wght@900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.css" />
+  <link rel="stylesheet" href="project.css" />
+  <script>
+    /* Thème choisi sur l'écran d'accueil + filet de sécurité si project.js ne se charge pas */
+    (function () {
+      var h = document.documentElement;
+      try { var t = localStorage.getItem('portfolio-theme'); if (t === 'light' || t === 'dark') h.setAttribute('data-theme', t); } catch (e) {}
+      h.classList.add('js');
+      setTimeout(function () { if (!window.__projReady) h.classList.remove('js'); }, 3000);
+    })();
+  </script>
 </head>
-
 <body>
 
-<nav>
-  <div class="nav-logo">lucas<span>.</span>rajany</div>
+<div class="scroll-progress" id="scroll-progress"></div>
 
-  <a class="back-link" href="https://ikar-code.github.io/portefolio/site/#projets">
-    ← Retour au portfolio
-  </a>
+<nav id="nav">
+  <a class="nav-logo" href="../index.html">lucas<span>.</span>rajany</a>
+  <div class="nav-right">
+    <a class="back-link" href="../index.html#projets">← Retour au portfolio</a>
+    <div class="lang-switch" role="group" aria-label="Langue / Language">
+      <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Changer de mode jour / nuit">
+      <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
 </nav>
-  
-<div class="container">
 
-<header>
-
-<div class="eyebrow">
-Projet personnel · Média automatisé par intelligence artificielle
-</div>
-
-<h1>Le Fil du Lord</h1>
-
-<p class="subtitle">
-Système complet de média d'actualité francophone automatisé par IA.
-Le projet combine recherche d'informations, vérification factuelle, génération journalistique,
-contrôle qualité et publication automatique.
-</p>
-
-<div class="tags">
-<span class="tag">Node.js</span>
-<span class="tag">React</span>
-<span class="tag">TypeScript</span>
-<span class="tag">Gemini API</span>
-<span class="tag">Groq API</span>
-<span class="tag">Supabase</span>
-<span class="tag">GitHub Actions</span>
-<span class="tag">Vercel</span>
-</div>
-
-<div class="cta">
-<a href="https://lefildulord.vercel.app/" target="_blank">
-Voir le site en production ↗
-</a>
-</div>
-
+<header class="p-hero">
+  <span class="p-hero-emoji" aria-hidden="true">📰</span>
+  <div class="p-hero-inner">
+    <p class="p-kicker a-in">Projet personnel · Média automatisé par IA</p>
+    <h1 class="p-title a-in">Le Fil du Lord</h1>
+    <p class="p-sub a-in">Système complet de média d'actualité francophone automatisé par IA. Le projet combine recherche d'informations, vérification factuelle, génération journalistique, contrôle qualité et publication automatique.</p>
+    <div class="p-tags a-in"><span class="p-tag">Node.js</span><span class="p-tag">React</span><span class="p-tag">TypeScript</span><span class="p-tag">Gemini API</span><span class="p-tag">Groq API</span><span class="p-tag">Supabase</span><span class="p-tag">GitHub Actions</span><span class="p-tag">Vercel</span></div>
+    <div class="p-cta a-in"><a class="btn-primary" href="https://lefildulord.vercel.app/" target="_blank" rel="noopener">Voir le site en production ↗</a><a class="btn-outline" href="#pipeline">Voir le pipeline</a></div>
+  </div>
+  <dl class="p-meta a-in">
+    <div><dt>Type</dt><dd>Projet personnel</dd></div>
+    <div><dt>Statut</dt><dd>En production</dd></div>
+    <div><dt>Backend</dt><dd>Node.js</dd></div>
+    <div><dt>Hébergement</dt><dd>Vercel</dd></div>
+  </dl>
 </header>
 
+<main class="p-main">
+  <section class="p-sec">
+    <div class="sec-head reveal"><span class="sec-num">01</span><h2>Description</h2><span class="sec-line"></span></div>
+    <p class="reveal">Le Fil du Lord est une plateforme capable de transformer automatiquement des sujets d'actualité en articles publiables.</p>
+    <p class="reveal">Le système utilise plusieurs étapes IA spécialisées afin de limiter les erreurs : recherche de sujets, validation des informations, détection des doublons, rédaction journalistique et évaluation avant publication.</p>
+  </section>
+  <section class="p-sec">
+    <div class="sec-head reveal"><span class="sec-num">02</span><h2>Ce que le système <em>fait</em></h2><span class="sec-line"></span></div>
+    <ul class="checklist">
+      <li class="reveal"><strong>Recherche d'actualité</strong>Gemini avec accès Google Search identifie des sujets récents et pertinents.</li>
+      <li class="reveal"><strong>Vérification factuelle</strong>Les sujets sont analysés avant rédaction afin de confirmer les informations importantes.</li>
+      <li class="reveal"><strong>Anti-doublons intelligent</strong>Le système compare les nouveaux sujets avec les articles existants dans Supabase.</li>
+      <li class="reveal"><strong>Rédaction automatique</strong>Groq génère un article structuré avec titre, angle éditorial et contenu.</li>
+      <li class="reveal"><strong>Contrôle qualité</strong>Gemini attribue un score sur 10 et refuse les articles insuffisants.</li>
+      <li class="reveal"><strong>Retry automatique</strong>Si un article obtient un mauvais score, le pipeline tente un nouveau sujet ou une nouvelle génération.</li>
+      <li class="reveal"><strong>Publication</strong>Les articles validés sont enregistrés dans Supabase puis affichés sur le site.</li>
+    </ul>
+  </section>
+  <section class="p-sec">
+    <div class="sec-head reveal"><span class="sec-num">03</span><h2>Pipeline <em>d'exécution</em></h2><span class="sec-line"></span></div>
+    <div class="flow">
+      <div class="step reveal"><span class="num">1</span>GitHub Actions lance automatiquement le pipeline via cron.</div>
+      <div class="step reveal"><span class="num">2</span>Recherche de sujets avec Gemini et Google Search.</div>
+      <div class="step reveal"><span class="num">3</span>Vérification des doublons et stockage dans Supabase.</div>
+      <div class="step reveal"><span class="num">4</span>Validation du sujet et création du dossier journalistique.</div>
+      <div class="step reveal"><span class="num">5</span>Rédaction automatique de l'article.</div>
+      <div class="step reveal"><span class="num">6</span>Scoring qualité IA avant publication.</div>
+      <div class="step reveal"><span class="num">7</span>Publication automatique si le score est suffisant.</div>
+    </div>
+  </section>
+  <section class="p-sec">
+    <div class="sec-head reveal"><span class="sec-num">04</span><h2>Agents IA <em>utilisés</em></h2><span class="sec-line"></span></div>
+    <div class="grid">
+      <div class="card reveal"><span class=ico aria-hidden=true>🔎</span><h3>Agent recherche — Scraping + flux RSS</h3><p>Le système récupère automatiquement les informations depuis différentes sources grâce au scraping web et aux flux RSS. Les données brutes sont collectées puis transformées en sujets exploitables pour le pipeline éditorial.</p></div>
+      <div class="card reveal"><span class=ico aria-hidden=true>✅</span><h3>Agent vérification — Gemini 2.5 Flash Lite</h3><p>Analyse les sujets collectés avant rédaction. Il vérifie la cohérence des informations, les dates, les acteurs concernés et les faits disponibles afin de limiter les erreurs et les informations inventées.</p></div>
+      <div class="card reveal"><span class=ico aria-hidden=true>✍️</span><h3>Agent rédaction — Qwen3-32B (Groq)</h3><p>Transforme les informations vérifiées en article journalistique complet. Le modèle génère le titre, l'angle éditorial et le contenu final en respectant la ligne éditoriale du média Le Fil du Lord.</p></div>
+      <div class="card reveal"><span class=ico aria-hidden=true>⭐</span><h3>Agent qualité — Gemini 3.1 Flash Lite</h3><p>Évalue chaque article avant publication avec un score sur 10. Il analyse la fiabilité, la structure, la qualité rédactionnelle et le respect des règles éditoriales avant validation.</p></div>
+    </div>
+  </section>
+  <section class="p-sec">
+    <div class="sec-head reveal"><span class="sec-num">05</span><h2>Architecture <em data-en="architecture">technique</em></h2><span class="sec-line"></span></div>
+    <div class="grid">
+      <div class="card reveal"><span class=ico aria-hidden=true>⚙️</span><h3>Backend</h3><p>Node.js orchestre les appels IA, la logique métier, les retries et la publication.</p></div>
+      <div class="card reveal"><span class=ico aria-hidden=true>🗄️</span><h3>Base de données</h3><p>Supabase stocke sujets, articles, scores, statuts et journaux.</p></div>
+      <div class="card reveal"><span class=ico aria-hidden=true>💻</span><h3>Frontend</h3><p>React + TypeScript affiche les articles et fournit une interface d'administration.</p></div>
+      <div class="card reveal"><span class=ico aria-hidden=true>🚀</span><h3>Déploiement</h3><p>GitHub Actions automatise l'exécution et Vercel héberge l'application.</p></div>
+    </div>
+  </section>
+  <section class="p-sec">
+    <div class="sec-head reveal"><span class="sec-num">06</span><h2>Points <em>clés</em></h2><span class="sec-line"></span></div>
+    <ul class="bullets">
+      <li class="reveal">Pipeline complet de la recherche à la publication.</li>
+      <li class="reveal">Double contrôle IA avec vérification et scoring.</li>
+      <li class="reveal">Système anti-doublons basé sur les événements.</li>
+      <li class="reveal">Traçabilité complète grâce aux logs.</li>
+      <li class="reveal">Architecture évolutive pour ajouter de nouveaux agents IA.</li>
+    </ul>
+  </section>
 
-<section>
+</main>
 
-<h2>Description</h2>
-
-<p>
-Le Fil du Lord est une plateforme capable de transformer automatiquement
-des sujets d'actualité en articles publiables.
-
-Le système utilise plusieurs étapes IA spécialisées afin de limiter les erreurs :
-recherche de sujets, validation des informations, détection des doublons,
-rédaction journalistique et évaluation avant publication.
-</p>
-
+<section class="p-next">
+  <p class="p-next-label reveal">Continuer la visite</p>
+  <div class="p-next-grid">
+    <a class="next-card is-prev reveal" href="forgejo.html">
+      <span class="em" aria-hidden="true">🛠️</span><span class="arrow" aria-hidden="true">←</span>
+      <span class="dir">Projet précédent</span><span class="nm">Forgejo</span>
+    </a>
+    <a class="next-card is-next reveal" href="veille-ia.html">
+      <span class="em" aria-hidden="true">🔍</span><span class="arrow" aria-hidden="true">→</span>
+      <span class="dir">Projet suivant</span><span class="nm">Veille IA</span>
+    </a>
+  </div>
+  <p class="p-back reveal"><a class="btn-outline" href="../index.html#projets">← Retour aux projets</a></p>
 </section>
-
-
-<section>
-
-<h2>Ce que le système <span class="accent">fait</span></h2>
-
-<ul>
-
-<li>
-<strong>Recherche d'actualité :</strong>
-Gemini avec accès Google Search identifie des sujets récents et pertinents.
-</li>
-
-<li>
-<strong>Vérification factuelle :</strong>
-les sujets sont analysés avant rédaction afin de confirmer les informations importantes.
-</li>
-
-<li>
-<strong>Anti-doublons intelligent :</strong>
-le système compare les nouveaux sujets avec les articles existants dans Supabase.
-</li>
-
-<li>
-<strong>Rédaction automatique :</strong>
-Groq génère un article structuré avec titre, angle éditorial et contenu.
-</li>
-
-<li>
-<strong>Contrôle qualité :</strong>
-Gemini attribue un score sur 10 et refuse les articles insuffisants.
-</li>
-
-<li>
-<strong>Retry automatique :</strong>
-si un article obtient un mauvais score, le pipeline tente un nouveau sujet ou une nouvelle génération.
-</li>
-
-<li>
-<strong>Publication :</strong>
-les articles validés sont enregistrés dans Supabase puis affichés sur le site.
-</li>
-
-</ul>
-
-</section>
-
-
-<section>
-
-<h2>Pipeline <span class="accent">d'exécution</span></h2>
-
-<div class="flow">
-
-<div class="step">
-<span class="num">1</span>
-GitHub Actions lance automatiquement le pipeline via cron.
-</div>
-
-<div class="step">
-<span class="num">2</span>
-Recherche de sujets avec Gemini et Google Search.
-</div>
-
-<div class="step">
-<span class="num">3</span>
-Vérification des doublons et stockage dans Supabase.
-</div>
-
-<div class="step">
-<span class="num">4</span>
-Validation du sujet et création du dossier journalistique.
-</div>
-
-<div class="step">
-<span class="num">5</span>
-Rédaction automatique de l'article.
-</div>
-
-<div class="step">
-<span class="num">6</span>
-Scoring qualité IA avant publication.
-</div>
-
-<div class="step">
-<span class="num">7</span>
-Publication automatique si le score est suffisant.
-</div>
-
-</div>
-
-</section>
-
-
-<section>
-<h2>Agents IA utilisés</h2>
-
-<div class="grid">
-
-<div class="card">
-<h3>🔎 Agent recherche — Scraping + flux RSS</h3>
-<p>
-Le système récupère automatiquement les informations depuis différentes sources grâce au scraping web et aux flux RSS.
-Les données brutes sont collectées puis transformées en sujets exploitables pour le pipeline éditorial.
-</p>
-</div>
-
-<div class="card">
-<h3>✅ Agent vérification — Gemini 2.5 Flash Lite</h3>
-<p>
-Analyse les sujets collectés avant rédaction.
-Il vérifie la cohérence des informations, les dates, les acteurs concernés et les faits disponibles afin de limiter les erreurs et les informations inventées.
-</p>
-</div>
-
-<div class="card">
-<h3>✍️ Agent rédaction — Qwen3-32B (Groq)</h3>
-<p>
-Transforme les informations vérifiées en article journalistique complet.
-Le modèle génère le titre, l'angle éditorial et le contenu final en respectant la ligne éditoriale du média Le Fil du Lord.
-</p>
-</div>
-
-<div class="card">
-<h3>⭐ Agent qualité — Gemini 3.1 Flash Lite</h3>
-<p>
-Évalue chaque article avant publication avec un score sur 10.
-Il analyse la fiabilité, la structure, la qualité rédactionnelle et le respect des règles éditoriales avant validation.
-</p>
-</div>
-
-</div>
-</section>
-
-
-<section>
-
-<h2>Architecture <span class="accent">technique</span></h2>
-
-<div class="grid">
-
-<div class="card">
-<h3>⚙️ Backend</h3>
-<p>
-Node.js orchestre les appels IA, la logique métier,
-les retries et la publication.
-</p>
-</div>
-
-<div class="card">
-<h3>🗄️ Base de données</h3>
-<p>
-Supabase stocke sujets, articles, scores, statuts et journaux.
-</p>
-</div>
-
-<div class="card">
-<h3>💻 Frontend</h3>
-<p>
-React + TypeScript affiche les articles et fournit une interface d'administration.
-</p>
-</div>
-
-<div class="card">
-<h3>🚀 Déploiement</h3>
-<p>
-GitHub Actions automatise l'exécution et Vercel héberge l'application.
-</p>
-</div>
-
-</div>
-
-</section>
-
-
-<section>
-
-<h2>Points <span class="accent">clés</span></h2>
-
-<ul>
-
-<li>
-Pipeline complet de la recherche à la publication.
-</li>
-
-<li>
-Double contrôle IA avec vérification et scoring.
-</li>
-
-<li>
-Système anti-doublons basé sur les événements.
-</li>
-
-<li>
-Traçabilité complète grâce aux logs.
-</li>
-
-<li>
-Architecture évolutive pour ajouter de nouveaux agents IA.
-</li>
-
-</ul>
-
-</section>
-
 
 <footer>
-
-© 2026 Le Fil du Lord · Groupe Fairy Lord
-
+  <p>© 2026 <span>Lucas Rajany</span> · Fait avec 💜 depuis La Réunion</p>
 </footer>
 
-
-</div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="project.js"></script>
 </body>
 </html>
