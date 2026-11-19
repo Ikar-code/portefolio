@@ -133,6 +133,14 @@ nav.scrolled {
 .nav-cta:hover { background: var(--accent); color: var(--on-accent); }
 .nav-right { display: flex; align-items: center; gap: 0.9rem; }
 
+/* Bouton jour / nuit (barre de navigation) */
+.theme-toggle { width: 2.4rem; height: 2.4rem; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--card-border); background: var(--pill); color: var(--text); cursor: pointer; transition: background 0.25s, color 0.25s, transform 0.3s; }
+.theme-toggle:hover { background: var(--accent); color: var(--on-accent); transform: rotate(18deg); }
+.theme-toggle svg { width: 1.1rem; height: 1.1rem; }
+.theme-toggle .i-moon { display: none; }
+:root[data-theme="light"] .theme-toggle .i-sun { display: none; }
+:root[data-theme="light"] .theme-toggle .i-moon { display: block; }
+
 /* Sélecteur de langue FR / EN */
 .lang-switch { display: inline-flex; gap: 2px; padding: 3px; border-radius: 999px; border: 1px solid var(--card-border); background: var(--pill); }
 .lang-switch button {
