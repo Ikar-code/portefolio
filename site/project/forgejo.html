@@ -1,158 +1,146 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Forgejo — Mise en place d'une forge Git auto-hébergée</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght=300;400;500;600;700&family=JetBrains+Mono:wght=400;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forgejo — Forge Git auto-hébergée | Lucas Rajany</title>
+  <meta name="description" content="Projet de stage : installation, sécurisation et audit d'une forge Git Forgejo auto-hébergée sur Ubuntu." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Grenze+Gotisch:wght@900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.css" />
+  <link rel="stylesheet" href="project.css" />
+  <script>
+    /* Thème choisi sur l'écran d'accueil + filet de sécurité si project.js ne se charge pas */
+    (function () {
+      var h = document.documentElement;
+      try { var t = localStorage.getItem('portfolio-theme'); if (t === 'light' || t === 'dark') h.setAttribute('data-theme', t); } catch (e) {}
+      h.classList.add('js');
+      setTimeout(function () { if (!window.__projReady) h.classList.remove('js'); }, 3000);
+    })();
+  </script>
 </head>
 <body>
-<div class="container">
 
-  <nav>
-    <div class="nav-logo">lucas<span>.</span>rajany</div>
-    <a class="back-link" href="https://ikar-code.github.io/portefolio/site/#projets">← Retour au portfolio</a>
-  </nav>
+<div class="scroll-progress" id="scroll-progress"></div>
 
-  <header>
-    <div class="eyebrow">Projet de stage · Gestion d'infrastructure Git</div>
-    <h1>Forgejo : Mise en place d'une forge Git auto-hébergée</h1>
-    <p class="subtitle">
-      Installation et configuration d'une forge Git auto-hébergée Forgejo sur Ubuntu afin de permettre la gestion de dépôts de code et la collaboration entre développeurs.
-    </p>
-    <div class="tags">
-      <span class="tag">Ubuntu</span>
-      <span class="tag">Forgejo</span>
-      <span class="tag">Git</span>
-      <span class="tag">Postfix</span>
-      <span class="tag">Sécurité</span>
+<nav id="nav">
+  <a class="nav-logo" href="../index.html">lucas<span>.</span>rajany</a>
+  <div class="nav-right">
+    <a class="back-link" href="../index.html#projets">← Retour au portfolio</a>
+    <div class="lang-switch" role="group" aria-label="Langue / Language">
+      <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
     </div>
-  </header>
+    <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Changer de mode jour / nuit">
+      <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+</nav>
 
-  <section>
-    <h2>Contexte <span class="accent">du projet</span></h2>
-    <p>
-      Ce projet a été réalisé en environnement virtuel Ubuntu. L'objectif principal était de déployer une forge Git interne sécurisée et performante, offrant une alternative souveraine aux solutions cloud tierces pour les organisations désireuses de conserver le contrôle de leurs données.
-    </p>
+<header class="p-hero">
+  <span class="p-hero-emoji" aria-hidden="true">🛠️</span>
+  <div class="p-hero-inner">
+    <p class="p-kicker a-in">Projet de stage · Gestion d'infrastructure Git</p>
+    <h1 class="p-title a-in">Forgejo</h1>
+    <p class="p-sub a-in">Installation et configuration d'une forge Git auto-hébergée Forgejo sur Ubuntu afin de permettre la gestion de dépôts de code et la collaboration entre développeurs.</p>
+    <div class="p-tags a-in"><span class="p-tag">Ubuntu</span><span class="p-tag">Forgejo</span><span class="p-tag">Git</span><span class="p-tag">Postfix</span><span class="p-tag">Sécurité</span></div>
+    <div class="p-cta a-in"><a class="btn-outline" href="#realisations">Voir les réalisations</a></div>
+  </div>
+  <dl class="p-meta a-in">
+    <div><dt>Type</dt><dd>Projet de stage</dd></div>
+    <div><dt>Lieu</dt><dd>Mairie de Saint-Joseph</dd></div>
+    <div><dt>Système</dt><dd>Ubuntu (VM)</dd></div>
+    <div><dt>Serveur</dt><dd>Forgejo</dd></div>
+  </dl>
+</header>
+
+<main class="p-main">
+  <section class="p-sec">
+    <div class="sec-head reveal"><span class="sec-num">01</span><h2>Contexte <em>du projet</em></h2><span class="sec-line"></span></div>
+    <p class="reveal">Ce projet a été réalisé en environnement virtuel Ubuntu. L'objectif principal était de déployer une forge Git interne sécurisée et performante, offrant une alternative souveraine aux solutions cloud tierces pour les organisations désireuses de conserver le contrôle de leurs données.</p>
   </section>
-
-  <section>
-    <h2>Objectifs <span class="accent">visés</span></h2>
-    <ul>
-      <li><strong>Déploiement initial</strong> — Installer Forgejo sur une machine virtuelle Ubuntu.</li>
-      <li><strong>Configuration système</strong> — Initialiser et configurer le service pour assurer sa persistance.</li>
-      <li><strong>Contrôle des accès</strong> — Gérer l'approvisionnement et les droits des utilisateurs.</li>
-      <li><strong>Validation fonctionnelle</strong> — Tester l'ensemble des opérations courantes liées à Git.</li>
-      <li><strong>Audit de conformité</strong> — Réaliser une analyse complète de la sécurité de la plateforme.</li>
-      <li><strong>Système de notification</strong> — Configurer les alertes et les communications par email.</li>
+  <section class="p-sec">
+    <div class="sec-head reveal"><span class="sec-num">02</span><h2>Objectifs <em>visés</em></h2><span class="sec-line"></span></div>
+    <ul class="checklist">
+      <li class="reveal"><strong>Déploiement initial</strong>Installer Forgejo sur une machine virtuelle Ubuntu.</li>
+      <li class="reveal"><strong>Configuration système</strong>Initialiser et configurer le service pour assurer sa persistance.</li>
+      <li class="reveal"><strong>Contrôle des accès</strong>Gérer l'approvisionnement et les droits des utilisateurs.</li>
+      <li class="reveal"><strong>Validation fonctionnelle</strong>Tester l'ensemble des opérations courantes liées à Git.</li>
+      <li class="reveal"><strong>Audit de conformité</strong>Réaliser une analyse complète de la sécurité de la plateforme.</li>
+      <li class="reveal"><strong>Système de notification</strong>Configurer les alertes et les communications par email.</li>
     </ul>
   </section>
-
-  <section>
-    <h2>Environnement <span class="accent">technique</span></h2>
+  <section class="p-sec">
+    <div class="sec-head reveal"><span class="sec-num">03</span><h2>Environnement <em data-en="environment">technique</em></h2><span class="sec-line"></span></div>
     <div class="grid">
-      <div class="card">
-        <h3>OS</h3>
-        <p>Ubuntu</p>
-      </div>
-      <div class="card">
-        <h3>Serveur Git</h3>
-        <p>Forgejo</p>
-      </div>
-      <div class="card">
-        <h3>Outils</h3>
-        <p>Git, Postfix</p>
-      </div>
-      <div class="card">
-        <h3>Virtualisation</h3>
-        <p>Machine virtuelle</p>
-      </div>
+      <div class="card reveal"><h3>OS</h3><p>Ubuntu</p></div>
+      <div class="card reveal"><h3>Serveur Git</h3><p>Forgejo</p></div>
+      <div class="card reveal"><h3>Outils</h3><p>Git, Postfix</p></div>
+      <div class="card reveal"><h3>Virtualisation</h3><p>Machine virtuelle</p></div>
     </div>
   </section>
-
-  <section>
-    <h2>Compétences <span class="accent">mobilisées (BTS)</span></h2>
+  <section class="p-sec">
+    <div class="sec-head reveal"><span class="sec-num">04</span><h2>Compétences <em>mobilisées (BTS)</em></h2><span class="sec-line"></span></div>
     <div class="grid">
-      <div class="card">
-        <h3>SysAdmin & Réseau</h3>
-        <p>Administration Linux, Gestion des services système, Configuration réseau, Protocole SMTP.</p>
-      </div>
-      <div class="card">
-        <h3>DevOps & Sécurité</h3>
-        <p>Gestion des versions (Git), Gestion fine des utilisateurs, Analyse de sécurité, Rédaction de documentation technique.</p>
-      </div>
+      <div class="card reveal"><h3>SysAdmin & Réseau</h3><p>Administration Linux, Gestion des services système, Configuration réseau, Protocole SMTP.</p></div>
+      <div class="card reveal"><h3>DevOps & Sécurité</h3><p>Gestion des versions (Git), Gestion fine des utilisateurs, Analyse de sécurité, Rédaction de documentation technique.</p></div>
     </div>
   </section>
-
-  <section>
-    <h2>Réalisations <span class="accent">et pipeline</span></h2>
+<div id="realisations"></div>  <section class="p-sec">
+    <div class="sec-head reveal"><span class="sec-num">05</span><h2>Réalisations <em>et pipeline</em></h2><span class="sec-line"></span></div>
     <div class="flow">
-      <div class="step"><span class="num">1</span> <strong>Installation Forgejo :</strong> Déploiement du serveur, configuration globale, initialisation du compte administrateur et mise en service de l'interface web.</div>
-      <div class="step"><span class="num">2</span> <strong>Tests Git :</strong> Création de dépôts, validation des commandes de base (Clone, Commit, Push, Pull) depuis les postes clients.</div>
-      <div class="step"><span class="num">3</span> <strong>Sécurisation applicative :</strong> Désactivation complète des inscriptions publiques, obligation stricte de connexion et restriction de l'accès aux utilisateurs autorisés.</div>
-      <div class="step"><span class="num">4</span> <strong>Notifications :</strong> Installation et configuration du serveur SMTP Postfix en mode local, suivi de la validation de l'envoi des emails.</div>
+      <div class="step reveal"><span class="num">1</span><strong>Installation Forgejo :</strong> Déploiement du serveur, configuration globale, initialisation du compte administrateur et mise en service de l'interface web.</div>
+      <div class="step reveal"><span class="num">2</span><strong>Tests Git :</strong> Création de dépôts, validation des commandes de base (Clone, Commit, Push, Pull) depuis les postes clients.</div>
+      <div class="step reveal"><span class="num">3</span><strong>Sécurisation applicative :</strong> Désactivation complète des inscriptions publiques, obligation stricte de connexion et restriction de l'accès aux utilisateurs autorisés.</div>
+      <div class="step reveal"><span class="num">4</span><strong>Notifications :</strong> Installation et configuration du serveur SMTP Postfix en mode local, suivi de la validation de l'envoi des emails.</div>
     </div>
   </section>
-
-  <section>
-    <h2>Audit de sécurité <span class="accent">& corrections</span></h2>
-    <ul>
-      <li><strong>Points positifs</strong> — Service système pleinement fonctionnel, configuration générale sécurisée et vérification réussie des secrets de sécurité (générés automatiquement avec une complexité suffisante).</li>
-      <li><strong>Point d'amélioration</strong> — Lors de l'analyse des répertoires de l'application, des permissions trop ouvertes ont été détectées sur certains fichiers sensibles (base de données interne et journaux accessibles en lecture globale).</li>
-      <li><strong>Correctif proposé</strong> — Application immédiate du principe de moindre privilège via la restriction stricte des droits d'accès aux seuls utilisateurs autorisés (le compte de service et l'administrateur racine).</li>
+  <section class="p-sec">
+    <div class="sec-head reveal"><span class="sec-num">06</span><h2>Audit de sécurité <em>& corrections</em></h2><span class="sec-line"></span></div>
+    <ul class="checklist">
+      <li class="reveal"><strong>Points positifs</strong>Service système pleinement fonctionnel, configuration générale sécurisée et vérification réussie des secrets de sécurité (générés automatiquement avec une complexité suffisante).</li>
+      <li class="reveal"><strong>Point d'amélioration</strong>Lors de l'analyse des répertoires de l'application, des permissions trop ouvertes ont été détectées sur certains fichiers sensibles (base de données interne et journaux accessibles en lecture globale).</li>
+      <li class="reveal"><strong>Correctif proposé</strong>Application immédiate du principe de moindre privilège via la restriction stricte des droits d'accès aux seuls utilisateurs autorisés (le compte de service et l'administrateur racine).</li>
     </ul>
   </section>
-
-  <section>
-    <h2>Résultats <span class="accent">obtenus</span></h2>
-    <p>
-      L'ensemble des fonctionnalités a été validé avec succès. Les opérations Git fonctionnent correctement et la plateforme est totalement opérationnelle pour un usage collaboratif fluide et sécurisé.
-    </p>
+  <section class="p-sec">
+    <div class="sec-head reveal"><span class="sec-num">07</span><h2>Résultats <em>obtenus</em></h2><span class="sec-line"></span></div>
+    <p class="reveal">L'ensemble des fonctionnalités a été validé avec succès. Les opérations Git fonctionnent correctement et la plateforme est totalement opérationnelle pour un usage collaboratif fluide et sécurisé.</p>
+  </section>
+  <section class="p-sec">
+    <div class="sec-head reveal"><span class="sec-num">08</span><h2>Comparaison <em>Forgejo / GitHub</em></h2><span class="sec-line"></span></div>
+    <div class="table-wrap reveal"><table><thead><tr><th>Critère</th><th>Forgejo</th><th>GitHub</th></tr></thead><tbody><tr><td>Hébergement</td><td>Local</td><td>Cloud</td></tr><tr><td>Contrôle des données</td><td>Total</td><td>Limité</td></tr><tr><td>Administration</td><td>À gérer soi-même</td><td>Gérée par GitHub</td></tr></tbody></table></div>
+  </section>
+  <section class="p-sec">
+    <div class="sec-head reveal"><span class="sec-num">09</span><h2>Conclusion <em>& bilan</em></h2><span class="sec-line"></span></div>
+    <p class="reveal">Ce projet de stage m'a permis d'acquérir une compréhension fine du fonctionnement d'une forge Git auto-hébergée et de développer mes compétences en gestion des services Linux. L'exécution de l'audit m'a également sensibilisé aux bonnes pratiques indispensables en matière de sécurité des infrastructures.</p>
   </section>
 
-  <section>
-    <h2>Comparaison <span class="accent">Forgejo / GitHub</span></h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Critère</th>
-          <th>Forgejo</th>
-          <th>GitHub</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Hébergement</strong></td>
-          <td>Local</td>
-          <td>Cloud</td>
-        </tr>
-        <tr>
-          <td><strong>Contrôle des données</strong></td>
-          <td>Total</td>
-          <td>Limité</td>
-        </tr>
-        <tr>
-          <td><strong>Administration</strong></td>
-          <td>À gérer soi-même</td>
-          <td>Gérée par GitHub</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+</main>
 
-  <section>
-    <h2>Conclusion <span class="accent">& bilan</span></h2>
-    <p>
-      Ce projet de stage m'a permis d'acquérir une compréhension fine du fonctionnement d'une forge Git auto-hébergée et de développer mes compétences en gestion des services Linux. L'exécution de l'audit m'a également sensibilisé aux bonnes pratiques indispensables en matière de sécurité des infrastructures.
-    </p>
-  </section>
+<section class="p-next">
+  <p class="p-next-label reveal">Continuer la visite</p>
+  <div class="p-next-grid">
+    <a class="next-card is-prev reveal" href="projets-scolaires.html">
+      <span class="em" aria-hidden="true">📚</span><span class="arrow" aria-hidden="true">←</span>
+      <span class="dir">Projet précédent</span><span class="nm">Projets scolaires</span>
+    </a>
+    <a class="next-card is-next reveal" href="projet3.html">
+      <span class="em" aria-hidden="true">📰</span><span class="arrow" aria-hidden="true">→</span>
+      <span class="dir">Projet suivant</span><span class="nm">Le Fil du Lord</span>
+    </a>
+  </div>
+  <p class="p-back reveal"><a class="btn-outline" href="../index.html#projets">← Retour aux projets</a></p>
+</section>
 
-  <footer>
-    © 2026 · Documentation consultée pour le déploiement de la solution.
-  </footer>
+<footer>
+  <p>© 2026 <span>Lucas Rajany</span> · Fait avec 💜 depuis La Réunion</p>
+</footer>
 
-</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="project.js"></script>
 </body>
 </html>
