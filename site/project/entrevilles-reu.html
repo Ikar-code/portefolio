@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrevilles-Reu — Championnat sportif inter-villes | Lucas Rajany</title>
+  <meta name="description" content="Application web PHP en architecture MVC pour gérer un championnat sportif inter-villes à La Réunion : équipes, épreuves, résultats et classement. Projet BTS SIO SLAM.">
+  <meta name="theme-color" content="#07070d">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%9F%EF%B8%8F%3C/text%3E%3C/svg%3E">
+
+  <!-- Thème mémorisé par l'accueil + garde-fou si le JS ne charge pas -->
+  <script>
+    (function () {
+      var r = document.documentElement;
+      r.classList.add('js');
+      try {
+        var t = localStorage.getItem('portfolio-theme');
+        if (t === 'light' || t === 'dark') r.setAttribute('data-theme', t);
+      } catch (e) {}
+      setTimeout(function () { if (!window.__projReady) r.classList.remove('js'); }, 3500);
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@900&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.18/dist/lenis.css">
+  <link rel="stylesheet" href="projet.css">
+
+  <!-- Ajustements propres à cette page (nom long, flux MVC) -->
+  <style>
+    .p-title { font-size: clamp(2.1rem, 8.6vw, 6.8rem); }
+    .p-title span { white-space: nowrap; }
+    .flow { margin-top: 1.8rem; }
+    .flow + p { margin-top: .6rem; }
+  </style>
+</head>
+<body>
+
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+  <!-- ============ NAVIGATION ============ -->
+  <nav id="nav">
+    <a class="nav-logo" href="index.html">LR<span>.</span></a>
+    <div class="nav-right">
+      <a class="back-link" href="index.html#projets">← Retour au portfolio</a>
+      <div class="lang-switch" role="group" aria-label="Langue">
+        <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Changer de mode jour / nuit">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============ EN-TÊTE DU PROJET ============ -->
+  <header class="p-hero">
+    <span class="p-hero-emoji" aria-hidden="true">🏟️</span>
+    <div class="p-hero-inner">
+      <span class="p-kicker a-in">Projet scolaire · BTS SIO SLAM</span>
+      <h1 class="p-title a-in" aria-label="Entrevilles-Reu"><span>Entrevilles-</span><wbr><span>Reu</span></h1>
+      <p class="p-sub a-in">Application web de gestion d'une compétition sportive inspirée des jeux Intervilles : des équipes représentant les villes de La Réunion s'affrontent dans des épreuves, les organisateurs saisissent les résultats et le public suit le classement.</p>
+
+      <div class="p-tags a-in">
+        <span class="p-tag">PHP 8 natif</span>
+        <span class="p-tag">Architecture MVC</span>
+        <span class="p-tag">PostgreSQL</span>
+        <span class="p-tag">Supabase</span>
+        <span class="p-tag">GitHub Actions</span>
+        <span class="p-tag">InfinityFree</span>
+      </div>
+
+      <div class="p-cta a-in">
+        <a class="btn-primary" href="https://entrevilles-reu.freedev.app/" target="_blank" rel="noopener">Voir le site en ligne ↗</a>
+        <a class="btn-outline" href="https://github.com/Ikar-code/entrevilles-REU" target="_blank" rel="noopener">Voir le code sur GitHub ↗</a>
+        <a class="btn-outline" href="#architecture">Voir l'architecture</a>
+      </div>
+
+      <dl class="p-meta a-in">
+        <div><dt>Type</dt><dd>Projet scolaire</dd></div>
+        <div><dt>Mon rôle</dt><dd>Site, back-end &amp; déploiement</dd></div>
+        <div><dt>Hébergement</dt><dd>InfinityFree (PHP gratuit)</dd></div>
+        <div><dt>Statut</dt><dd>En pause, remise en ligne avant les épreuves</dd></div>
+      </dl>
+    </div>
+  </header>
+
+  <main class="p-main">
+
+    <!-- ============ 01 CONTEXTE ============ -->
+    <section class="p-sec reveal">
+      <div class="sec-head"><span class="sec-num">01</span><h2>Contexte <em>du projet</em></h2><span class="sec-line"></span></div>
+      <p>Projet du BTS SIO (option SLAM), parmi mes réalisations de fin d'année. Le sujet « Intervilles Challenge » demande une application permettant d'organiser et de gérer une compétition où plusieurs équipes de villes différentes enchaînent des épreuves sportives. Les organisateurs gèrent équipes, participants, épreuves et résultats, tandis que les visiteurs consultent scores et classement.</p>
+      <p><strong>Projet mené en équipe :</strong> la conception de la base de données a été réalisée par un coéquipier, et j'ai développé le site (back-end PHP, vues, authentification, déploiement).</p>
+    </section>
+
+    <!-- ============ 02 FONCTIONNALITÉS ============ -->
+    <section class="p-sec reveal">
+      <div class="sec-head"><span class="sec-num">02</span><h2>Ce que l'application <em>permet</em></h2><span class="sec-line"></span></div>
+
+      <h3 class="sub-h">Espace public</h3>
+      <ul class="checklist">
+        <li><strong>Tableau de bord</strong>Nombre de villes, de sports, d'équipes et d'épreuves, répartition par statut (à venir, en cours, terminées) et prochaines épreuves.</li>
+        <li><strong>Planning</strong>Calendrier chronologique de toutes les épreuves.</li>
+        <li><strong>Détail d'une épreuve</strong>Équipes participantes, score et classement.</li>
+        <li><strong>Équipes</strong>Liste des équipes, puis détail avec les membres : capitaine, pénalités, récompenses individuelles.</li>
+        <li><strong>Classement général</strong>Classement inter-villes calculé automatiquement.</li>
+        <li><strong>Thème clair / sombre</strong>Choix mémorisé dans le navigateur du visiteur.</li>
+      </ul>
+
+      <h3 class="sub-h">Comptes utilisateurs</h3>
+      <ul class="checklist">
+        <li><strong>Inscription et connexion</strong>Création de compte avec choix facultatif de la ville, connexion sécurisée.</li>
+        <li><strong>Page profil</strong>Équipes de l'utilisateur et rôle associé.</li>
+      </ul>
+
+      <h3 class="sub-h">Espace administrateur</h3>
+      <ul class="checklist">
+        <li><strong>Accès réservé</strong>Réservé aux administrateurs, avec gestion des rôles.</li>
+        <li><strong>Gestion des données</strong>Création, modification et suppression des villes, sports, équipes et épreuves.</li>
+        <li><strong>Gestion des épreuves</strong>Changement de statut, inscription des équipes et saisie des résultats (score, classement).</li>
+      </ul>
+    </section>
+
+    <!-- ============ 03 TECHNOLOGIES ============ -->
+    <section class="p-sec reveal">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Technologies <em>utilisées</em></h2><span class="sec-line"></span></div>
+      <div class="grid">
+        <div class="card"><span class="ico">🐘</span><h3>Back-end</h3><p>PHP 8 natif, sans Composer ni framework : tout est écrit à la main.</p></div>
+        <div class="card"><span class="ico">🗄️</span><h3>Base de données</h3><p>PostgreSQL hébergé sur Supabase, interrogé via son API REST (PostgREST) avec cURL.</p></div>
+        <div class="card"><span class="ico">🎨</span><h3>Front-end</h3><p>HTML5, CSS3 et un peu de JavaScript pour le thème. Design « dashboard esport » sombre à accents néon, variante claire, variables CSS, polices Rajdhani et Inter, responsive.</p></div>
+        <div class="card"><span class="ico">🚀</span><h3>Déploiement</h3><p>Git et GitHub, avec un workflow GitHub Actions qui envoie les fichiers en FTP à chaque git push vers InfinityFree (hébergement PHP gratuit).</p></div>
+      </div>
+    </section>
+
+    <!-- ============ 04 ARCHITECTURE MVC ============ -->
+    <section class="p-sec reveal" id="architecture">
+      <div class="sec-head"><span class="sec-num">04</span><h2 data-en="Architecture">Architecture <em>MVC</em></h2><span class="sec-line"></span></div>
+      <p>Tout est écrit à la main, sans Composer ni framework, pour comprendre et pouvoir expliquer chaque brique. Voici le chemin d'une requête :</p>
+      <div class="flow">
+        <div class="step"><span class="num">1</span><strong>Front controller :</strong> index.php est l'unique point d'entrée, et .htaccess y redirige toutes les requêtes.</div>
+        <div class="step"><span class="num">2</span><strong>Routeur maison :</strong> associe l'URL à un contrôleur et à une méthode, avec gestion des paramètres comme /epreuves/{id}.</div>
+        <div class="step"><span class="num">3</span><strong>Contrôleurs :</strong> un par domaine fonctionnel (accueil, authentification, épreuves, équipes, classement, profil, administration).</div>
+        <div class="step"><span class="num">4</span><strong>Modèles :</strong> une classe par entité (Ville, Sport, Equipe, MembreEquipe, Epreuve, Participation, Utilisateur), qui contiennent toutes les requêtes.</div>
+        <div class="step"><span class="num">5</span><strong>Vues :</strong> un fichier PHP par page, assemblé dans un layout commun avec des partials (navbar, footer).</div>
+      </div>
+      <p>Le dossier Core regroupe aussi une classe Auth, un client Supabase, un autoloader et un contrôleur de base.</p>
+    </section>
+
+    <!-- ============ 05 BASE DE DONNÉES ============ -->
+    <section class="p-sec reveal">
+      <div class="sec-head"><span class="sec-num">05</span><h2>Base de données <em>en 7 tables</em></h2><span class="sec-line"></span></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Table</th><th>Rôle</th></tr></thead>
+          <tbody>
+            <tr><td>ville</td><td>Villes participantes</td></tr>
+            <tr><td>sport</td><td>Disciplines proposées dans les épreuves</td></tr>
+            <tr><td>utilisateur</td><td>Comptes, identifiants et rôles</td></tr>
+            <tr><td>equipe</td><td>Équipes représentant une ville</td></tr>
+            <tr><td>membre_equipe</td><td>Membres d'une équipe, avec rôle, pénalités et récompenses</td></tr>
+            <tr><td>epreuve</td><td>Épreuves, planning et statut</td></tr>
+            <tr><td>participation</td><td>Inscription d'une équipe à une épreuve et son résultat</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="sub-h" style="margin-top:2.4rem">Deux choix de conception</h3>
+      <ul class="bullets">
+        <li><strong>participation</strong> fusionne l'inscription d'une équipe à une épreuve et son résultat. Le statut sert à l'inscription, tandis que le score et le classement restent vides tant que l'épreuve n'a pas eu lieu : une table de moins.</li>
+        <li><strong>membre_equipe</strong> porte le rôle interne (capitaine ou joueur) ainsi que les pénalités et récompenses individuelles, avec une clé primaire composée qui empêche un doublon dans une équipe.</li>
+      </ul>
+      <p style="margin-top:1rem">Le classement par ville n'est pas stocké : il est recalculé à la volée par une vue SQL qui additionne les scores des équipes de chaque ville.</p>
+    </section>
+
+    <!-- ============ 06 SÉCURITÉ ============ -->
+    <section class="p-sec reveal">
+      <div class="sec-head"><span class="sec-num">06</span><h2>Sécurité <em>de l'application</em></h2><span class="sec-line"></span></div>
+      <ul class="bullets">
+        <li>Mots de passe hachés avec password_hash() et password_verify(), jamais stockés en clair ni en session.</li>
+        <li>Sessions PHP natives et contrôle d'accès par rôle (exigerConnexion(), exigerAdmin()).</li>
+        <li>Échappement systématique des sorties (htmlspecialchars) contre les failles XSS.</li>
+        <li>Dossiers sensibles protégés par .htaccess (Require all denied).</li>
+        <li>Clés Supabase hors du dépôt Git, dans un fichier ignoré par .gitignore.</li>
+        <li>Mutations passées uniquement en POST.</li>
+      </ul>
+    </section>
+
+    <!-- ============ 07 DÉFIS ============ -->
+    <section class="p-sec reveal">
+      <div class="sec-head"><span class="sec-num">07</span><h2>Défis <em>rencontrés</em></h2><span class="sec-line"></span></div>
+
+      <article class="proj-block">
+        <div class="proj-big">01</div>
+        <div>
+          <h3>Un hébergement qui n'exécute pas le PHP</h3>
+          <p class="meta-line">Hébergement</p>
+          <p><strong>Problème :</strong> sur Vercel, le navigateur téléchargeait les fichiers au lieu de les exécuter, et GitHub Pages n'exécute pas le PHP non plus.</p>
+          <p><strong>Solution :</strong> passage à un hébergeur PHP gratuit, en gardant GitHub pour le code.</p>
+        </div>
+      </article>
+
+      <article class="proj-block">
+        <div class="proj-big">02</div>
+        <div>
+          <h3>Pilote PostgreSQL absent</h3>
+          <p class="meta-line">Accès aux données</p>
+          <p><strong>Problème :</strong> l'extension PDO PostgreSQL n'était pas disponible sur l'hébergement gratuit.</p>
+          <p><strong>Solution :</strong> PDO remplacé par des appels à l'API REST de Supabase en cURL, via un client dédié.</p>
+        </div>
+      </article>
+
+      <article class="proj-block">
+        <div class="proj-big">03</div>
+        <div>
+          <h3>Fichiers .env refusés</h3>
+          <p class="meta-line">Configuration</p>
+          <p><strong>Problème :</strong> l'hébergeur refuse les fichiers dont le nom commence par un point.</p>
+          <p><strong>Solution :</strong> la configuration se charge désormais depuis un fichier PHP (env.local.php) créé sur le serveur et exclu de Git.</p>
+        </div>
+      </article>
+
+      <article class="proj-block">
+        <div class="proj-big">04</div>
+        <div>
+          <h3>Authentification absente du schéma</h3>
+          <p class="meta-line">Sécurité</p>
+          <p><strong>Problème :</strong> la table utilisateur n'avait pas de colonne mot de passe.</p>
+          <p><strong>Solution :</strong> écriture d'une migration SQL séparée, pour ne pas modifier le travail de l'équipe sans validation.</p>
+        </div>
+      </article>
+
+      <article class="proj-block">
+        <div class="proj-big">05</div>
+        <div>
+          <h3>Changement de pile en cours de route</h3>
+          <p class="meta-line">Choix techniques</p>
+          <p><strong>Problème :</strong> le projet a démarré en Next.js et React.</p>
+          <p><strong>Solution :</strong> reprise complète en PHP et MVC, pour maîtriser le code et pouvoir le défendre à l'oral.</p>
+        </div>
+      </article>
+
+      <article class="proj-block">
+        <div class="proj-big">06</div>
+        <div>
+          <h3>Fonctionnalités manquantes détectées en test</h3>
+          <p class="meta-line">Tests</p>
+          <p><strong>Problème :</strong> pas d'inscription, lien de profil sans route, vue de classement non créée.</p>
+          <p><strong>Solution :</strong> ajout des routes, des contrôleurs et des vues correspondants.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============ 08 COMPÉTENCES ============ -->
+    <section class="p-sec reveal">
+      <div class="sec-head"><span class="sec-num">08</span><h2>Compétences <em>mobilisées</em></h2><span class="sec-line"></span></div>
+      <ul class="bullets">
+        <li>Développement web back-end en PHP et conception d'un routeur MVC.</li>
+        <li>Modélisation et requêtes sur base relationnelle (PostgreSQL, jointures, vues, clés composées).</li>
+        <li>Consommation d'une API REST (PostgREST / Supabase) en cURL.</li>
+        <li>Authentification, gestion de rôles et sécurité applicative.</li>
+        <li>CI/CD avec GitHub Actions et déploiement FTP.</li>
+        <li>HTML/CSS responsive, variables CSS, thème clair / sombre.</li>
+        <li>Travail en équipe, Git, diagnostic et contournement de contraintes d'hébergement.</li>
+      </ul>
+    </section>
+
+    <!-- ============ 09 PISTES D'AMÉLIORATION ============ -->
+    <section class="p-sec reveal">
+      <div class="sec-head"><span class="sec-num">09</span><h2>Pistes <em>d'amélioration</em></h2><span class="sec-line"></span></div>
+      <ul class="bullets">
+        <li>Jeton CSRF sur tous les formulaires.</li>
+        <li>Upload de logos de villes et de photos de participants.</li>
+        <li>Historique détaillé des résultats par épreuve et export PDF du classement.</li>
+        <li>Notifications par e-mail à la validation d'une inscription.</li>
+        <li>Remplacer la clé service_role par des règles RLS et une clé à droits limités.</li>
+      </ul>
+    </section>
+
+    <!-- ============ APPEL À L'ACTION ============ -->
+    <section class="p-sec reveal">
+      <div class="cta-box">
+        <p>Envie de voir le code ou d'essayer l'application ?</p>
+        <div class="p-cta" style="justify-content:center;margin-top:0">
+          <a class="btn-primary" href="https://entrevilles-reu.freedev.app/" target="_blank" rel="noopener">Voir le site en ligne ↗</a>
+          <a class="btn-outline" href="https://github.com/Ikar-code/entrevilles-REU" target="_blank" rel="noopener">Voir le code sur GitHub ↗</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ PROJET PRÉCÉDENT / SUIVANT ============ -->
+  <section class="p-next">
+    <p class="p-next-label">Continuer la visite</p>
+    <div class="p-next-grid">
+      <a class="next-card is-prev" href="projets-scolaires.html">
+        <span class="arrow">←</span><span class="em">🎓</span>
+        <span class="dir">Projet précédent</span>
+        <span class="nm">Projets scolaires</span>
+      </a>
+      <a class="next-card is-next" href="forgejo.html">
+        <span class="arrow">→</span><span class="em">🖥️</span>
+        <span class="dir">Projet suivant</span>
+        <span class="nm">Forgejo</span>
+      </a>
+    </div>
+    <div class="p-back"><a class="btn-outline" href="index.html#projets">← Retour aux projets</a></div>
+  </section>
+
+  <footer><span>Lucas Rajany</span> · Fait avec 💜 depuis La Réunion</footer>
+
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="projet.js"></script>
+</body>
+</html>
