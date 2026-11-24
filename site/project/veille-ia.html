@@ -11,10 +11,13 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.css" />
   <link rel="stylesheet" href="project.css" />
   <script>
-    /* Thème choisi sur l'écran d'accueil + filet de sécurité si project.js ne se charge pas */
+    /* Thème choisi sur l'accueil (sinon réglage du système) + filet de sécurité si project.js ne se charge pas */
     (function () {
       var h = document.documentElement;
-      try { var t = localStorage.getItem('portfolio-theme'); if (t === 'light' || t === 'dark') h.setAttribute('data-theme', t); } catch (e) {}
+      var t = null;
+      try { t = localStorage.getItem('portfolio-theme'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+      h.setAttribute('data-theme', t);
       h.classList.add('js');
       setTimeout(function () { if (!window.__projReady) h.classList.remove('js'); }, 3000);
     })();
@@ -40,7 +43,7 @@
 </nav>
 
 <header class="p-hero">
-  <span class="p-hero-emoji" aria-hidden="true">🔍</span>
+  <span class="p-hero-emoji" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.2-4.2"/><path d="M8.5 11h5"/></svg></span>
   <div class="p-hero-inner">
     <p class="p-kicker a-in">Projet personnel · Application de veille automatisée</p>
     <h1 class="p-title a-in">Veille IA</h1>
@@ -65,14 +68,14 @@
 <div id="fonctionnalites"></div>  <section class="p-sec">
     <div class="sec-head reveal"><span class="sec-num">02</span><h2>Fonctionnalités <em>principales</em></h2><span class="sec-line"></span></div>
     <div class="grid">
-      <div class="card reveal"><span class=ico aria-hidden=true>🌐</span><h3>1. Recherche multi-sources automatisée</h3><p>Saisie de sujets multiples (ex : cybersécurité IA, LLM, deepfake…). Recherche simultanée via DuckDuckGo et flux RSS spécialisés IA. Déduplication sémantique des résultats pour éviter les doublons.</p></div>
-      <div class="card reveal"><span class=ico aria-hidden=true>🎯</span><h3>2. Scoring et filtrage intelligent</h3><p>Chaque article reçoit un score basé sur la pertinence, la langue, la fiabilité de la source et la fraîcheur. Filtrage automatique des sources gouvernementales, low-quality et hors-sujet. Classement des contenus les plus pertinents en tête.</p></div>
-      <div class="card reveal"><span class=ico aria-hidden=true>🧠</span><h3>3. Résumés IA par article</h3><p>Analyse du contenu de chaque page. Génération de 3 à 5 points clés en français via Groq API (LLaMA 3). Synthèse globale structurée par thème (menaces, outils, tendances…).</p></div>
-      <div class="card reveal"><span class=ico aria-hidden=true>📤</span><h3>4. Publication automatique</h3><p>Mise à jour d'une page WordPress via l'API REST. Upload direct sur hébergement FTP en HTML statique. Fusion intelligente du contenu : les anciens sujets sont conservés, les nouveaux s'ajoutent.</p></div>
-      <div class="card reveal"><span class=ico aria-hidden=true>🕑</span><h3>5. Historique et comparaison</h3><p>Sauvegarde de toutes les sessions par utilisateur dans Supabase. Comparaison entre deux sessions : articles nouveaux, disparus, évolutions. Analyse comparative générée par IA. Import d'historiques depuis un fichier HTML existant.</p></div>
-      <div class="card reveal"><span class=ico aria-hidden=true>⏰</span><h3>6. Veille automatique planifiée</h3><p>Chaque utilisateur choisit ses sujets et son heure d'envoi. Un cron GitHub Actions tourne toutes les heures (gratuit). Envoi automatique d'un email HTML récapitulatif — sans que l'utilisateur soit connecté.</p></div>
-      <div class="card reveal"><span class=ico aria-hidden=true>🎨</span><h3>7. Personnalisation du thème de publication</h3><p>Éditeur de thème visuel intégré (couleurs, police, taille…). 4 presets : Catppuccin, Light, Nord, Dracula. Aperçu live avant publication.</p></div>
-      <div class="card reveal"><span class=ico aria-hidden=true>👤</span><h3>8. Gestion des utilisateurs et abonnements</h3><p>Inscription / connexion via Supabase Auth. Plan gratuit : 1 recherche offerte. Plan payant à 2,99€/mois : recherches illimitées + veille auto + email quotidien. Paiement via Stripe.</p></div>
+      <div class="card reveal"><h3>1. Recherche multi-sources automatisée</h3><p>Saisie de sujets multiples (ex : cybersécurité IA, LLM, deepfake…). Recherche simultanée via DuckDuckGo et flux RSS spécialisés IA. Déduplication sémantique des résultats pour éviter les doublons.</p></div>
+      <div class="card reveal"><h3>2. Scoring et filtrage intelligent</h3><p>Chaque article reçoit un score basé sur la pertinence, la langue, la fiabilité de la source et la fraîcheur. Filtrage automatique des sources gouvernementales, low-quality et hors-sujet. Classement des contenus les plus pertinents en tête.</p></div>
+      <div class="card reveal"><h3>3. Résumés IA par article</h3><p>Analyse du contenu de chaque page. Génération de 3 à 5 points clés en français via Groq API (LLaMA 3). Synthèse globale structurée par thème (menaces, outils, tendances…).</p></div>
+      <div class="card reveal"><h3>4. Publication automatique</h3><p>Mise à jour d'une page WordPress via l'API REST. Upload direct sur hébergement FTP en HTML statique. Fusion intelligente du contenu : les anciens sujets sont conservés, les nouveaux s'ajoutent.</p></div>
+      <div class="card reveal"><h3>5. Historique et comparaison</h3><p>Sauvegarde de toutes les sessions par utilisateur dans Supabase. Comparaison entre deux sessions : articles nouveaux, disparus, évolutions. Analyse comparative générée par IA. Import d'historiques depuis un fichier HTML existant.</p></div>
+      <div class="card reveal"><h3>6. Veille automatique planifiée</h3><p>Chaque utilisateur choisit ses sujets et son heure d'envoi. Un cron GitHub Actions tourne toutes les heures (gratuit). Envoi automatique d'un email HTML récapitulatif — sans que l'utilisateur soit connecté.</p></div>
+      <div class="card reveal"><h3>7. Personnalisation du thème de publication</h3><p>Éditeur de thème visuel intégré (couleurs, police, taille…). 4 presets : Catppuccin, Light, Nord, Dracula. Aperçu live avant publication.</p></div>
+      <div class="card reveal"><h3>8. Gestion des utilisateurs et abonnements</h3><p>Inscription / connexion via Supabase Auth. Plan gratuit : 1 recherche offerte. Plan payant à 2,99€/mois : recherches illimitées + veille auto + email quotidien. Paiement via Stripe.</p></div>
     </div>
   </section>
   <section class="p-sec">
@@ -106,11 +109,11 @@
   <p class="p-next-label reveal">Continuer la visite</p>
   <div class="p-next-grid">
     <a class="next-card is-prev reveal" href="projet3.html">
-      <span class="em" aria-hidden="true">📰</span><span class="arrow" aria-hidden="true">←</span>
+      <span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h13v14H6a2 2 0 0 1-2-2V5z"/><path d="M17 9h3v8a2 2 0 0 1-2 2"/><path d="M8 9h5M8 13h5"/></svg></span><span class="arrow" aria-hidden="true">←</span>
       <span class="dir">Projet précédent</span><span class="nm">Le Fil du Lord</span>
     </a>
     <a class="next-card is-next reveal" href="projets-scolaires.html">
-      <span class="em" aria-hidden="true">📚</span><span class="arrow" aria-hidden="true">→</span>
+      <span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v15H5.5A1.5 1.5 0 0 0 4 20.5z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v15h5.5a1.5 1.5 0 0 1 1.5 1.5z"/></svg></span><span class="arrow" aria-hidden="true">→</span>
       <span class="dir">Projet suivant</span><span class="nm">Projets scolaires</span>
     </a>
   </div>
@@ -118,7 +121,7 @@
 </section>
 
 <footer>
-  <p>© 2026 <span>Lucas Rajany</span> · Fait avec 💜 depuis La Réunion</p>
+  <p>© 2026 <span>Lucas Rajany</span> · BTS SIO option SLAM · La Réunion</p>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>

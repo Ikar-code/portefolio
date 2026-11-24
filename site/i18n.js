@@ -11,11 +11,6 @@
   /* ── Dictionnaire : texte français (espaces normalisés) → anglais ── */
   var DICT = {
     // Écran de choix
-    'Lucas Rajany · Portfolio': 'Lucas Rajany · Portfolio',
-    'Nuit ou jour ?': 'Night or day?',
-    'Mode nuit': 'Night mode',
-    'Mode jour': 'Day mode',
-    'Choisissez votre ambiance pour entrer': 'Pick your mood to enter',
 
     // Navigation
     'À propos': 'About',
@@ -170,38 +165,31 @@
     'Restons en contact': 'Let\'s keep in touch',
     'Étudiant en BTS SIO à La Réunion, je suis ouvert à toute opportunité de stage. Que vous ayez un projet ou une question, je réponds rapidement.':
       'A BTS SIO student in Réunion, I am open to any internship opportunity. Whether you have a project or a question, I reply quickly.',
-    'Mon profil LinkedIn': 'My LinkedIn profile',
     'Mon GitHub': 'My GitHub',
     'Localisation': 'Location',
-    'Prénom': 'First name',
-    'Nom': 'Last name',
-    'Sujet': 'Subject',
-    'Envoyer le message →': 'Send message →',
-    '✓ Votre application mail va s\'ouvrir avec le message prêt à envoyer.': '✓ Your mail app will open with the message ready to send.',
-    '· Fait avec 💜 depuis La Réunion': '· Made with 💜 from La Réunion'
+    '· BTS SIO option SLAM · La Réunion': '· BTS SIO SLAM option · Réunion Island',
+    'Recherche un stage · 25 janv. – 5 mars 2027': 'Looking for an internship · Jan 25 – Mar 5, 2027',
+    'Disponibilité': 'Availability',
+    '25 janvier – 5 mars 2027': 'January 25 – March 5, 2027',
+    'Création de sites web ou autre mission en développement et en systèmes. Le plus simple pour me joindre : un email, je réponds rapidement.': 'Website creation or another mission in development and systems. The easiest way to reach me is by email — I reply quickly.',
+    'Écrire un email →': 'Send an email →',
+    'Télécharger mon CV': 'Download my CV'
   };
 
   /* ── Attributs (aria-label, placeholder, title) ── */
   var ATTR = {
-    'Choisissez le mode d\'affichage du portfolio': 'Choose how to display the portfolio',
     'Changer de mode jour / nuit': 'Switch day / night mode',
-    'Entrer en mode nuit': 'Enter in night mode',
-    'Entrer en mode jour': 'Enter in day mode',
     'Voir le projet : Le Fil du Lord': 'View project: Le Fil du Lord',
     'Voir le projet : Veille IA': 'View project: Veille IA',
     'Voir le projet : Projets scolaires BTS SIO': 'View project: BTS SIO school projects',
     'Voir le projet : Forgejo': 'View project: Forgejo',
-    'Voir le projet : Entrevilles-Reu': 'View project: Entrevilles-Reu',
-    'Opportunité de stage': 'Internship opportunity',
-    'Bonjour Lucas, je souhaite vous proposer...': 'Hello Lucas, I would like to offer you...'
+    'Voir le projet : Entrevilles-Reu': 'View project: Entrevilles-Reu'
   };
 
   /* ── Textes pilotés par le JavaScript : [français, anglais] ── */
   var JS = {
     hsDown: ['Faites défiler ↓', 'Scroll down ↓'],
     hsSwipe: ['Glissez →', 'Swipe →'],
-    mailSubject: ['Contact depuis le portfolio', 'Contact from the portfolio'],
-    mailHello: ['Bonjour Lucas,', 'Hello Lucas,'],
     desc: [
       'Portfolio de Lucas Rajany, étudiant BTS SIO SLAM à La Réunion : développement, automatisation IA et DevOps.',
       'Portfolio of Lucas Rajany, BTS SIO SLAM student in Réunion Island: development, AI automation and DevOps.'
@@ -260,6 +248,7 @@
     });
     attrs.forEach(function (a) { a.el.setAttribute(a.attr, en ? ATTR[a.raw] : a.raw); });
     doc.documentElement.lang = lang;
+    doc.querySelectorAll('a[data-cv]').forEach(function (a) { a.setAttribute('href', en ? 'CV_Lucas_Rajany_EN.pdf' : 'CV_Lucas_Rajany_FR.pdf'); });
     doc.title = JS.title[en ? 1 : 0];
     if (metaDesc) metaDesc.setAttribute('content', JS.desc[en ? 1 : 0]);
     doc.querySelectorAll('.lang-switch [data-lang]').forEach(function (b) {

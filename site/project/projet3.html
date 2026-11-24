@@ -11,10 +11,13 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.css" />
   <link rel="stylesheet" href="project.css" />
   <script>
-    /* Thème choisi sur l'écran d'accueil + filet de sécurité si project.js ne se charge pas */
+    /* Thème choisi sur l'accueil (sinon réglage du système) + filet de sécurité si project.js ne se charge pas */
     (function () {
       var h = document.documentElement;
-      try { var t = localStorage.getItem('portfolio-theme'); if (t === 'light' || t === 'dark') h.setAttribute('data-theme', t); } catch (e) {}
+      var t = null;
+      try { t = localStorage.getItem('portfolio-theme'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+      h.setAttribute('data-theme', t);
       h.classList.add('js');
       setTimeout(function () { if (!window.__projReady) h.classList.remove('js'); }, 3000);
     })();
@@ -40,7 +43,7 @@
 </nav>
 
 <header class="p-hero">
-  <span class="p-hero-emoji" aria-hidden="true">📰</span>
+  <span class="p-hero-emoji" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h13v14H6a2 2 0 0 1-2-2V5z"/><path d="M17 9h3v8a2 2 0 0 1-2 2"/><path d="M8 9h5M8 13h5"/></svg></span>
   <div class="p-hero-inner">
     <p class="p-kicker a-in">Projet personnel · Média automatisé par IA</p>
     <h1 class="p-title a-in">Le Fil du Lord</h1>
@@ -89,19 +92,19 @@
   <section class="p-sec">
     <div class="sec-head reveal"><span class="sec-num">04</span><h2>Agents IA <em>utilisés</em></h2><span class="sec-line"></span></div>
     <div class="grid">
-      <div class="card reveal"><span class=ico aria-hidden=true>🔎</span><h3>Agent recherche — Scraping + flux RSS</h3><p>Le système récupère automatiquement les informations depuis différentes sources grâce au scraping web et aux flux RSS. Les données brutes sont collectées puis transformées en sujets exploitables pour le pipeline éditorial.</p></div>
-      <div class="card reveal"><span class=ico aria-hidden=true>✅</span><h3>Agent vérification — Gemini 2.5 Flash Lite</h3><p>Analyse les sujets collectés avant rédaction. Il vérifie la cohérence des informations, les dates, les acteurs concernés et les faits disponibles afin de limiter les erreurs et les informations inventées.</p></div>
-      <div class="card reveal"><span class=ico aria-hidden=true>✍️</span><h3>Agent rédaction — Qwen3-32B (Groq)</h3><p>Transforme les informations vérifiées en article journalistique complet. Le modèle génère le titre, l'angle éditorial et le contenu final en respectant la ligne éditoriale du média Le Fil du Lord.</p></div>
-      <div class="card reveal"><span class=ico aria-hidden=true>⭐</span><h3>Agent qualité — Gemini 3.1 Flash Lite</h3><p>Évalue chaque article avant publication avec un score sur 10. Il analyse la fiabilité, la structure, la qualité rédactionnelle et le respect des règles éditoriales avant validation.</p></div>
+      <div class="card reveal"><h3>Agent recherche — Scraping + flux RSS</h3><p>Le système récupère automatiquement les informations depuis différentes sources grâce au scraping web et aux flux RSS. Les données brutes sont collectées puis transformées en sujets exploitables pour le pipeline éditorial.</p></div>
+      <div class="card reveal"><h3>Agent vérification — Gemini 2.5 Flash Lite</h3><p>Analyse les sujets collectés avant rédaction. Il vérifie la cohérence des informations, les dates, les acteurs concernés et les faits disponibles afin de limiter les erreurs et les informations inventées.</p></div>
+      <div class="card reveal"><h3>Agent rédaction — Qwen3-32B (Groq)</h3><p>Transforme les informations vérifiées en article journalistique complet. Le modèle génère le titre, l'angle éditorial et le contenu final en respectant la ligne éditoriale du média Le Fil du Lord.</p></div>
+      <div class="card reveal"><h3>Agent qualité — Gemini 3.1 Flash Lite</h3><p>Évalue chaque article avant publication avec un score sur 10. Il analyse la fiabilité, la structure, la qualité rédactionnelle et le respect des règles éditoriales avant validation.</p></div>
     </div>
   </section>
   <section class="p-sec">
     <div class="sec-head reveal"><span class="sec-num">05</span><h2>Architecture <em data-en="architecture">technique</em></h2><span class="sec-line"></span></div>
     <div class="grid">
-      <div class="card reveal"><span class=ico aria-hidden=true>⚙️</span><h3>Backend</h3><p>Node.js orchestre les appels IA, la logique métier, les retries et la publication.</p></div>
-      <div class="card reveal"><span class=ico aria-hidden=true>🗄️</span><h3>Base de données</h3><p>Supabase stocke sujets, articles, scores, statuts et journaux.</p></div>
-      <div class="card reveal"><span class=ico aria-hidden=true>💻</span><h3>Frontend</h3><p>React + TypeScript affiche les articles et fournit une interface d'administration.</p></div>
-      <div class="card reveal"><span class=ico aria-hidden=true>🚀</span><h3>Déploiement</h3><p>GitHub Actions automatise l'exécution et Vercel héberge l'application.</p></div>
+      <div class="card reveal"><h3>Backend</h3><p>Node.js orchestre les appels IA, la logique métier, les retries et la publication.</p></div>
+      <div class="card reveal"><h3>Base de données</h3><p>Supabase stocke sujets, articles, scores, statuts et journaux.</p></div>
+      <div class="card reveal"><h3>Frontend</h3><p>React + TypeScript affiche les articles et fournit une interface d'administration.</p></div>
+      <div class="card reveal"><h3>Déploiement</h3><p>GitHub Actions automatise l'exécution et Vercel héberge l'application.</p></div>
     </div>
   </section>
   <section class="p-sec">
@@ -120,12 +123,12 @@
 <section class="p-next">
   <p class="p-next-label reveal">Continuer la visite</p>
   <div class="p-next-grid">
-    <a class="next-card is-prev reveal" href="forgejo.html">
-      <span class="em" aria-hidden="true">🛠️</span><span class="arrow" aria-hidden="true">←</span>
-      <span class="dir">Projet précédent</span><span class="nm">Forgejo</span>
+    <a class="next-card is-prev reveal" href="entrevilles-reu.html">
+      <span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a2 2 0 0 0 2 4M16 6h3a2 2 0 0 1-2 4"/><path d="M12 13v4M9 20h6M10 17h4"/></svg></span><span class="arrow" aria-hidden="true">←</span>
+      <span class="dir">Projet précédent</span><span class="nm">Entrevilles-Reu</span>
     </a>
     <a class="next-card is-next reveal" href="veille-ia.html">
-      <span class="em" aria-hidden="true">🔍</span><span class="arrow" aria-hidden="true">→</span>
+      <span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.2-4.2"/><path d="M8.5 11h5"/></svg></span><span class="arrow" aria-hidden="true">→</span>
       <span class="dir">Projet suivant</span><span class="nm">Veille IA</span>
     </a>
   </div>
@@ -133,7 +136,7 @@
 </section>
 
 <footer>
-  <p>© 2026 <span>Lucas Rajany</span> · Fait avec 💜 depuis La Réunion</p>
+  <p>© 2026 <span>Lucas Rajany</span> · BTS SIO option SLAM · La Réunion</p>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>

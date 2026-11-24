@@ -33,7 +33,7 @@
     'Projet suivant': 'Next project',
     'Projets scolaires': 'School projects',
     'Voir les réalisations': 'View the work done',
-    '· Fait avec 💜 depuis La Réunion': '· Made with 💜 from La Réunion',
+    '· BTS SIO option SLAM · La Réunion': '· BTS SIO SLAM option · Réunion Island',
     'Type': 'Type',
     'Statut': 'Status',
     'Hébergement': 'Hosting',

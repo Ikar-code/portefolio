@@ -177,12 +177,12 @@ nav.scrolled {
 .hero-desc { color: var(--muted); font-size: 1.1rem; max-width: 600px; }
 .hero-desc a { color: var(--accent); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin: 2rem 0 1.8rem; }
-.btn-primary, .btn-outline, .btn-send {
+.btn-primary, .btn-outline {
   display: inline-block; font: 600 0.95rem var(--font); padding: 0.85rem 1.8rem; border-radius: 999px;
   cursor: pointer; border: 0; transition: box-shadow 0.3s, background 0.3s, color 0.3s; will-change: transform;
 }
-.btn-primary, .btn-send { background: var(--grad); color: var(--on-accent); }
-.btn-primary:hover, .btn-send:hover { box-shadow: 0 8px 30px rgba(var(--accent-rgb), 0.45); }
+.btn-primary { background: var(--grad); color: var(--on-accent); }
+.btn-primary:hover { box-shadow: 0 8px 30px rgba(var(--accent-rgb), 0.45); }
 .btn-outline { border: 1px solid var(--card-border); background: var(--card); color: var(--text); backdrop-filter: blur(8px); }
 .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
 .hero-socials { display: flex; gap: 0.8rem; }
@@ -201,7 +201,7 @@ nav.scrolled {
 
 /* ───────── Cartes génériques ───────── */
 .about-card, .skill-group, .project-card, .veille-why, .veille-repere-card,
-.veille-result-card, .contact-form, .timeline-item {
+.veille-result-card, .timeline-item {
   background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius);
   backdrop-filter: blur(10px);
 }
@@ -297,6 +297,12 @@ nav.scrolled {
 
 /* ───────── Contact ───────── */
 .contact-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: 3rem; align-items: start; }
+.contact-cta { padding: 2.2rem; border-radius: var(--radius); border: 1px solid rgba(var(--accent-rgb), 0.4); background: linear-gradient(145deg, rgba(var(--accent-rgb), 0.14), rgba(var(--accent2-rgb), 0.05)); }
+.cta-label { font: 700 0.72rem var(--mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+.contact-cta h3 { font-size: 1.7rem; margin: 0.5rem 0 0.2rem; }
+.cta-dates { font: 700 1.05rem var(--mono); color: var(--accent); margin-bottom: 1rem; }
+.cta-text { color: var(--muted); margin-bottom: 1.6rem; }
+.cta-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
 .contact-info h3 { font-size: 1.5rem; margin-bottom: 0.7rem; }
 .contact-info > p { color: var(--muted); margin-bottom: 1.6rem; }
 .contact-links { display: grid; gap: 0.8rem; }
@@ -305,18 +311,6 @@ a.contact-link-item:hover { border-color: var(--accent); transform: translateX(6
 .contact-link-icon { width: 38px; height: 38px; border-radius: 10px; background: rgba(var(--accent-rgb), 0.12); display: grid; place-items: center; flex-shrink: 0; }
 .contact-link-text p:first-child { font-size: 0.75rem; color: var(--muted); font-family: var(--mono); }
 .contact-link-text p:last-child { font-size: 0.95rem; word-break: break-all; }
-.contact-form { padding: 2rem; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.form-group { margin-bottom: 1.1rem; }
-.form-group label { display: block; font-size: 0.78rem; font-family: var(--mono); color: var(--muted); margin-bottom: 0.4rem; }
-.form-group input, .form-group textarea {
-  width: 100%; padding: 0.8rem 1rem; border-radius: 10px; font: 0.95rem var(--font);
-  background: var(--card); border: 1px solid var(--card-border); color: var(--text); transition: border-color 0.2s, box-shadow 0.2s;
-}
-.form-group input:focus, .form-group textarea:focus { outline: 0; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.18); }
-.form-group textarea { min-height: 130px; resize: vertical; }
-.btn-send { width: 100%; }
-.form-msg { display: none; margin-top: 0.9rem; font-size: 0.85rem; color: var(--accent); }
 
 /* ───────── Footer ───────── */
 footer { text-align: center; padding: 2.5rem 6vw; border-top: 1px solid var(--card-border); color: var(--muted); font-size: 0.88rem; position: relative; z-index: 2; }
@@ -415,8 +409,10 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
   color: var(--accent-bright); opacity: 0.9;
 }
 .proj-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; }
+.proj-emoji svg { display: block; width: 100%; height: 100%; }
 .proj-emoji {
-  font-size: clamp(4rem, 8vw, 7.5rem); line-height: 1;
+  display: block; width: clamp(4.2rem, 8vw, 7rem); height: clamp(4.2rem, 8vw, 7rem); line-height: 1; color: var(--accent-bright);
+  opacity: 0.92;
   filter: drop-shadow(0 14px 30px rgba(0, 0, 0, 0.5)); transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 .proj-badge {
@@ -477,127 +473,28 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
   .nav-links.open { transform: none; }
   .nav-links a { font-size: 1.1rem; }
   section { padding: 5rem 6vw; }
-  .form-row { grid-template-columns: 1fr; }
   .veille-why { flex-direction: column; }
   .cursor-glow { display: none; }
 }
-/* ───────── Écran de choix : nuit / jour ───────── */
-.choice { display: none; position: fixed; inset: 0; z-index: 2000; background: #07070d; font-family: var(--font); --dx: 55vw; --dy: 0px; }
-.is-choosing .choice { display: flex; }
-
-.choice-side {
-  position: relative; flex: 1 1 0; min-width: 0; min-height: 0; border: 0; margin: 0; appearance: none;
-  display: flex; align-items: center; padding: 0 clamp(1rem, 4vw, 4rem); cursor: pointer; font: inherit;
-  -webkit-tap-highlight-color: transparent; transition: flex-grow 0.8s cubic-bezier(0.7, 0, 0.2, 1);
-}
-.choice-side:focus-visible { outline: 3px solid #38bdf8; outline-offset: -8px; }
-.choice-side::before { content: ''; position: absolute; inset: 0; pointer-events: none; }
-
-/* NUIT : fond noir, étoiles, halo bleu côté centre */
-.choice-night {
-  background: #07070d; color: #ecebf5; justify-content: flex-end;
-  box-shadow: inset -110px 0 140px -80px rgba(56, 189, 248, 0.4);
-  animation: choice-clash 1.5s ease-in-out 0.95s;
-}
-.choice-night::before {
-  background-image:
-    radial-gradient(1.5px 1.5px at 12% 22%, #fff, transparent), radial-gradient(1px 1px at 28% 68%, #cfe9ff, transparent),
-    radial-gradient(1.5px 1.5px at 41% 14%, #fff, transparent), radial-gradient(1px 1px at 55% 82%, #fff, transparent),
-    radial-gradient(1px 1px at 67% 36%, #bfe3ff, transparent), radial-gradient(1.5px 1.5px at 78% 58%, #fff, transparent),
-    radial-gradient(1px 1px at 88% 18%, #fff, transparent), radial-gradient(1px 1px at 20% 90%, #cfe9ff, transparent),
-    radial-gradient(1.5px 1.5px at 6% 52%, #fff, transparent), radial-gradient(1px 1px at 93% 76%, #fff, transparent);
-  animation: choice-twinkle 4s ease-in-out infinite alternate;
-}
-/* JOUR : fond clair, soleil chaud côté centre */
-.choice-day {
-  background: #dfcdb3; color: #26140a; justify-content: flex-start;
-  box-shadow: inset 110px 0 140px -80px rgba(240, 141, 91, 0.6);
-}
-.choice-day::before {
-  background: radial-gradient(circle at 0% 50%, rgba(255, 190, 110, 0.5), transparent 58%);
-  animation: choice-breathe 5s ease-in-out infinite alternate;
-}
-
-/* Les boutons arrivent des bords et se retrouvent face à face au centre */
-.choice-btn {
-  position: relative; z-index: 3; display: inline-flex; align-items: center; gap: 0.8rem; white-space: nowrap;
-  padding: 1rem 1.7rem; border-radius: 999px; font: 600 clamp(1rem, 1.6vw, 1.25rem) var(--font);
-  backdrop-filter: blur(6px);
-  transition: transform 0.35s cubic-bezier(0.3, 1.4, 0.4, 1), background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
-  animation: choice-in 1.25s cubic-bezier(0.34, 1.45, 0.5, 1) 0.15s backwards;
-}
-.choice-btn svg { width: 1.35em; height: 1.35em; flex-shrink: 0; }
-.choice-night .choice-btn { --dir: -1; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.28); color: #ecebf5; }
-.choice-night .choice-btn svg { color: #7dd3fc; }
-.choice-day .choice-btn { --dir: 1; background: rgba(70, 35, 10, 0.08); border: 1px solid rgba(70, 35, 10, 0.3); color: #26140a; }
-.choice-day .choice-btn svg { color: #e4651f; }
-
-.choice-side:hover .choice-btn, .choice-side:focus-visible .choice-btn { transform: scale(1.08); }
-.choice-night:hover .choice-btn, .choice-night:focus-visible .choice-btn {
-  background: #38bdf8; border-color: #38bdf8; color: #07070d; box-shadow: 0 10px 40px rgba(56, 189, 248, 0.45);
-}
-.choice-day:hover .choice-btn, .choice-day:focus-visible .choice-btn {
-  background: #f08d5b; border-color: #f08d5b; color: #0b1224; box-shadow: 0 10px 40px rgba(240, 141, 91, 0.5);
-}
-.choice-night:hover .choice-btn svg, .choice-day:hover .choice-btn svg { color: currentColor; }
-.choice-day:hover .choice-btn svg { animation: choice-spin 9s linear infinite; }
-
-/* Titre + consigne : mix-blend « difference » = lisibles sur le noir comme sur le clair */
-.choice-head, .choice-hint { position: absolute; left: 0; right: 0; z-index: 5; text-align: center; pointer-events: none; color: #fff; mix-blend-mode: difference; padding: 0 5vw; transition: opacity 0.4s; }
-.choice-lang {
-  position: absolute; left: 50%; transform: translateX(-50%); z-index: 6;
-  bottom: clamp(3.4rem, 11vh, 5.6rem); background: rgba(10, 10, 20, 0.6); border-color: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(8px); animation: choice-fade 1s ease 1.3s backwards; transition: opacity 0.4s;
-}
-.choice-lang button { color: rgba(255, 255, 255, 0.75); }
-.choice-lang button:hover { color: #fff; }
-.choice-lang button[aria-pressed="true"] { background: #fff; color: #0a0a14; }
-.choice-head { top: clamp(1.5rem, 5vh, 3.5rem); animation: choice-fade 1s ease 0.1s backwards; }
-.choice-kicker { display: block; font: 700 0.75rem var(--mono); letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 0.8rem; }
-.choice-title { font-family: var(--blackletter); font-weight: 900; text-transform: uppercase; font-size: clamp(2.2rem, 6.5vw, 5.2rem); line-height: 0.95; }
-.choice-hint { bottom: clamp(1.2rem, 4vh, 2.5rem); font: 400 0.72rem var(--mono); letter-spacing: 0.2em; text-transform: uppercase; animation: choice-fade 1s ease 1.3s backwards; }
-
-/* Survol : la moitié visée repousse l'autre */
-.choice[data-lean="dark"] .choice-night, .choice[data-lean="light"] .choice-day { flex-grow: 1.7; }
-.choice[data-lean] .choice-side { animation: none; }
-
-/* Clic : la moitié choisie envahit l'écran */
-.choice[data-pick="dark"] .choice-night, .choice[data-pick="light"] .choice-day { flex-grow: 80; }
-.choice[data-pick="dark"] .choice-day, .choice[data-pick="light"] .choice-night { flex-grow: 0; }
-.choice[data-pick] .choice-side { animation: none; pointer-events: none; transition-duration: 0.9s; }
-.choice[data-pick] .choice-btn, .choice[data-pick] .choice-head, .choice[data-pick] .choice-hint, .choice[data-pick] .choice-lang { opacity: 0; transition: opacity 0.25s; }
-.choice.is-leaving { opacity: 0; pointer-events: none; transition: opacity 0.55s ease; }
-
-@keyframes choice-in {
-  from { transform: translate(calc(var(--dx) * var(--dir)), calc(var(--dy) * var(--dir))); opacity: 0; }
-  15% { opacity: 1; }
-  to { transform: none; opacity: 1; }
-}
-@keyframes choice-clash { 0%, 100% { flex-grow: 1; } 22% { flex-grow: 1.9; } 44% { flex-grow: 0.55; } 66% { flex-grow: 1.3; } 84% { flex-grow: 0.85; } }
-@keyframes choice-twinkle { from { opacity: 0.35; } to { opacity: 0.95; } }
-@keyframes choice-breathe { from { opacity: 0.65; } to { opacity: 1; } }
-@keyframes choice-fade { from { opacity: 0; } to { opacity: 1; } }
-@keyframes choice-spin { to { transform: rotate(360deg); } }
-
-/* Portrait / mobile : nuit en haut, jour en bas */
-@media (max-aspect-ratio: 1 / 1) {
-  .choice { flex-direction: column; --dx: 0px; --dy: 38vh; }
-  .choice-side { padding: 1.5rem 1rem; }
-  .choice-night { justify-content: center; align-items: flex-end; box-shadow: inset 0 -110px 140px -80px rgba(56, 189, 248, 0.4); }
-  .choice-day { justify-content: center; align-items: flex-start; box-shadow: inset 0 110px 140px -80px rgba(240, 141, 91, 0.6); }
-  .choice-day::before { background: radial-gradient(circle at 50% 0%, rgba(255, 190, 110, 0.5), transparent 58%); }
-}
-
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .reveal, .a-hero { opacity: 1 !important; }
 }
 /* Secours : si portfolio.js ne se charge pas, on affiche quand même le contenu */
 .js-failed .a-hero, .js-failed .hero-name .hl, .js-failed .reveal { opacity: 1 !important; }
-.js-failed #intro, .js-failed #choice { display: none !important; }
+.js-failed #intro { display: none !important; }
 
 /* Mode jour : tuiles projets orange (les dégradés bleus sont écrits en ligne dans le HTML → !important) */
 :root[data-theme="light"] .proj:nth-child(1) .proj-visual { --art: radial-gradient(circle at 18% 15%, rgba(240,141,91,.58), transparent 55%), radial-gradient(circle at 90% 95%, rgba(251,191,120,.30), transparent 50%), #1f130b !important; }
 :root[data-theme="light"] .proj:nth-child(2) .proj-visual { --art: radial-gradient(circle at 85% 12%, rgba(240,141,91,.52), transparent 55%), radial-gradient(circle at 10% 95%, rgba(228,101,31,.30), transparent 52%), #22140c !important; }
 :root[data-theme="light"] .proj:nth-child(3) .proj-visual { --art: radial-gradient(circle at 50% 0%, rgba(251,191,120,.46), transparent 58%), radial-gradient(circle at 5% 100%, rgba(240,141,91,.34), transparent 50%), #1c120b !important; }
 :root[data-theme="light"] .proj:nth-child(4) .proj-visual { --art: radial-gradient(circle at 15% 85%, rgba(240,141,91,.52), transparent 55%), radial-gradient(circle at 92% 10%, rgba(251,191,120,.30), transparent 48%), #21150d !important; }
+:root[data-theme="light"] .proj:nth-child(5) .proj-visual { --art: radial-gradient(circle at 80% 20%, rgba(240,141,91,.52), transparent 55%), radial-gradient(circle at 8% 90%, rgba(251,191,120,.30), transparent 50%), #1f130b !important; }
+
+/* Icônes SVG (remplacent les emojis) */
+.ico-svg { width: 1.15em; height: 1.15em; flex-shrink: 0; color: var(--accent); }
+.timeline-col h3 .ico-svg { width: 1.3rem; height: 1.3rem; }
+.veille-why-icon .ico-svg, .veille-repere-icon .ico-svg, .veille-icon .ico-svg { display: block; }
+.veille-why-icon .ico-svg { width: 2rem; height: 2rem; }
+.veille-repere-icon .ico-svg { width: 1.7rem; height: 1.7rem; }
+.veille-icon .ico-svg { width: 2.6rem; height: 2.6rem; }

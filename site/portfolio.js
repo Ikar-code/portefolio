@@ -73,13 +73,13 @@
       console.warn('Vanta indisponible :', err);
     }
   }
-  function applyTheme(theme) {
+  function applyTheme(theme, persist) {
     root.setAttribute('data-theme', theme);   // les variables CSS font le reste
     startVanta(theme);
-    try { localStorage.setItem('portfolio-theme', theme); } catch (e) {}   // les pages projet reprennent ce choix
+    if (persist) { try { localStorage.setItem('portfolio-theme', theme); } catch (e) {} }   // les pages projet reprennent ce choix
   }
   const themeBtn = document.getElementById('theme-toggle');
-  if (themeBtn) themeBtn.addEventListener('click', () => applyTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
+  if (themeBtn) themeBtn.addEventListener('click', () => applyTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light', true));
 
   /* ── 3. Menu mobile ─────────────────────────────────────── */
   const navLinks = document.getElementById('nav-links');
@@ -216,63 +216,9 @@
     });
   }
 
-  /* ── 9. Formulaire : ouvre le client mail avec le message ── */
-  const form = document.getElementById('contact-form');
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const v = (id) => document.getElementById(id).value.trim();
-    const subject = v('f-sujet') || tr('mailSubject', 'Contact depuis le portfolio');
-    const body =
-      tr('mailHello', 'Bonjour Lucas,') + '\n\n' + v('f-message') +
-      '\n\n— ' + v('f-prenom') + ' ' + v('f-nom') + ' (' + v('f-email') + ')';
-    document.getElementById('form-msg').style.display = 'block';
-    window.location.href =
-      'mailto:lucas.lbruno2007@gmail.com?subject=' + encodeURIComponent(subject) +
-      '&body=' + encodeURIComponent(body);
-    form.reset();
-  });
-
-  /* ── 9b. CHOIX DU MODE : nuit / jour ────────────────────────
-     Les deux moitiés se « confrontent » (animation CSS). Au survol, la moitié
-     visée gagne du terrain ; au clic, elle envahit l'écran, le thème est
-     appliqué, puis l'intro (section 10) démarre. */
-  const choice = document.getElementById('choice');
-  let chosenResolve;
-  const chosen = new Promise((r) => (chosenResolve = r));
-
-  function finishChoice() {
-    root.classList.remove('is-choosing');
-    chosenResolve();
-  }
-
-  if (!choice) {
-    applyTheme('dark');          // pas d'écran de choix : mode nuit par défaut
-    finishChoice();
-  } else {
-    let picked = false;
-    const lean = (t) => { if (!picked) choice.dataset.lean = t; };
-
-    choice.querySelectorAll('.choice-side').forEach((btn) => {
-      const t = btn.dataset.theme;
-      btn.addEventListener('pointerenter', () => lean(t));
-      btn.addEventListener('pointerleave', () => lean(''));
-      btn.addEventListener('focus', () => lean(t));
-      btn.addEventListener('blur', () => lean(''));
-      btn.addEventListener('click', () => pick(t));
-    });
-
-    function pick(t) {
-      if (picked) return;
-      picked = true;
-      choice.dataset.lean = '';
-      choice.dataset.pick = t;                       // la moitié choisie envahit l'écran
-      setTimeout(() => {
-        applyTheme(t);                               // thème + fond Vanta
-        choice.classList.add('is-leaving');          // fondu de l'écran de choix
-        setTimeout(finishChoice, reduced ? 0 : 600); // puis l'intro démarre
-      }, reduced ? 0 : 950);
-    }
-  }
+  /* ── 9. Thème de départ : choix mémorisé, sinon réglage du système (posé par index.html) ── */
+  applyTheme(root.getAttribute('data-theme') === 'light' ? 'light' : 'dark', false);
+  const chosen = Promise.resolve();
 
   /* ── 10. INTRO façon lenis.dev ──────────────────────────────
      1) écran de couleur unie

@@ -11,10 +11,13 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.css" />
   <link rel="stylesheet" href="project.css" />
   <script>
-    /* Thème choisi sur l'écran d'accueil + filet de sécurité si project.js ne se charge pas */
+    /* Thème choisi sur l'accueil (sinon réglage du système) + filet de sécurité si project.js ne se charge pas */
     (function () {
       var h = document.documentElement;
-      try { var t = localStorage.getItem('portfolio-theme'); if (t === 'light' || t === 'dark') h.setAttribute('data-theme', t); } catch (e) {}
+      var t = null;
+      try { t = localStorage.getItem('portfolio-theme'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+      h.setAttribute('data-theme', t);
       h.classList.add('js');
       setTimeout(function () { if (!window.__projReady) h.classList.remove('js'); }, 3000);
     })();
@@ -40,7 +43,7 @@
 </nav>
 
 <header class="p-hero">
-  <span class="p-hero-emoji" aria-hidden="true">📚</span>
+  <span class="p-hero-emoji" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v15H5.5A1.5 1.5 0 0 0 4 20.5z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v15h5.5a1.5 1.5 0 0 1 1.5 1.5z"/></svg></span>
   <div class="p-hero-inner">
     <p class="p-kicker a-in">Projets scolaires · BTS SIO</p>
     <h1 class="p-title a-in">Projets scolaires</h1>
@@ -80,11 +83,11 @@
   <p class="p-next-label reveal">Continuer la visite</p>
   <div class="p-next-grid">
     <a class="next-card is-prev reveal" href="veille-ia.html">
-      <span class="em" aria-hidden="true">🔍</span><span class="arrow" aria-hidden="true">←</span>
+      <span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.2-4.2"/><path d="M8.5 11h5"/></svg></span><span class="arrow" aria-hidden="true">←</span>
       <span class="dir">Projet précédent</span><span class="nm">Veille IA</span>
     </a>
     <a class="next-card is-next reveal" href="forgejo.html">
-      <span class="em" aria-hidden="true">🛠️</span><span class="arrow" aria-hidden="true">→</span>
+      <span class="em" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="9" r="2.2"/><path d="M6 8.2v7.6"/><path d="M8 6h4a4 4 0 0 1 4 4v-.8"/></svg></span><span class="arrow" aria-hidden="true">→</span>
       <span class="dir">Projet suivant</span><span class="nm">Forgejo</span>
     </a>
   </div>
@@ -92,7 +95,7 @@
 </section>
 
 <footer>
-  <p>© 2026 <span>Lucas Rajany</span> · Fait avec 💜 depuis La Réunion</p>
+  <p>© 2026 <span>Lucas Rajany</span> · BTS SIO option SLAM · La Réunion</p>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>

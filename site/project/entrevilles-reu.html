@@ -13,10 +13,10 @@
     (function () {
       var r = document.documentElement;
       r.classList.add('js');
-      try {
-        var t = localStorage.getItem('portfolio-theme');
-        if (t === 'light' || t === 'dark') r.setAttribute('data-theme', t);
-      } catch (e) {}
+      var t = null;
+      try { t = localStorage.getItem('portfolio-theme'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+      r.setAttribute('data-theme', t);
       setTimeout(function () { if (!window.__projReady) r.classList.remove('js'); }, 3500);
     })();
   </script>
@@ -41,9 +41,9 @@
 
   <!-- ============ NAVIGATION ============ -->
   <nav id="nav">
-    <a class="nav-logo" href="index.html">LR<span>.</span></a>
+    <a class="nav-logo" href="../index.html">LR<span>.</span></a>
     <div class="nav-right">
-      <a class="back-link" href="index.html#projets">← Retour au portfolio</a>
+      <a class="back-link" href="../index.html#projets">← Retour au portfolio</a>
       <div class="lang-switch" role="group" aria-label="Langue">
         <button type="button" data-lang="fr" aria-pressed="true">FR</button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
@@ -57,7 +57,7 @@
 
   <!-- ============ EN-TÊTE DU PROJET ============ -->
   <header class="p-hero">
-    <span class="p-hero-emoji" aria-hidden="true">🏟️</span>
+    <span class="p-hero-emoji" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a2 2 0 0 0 2 4M16 6h3a2 2 0 0 1-2 4"/><path d="M12 13v4M9 20h6M10 17h4"/></svg></span>
     <div class="p-hero-inner">
       <span class="p-kicker a-in">Projet scolaire · BTS SIO SLAM</span>
       <h1 class="p-title a-in" aria-label="Entrevilles-Reu"><span>Entrevilles-</span><wbr><span>Reu</span></h1>
@@ -128,10 +128,10 @@
     <section class="p-sec reveal">
       <div class="sec-head"><span class="sec-num">03</span><h2>Technologies <em>utilisées</em></h2><span class="sec-line"></span></div>
       <div class="grid">
-        <div class="card"><span class="ico">🐘</span><h3>Back-end</h3><p>PHP 8 natif, sans Composer ni framework : tout est écrit à la main.</p></div>
-        <div class="card"><span class="ico">🗄️</span><h3>Base de données</h3><p>PostgreSQL hébergé sur Supabase, interrogé via son API REST (PostgREST) avec cURL.</p></div>
-        <div class="card"><span class="ico">🎨</span><h3>Front-end</h3><p>HTML5, CSS3 et un peu de JavaScript pour le thème. Design « dashboard esport » sombre à accents néon, variante claire, variables CSS, polices Rajdhani et Inter, responsive.</p></div>
-        <div class="card"><span class="ico">🚀</span><h3>Déploiement</h3><p>Git et GitHub, avec un workflow GitHub Actions qui envoie les fichiers en FTP à chaque git push vers InfinityFree (hébergement PHP gratuit).</p></div>
+        <div class="card"><h3>Back-end</h3><p>PHP 8 natif, sans Composer ni framework : tout est écrit à la main.</p></div>
+        <div class="card"><h3>Base de données</h3><p>PostgreSQL hébergé sur Supabase, interrogé via son API REST (PostgREST) avec cURL.</p></div>
+        <div class="card"><h3>Front-end</h3><p>HTML5, CSS3 et un peu de JavaScript pour le thème. Design « dashboard esport » sombre à accents néon, variante claire, variables CSS, polices Rajdhani et Inter, responsive.</p></div>
+        <div class="card"><h3>Déploiement</h3><p>Git et GitHub, avec un workflow GitHub Actions qui envoie les fichiers en FTP à chaque git push vers InfinityFree (hébergement PHP gratuit).</p></div>
       </div>
     </section>
 
@@ -296,21 +296,21 @@
   <section class="p-next">
     <p class="p-next-label">Continuer la visite</p>
     <div class="p-next-grid">
-      <a class="next-card is-prev" href="projets-scolaires.html">
-        <span class="arrow">←</span><span class="em">🎓</span>
+      <a class="next-card is-prev" href="forgejo.html">
+        <span class="arrow">←</span><span class="em"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="9" r="2.2"/><path d="M6 8.2v7.6"/><path d="M8 6h4a4 4 0 0 1 4 4v-.8"/></svg></span>
         <span class="dir">Projet précédent</span>
-        <span class="nm">Projets scolaires</span>
-      </a>
-      <a class="next-card is-next" href="forgejo.html">
-        <span class="arrow">→</span><span class="em">🖥️</span>
-        <span class="dir">Projet suivant</span>
         <span class="nm">Forgejo</span>
       </a>
+      <a class="next-card is-next" href="projet3.html">
+        <span class="arrow">→</span><span class="em"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h13v14H6a2 2 0 0 1-2-2V5z"/><path d="M17 9h3v8a2 2 0 0 1-2 2"/><path d="M8 9h5M8 13h5"/></svg></span>
+        <span class="dir">Projet suivant</span>
+        <span class="nm">Le Fil du Lord</span>
+      </a>
     </div>
-    <div class="p-back"><a class="btn-outline" href="index.html#projets">← Retour aux projets</a></div>
+    <div class="p-back"><a class="btn-outline" href="../index.html#projets">← Retour aux projets</a></div>
   </section>
 
-  <footer><span>Lucas Rajany</span> · Fait avec 💜 depuis La Réunion</footer>
+  <footer><span>Lucas Rajany</span> · BTS SIO option SLAM · La Réunion</footer>
 
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
