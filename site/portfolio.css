@@ -201,7 +201,7 @@ nav.scrolled {
 
 /* ───────── Cartes génériques ───────── */
 .about-card, .skill-group, .project-card, .veille-why, .veille-repere-card,
-.veille-result-card, .timeline-item {
+.veille-result-card, .timeline-item, .stage-card {
   background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius);
   backdrop-filter: blur(10px);
 }
@@ -259,6 +259,28 @@ nav.scrolled {
 .project-footer { margin-top: 1.4rem; }
 .project-link.primary { font-weight: 600; font-size: 0.9rem; color: var(--accent); border-bottom: 1px solid transparent; transition: border-color 0.2s, letter-spacing 0.2s; }
 .project-link.primary:hover { border-color: var(--accent); letter-spacing: 0.02em; }
+
+/* ───────── Stages ───────── */
+.stages-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 1.6rem; }
+.stage-card { padding: 2rem 2.2rem; border-left: 3px solid var(--accent); }
+.stage-top { display: flex; flex-wrap: wrap; gap: 0.6rem 1.2rem; align-items: center; justify-content: space-between; margin-bottom: 0.9rem; }
+.stage-status { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 999px; background: rgba(var(--accent-rgb), 0.14); color: var(--accent); }
+.stage-next .stage-status { background: rgba(251, 191, 36, 0.15); color: var(--amber); }
+.stage-dates { font-family: var(--mono); font-size: 0.8rem; color: var(--accent-2); }
+.stage-title { font-size: 1.5rem; font-weight: 700; line-height: 1.2; }
+.stage-org { color: var(--muted); font-size: 0.95rem; margin: 0.2rem 0 1rem; }
+.stage-lead { color: var(--muted); max-width: 860px; margin-bottom: 1.6rem; }
+.stage-next { border-left-style: dashed; border-left-color: var(--amber); }
+.stage-next .stage-lead { margin-bottom: 1rem; }
+.stage-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.6rem 2.2rem; margin-bottom: 1.8rem; }
+.stage-col h4 { font-size: 1rem; margin-bottom: 0.7rem; }
+.stage-stats { display: flex; flex-wrap: wrap; gap: 1rem 2.4rem; padding: 1.2rem 0; margin-bottom: 1.2rem; border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); }
+.stage-stat { display: flex; flex-direction: column; }
+.stage-stat strong { font-size: 1.9rem; line-height: 1.1; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.stage-stat span { color: var(--muted); font-size: 0.85rem; }
+.stage-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.4rem; }
+.timeline-list a { text-decoration: underline; text-underline-offset: 3px; color: var(--accent); }
+@media (max-width: 820px) { .stage-card { padding: 1.5rem 1.3rem; } }
 
 /* ───────── Parcours ───────── */
 .timeline { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }

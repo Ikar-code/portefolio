@@ -59,6 +59,7 @@
     <a href="#about">À propos</a>
     <a href="#skills">Compétences</a>
     <a href="#projets">Projets</a>
+    <a href="#stages">Stages</a>
     <a href="#parcours">Parcours</a>
     <a href="#veille">Veille</a>
     <a href="#contact">Contact</a>
@@ -361,6 +362,101 @@
   </div>
 </section>
 
+<!-- STAGES -->
+<section id="stages">
+  <div class="section-head">
+    <p class="section-label reveal">Stages</p>
+    <h2 class="section-title reveal">Mes <em>stages</em></h2>
+    <p class="section-sub reveal">Le détail de mes missions en entreprise : ce que j'ai fait, avec quels outils, et ce que cela m'a appris.</p>
+  </div>
+
+  <div class="stages-grid">
+
+    <article class="stage-card stage-done reveal">
+      <div class="stage-top">
+        <span class="stage-status">Stage 1 · Réalisé</span>
+        <span class="stage-dates">1er juin – 3 juillet 2026</span>
+      </div>
+      <h3 class="stage-title">Stage informatique</h3>
+      <p class="stage-org">Mairie de Saint-Joseph · Direction des systèmes d'information</p>
+      <p class="stage-lead">Projet d'infrastructure réalisé en binôme avec Erwan : automatiser avec Ansible la gestion, la sécurisation, la sauvegarde et le déploiement d'un parc de 7 machines virtuelles (Linux et Windows), en plus d'interventions de support dans les services de la commune.</p>
+
+      <div class="stage-cols">
+        <div class="stage-col">
+          <h4>Support et interventions sur site</h4>
+          <ul class="timeline-list">
+            <li>Installation de matériel informatique (PC) et diagnostic de pannes d'alimentation</li>
+            <li>Création de comptes utilisateurs et attribution de droits d'accès à des dossiers</li>
+            <li>Diagnostic de problèmes réseau, d'accès internet et de mises à jour Windows manquantes</li>
+            <li>Résolution d'un problème de mails (date erronée du serveur)</li>
+          </ul>
+        </div>
+        <div class="stage-col">
+          <h4>Automatisation avec Ansible</h4>
+          <ul class="timeline-list">
+            <li>Configuration réseau (Netplan) et installation d'Ansible sur une VM contrôleur</li>
+            <li>Inventaire YAML, clés SSH, 9 playbooks : état des serveurs, mises à jour, rapport, pare-feu, audit, sauvegarde, restauration, création de VM</li>
+            <li>Chiffrement des mots de passe avec Ansible Vault</li>
+            <li>Gestion de serveurs Windows via WinRM et qualité du code avec ansible-lint</li>
+            <li>Tâches planifiées (cron) pour l'audit, le rapport et la sauvegarde</li>
+          </ul>
+        </div>
+        <div class="stage-col">
+          <h4>Sécurité, sauvegarde et restauration</h4>
+          <ul class="timeline-list">
+            <li>Audit de sécurité automatisé (ports, accès SSH, mises à jour, connexions échouées)</li>
+            <li>Pare-feu UFW configuré d'après un scan réel des ports, activation du pare-feu Windows</li>
+            <li>Sauvegarde centralisée de Forgejo, Wazuh et Active Directory</li>
+            <li>Test réel de restauration : plus de 6 erreurs de logique corrigées</li>
+          </ul>
+        </div>
+        <div class="stage-col">
+          <h4>Déploiement et outils d'équipe</h4>
+          <ul class="timeline-list">
+            <li>Création automatique de 1 à 10 VM Ubuntu via l'API Proxmox (autoinstall)</li>
+            <li>Interface web Semaphore UI (Docker) pour lancer les playbooks sans terminal</li>
+            <li>VS Code dans le navigateur (code-server) pour éditer les playbooks</li>
+            <li>Webhook Forgejo vers Semaphore : contrôle ansible-lint à chaque push</li>
+            <li>Documentation technique, rapport de stage et journal de bord</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="stage-stats">
+        <div class="stage-stat"><strong>7</strong><span>machines virtuelles gérées</span></div>
+        <div class="stage-stat"><strong>9</strong><span>playbooks Ansible</span></div>
+        <div class="stage-stat"><strong>1 à 10</strong><span>VM créées en une commande</span></div>
+      </div>
+
+      <div class="proj-tags"><span>Ansible</span><span>Proxmox</span><span>Forgejo</span><span>Semaphore</span><span>Docker</span><span>Linux</span><span>Windows Server</span><span>Wazuh</span></div>
+
+      <div class="stage-actions">
+        <a class="btn-primary magnetic" href="project/stage-mairie.html">Voir le détail de mes missions →</a>
+        <a class="btn-outline magnetic" href="project/forgejo.html">Projet associé : Forgejo</a>
+      </div>
+    </article>
+
+    <article class="stage-card stage-next reveal">
+      <div class="stage-top">
+        <span class="stage-status">Stage 2 · À venir</span>
+        <span class="stage-dates">25 janv. – 5 mars 2027</span>
+      </div>
+      <h3 class="stage-title">Stage informatique</h3>
+      <p class="stage-org">Entreprise à définir · recherche en cours</p>
+      <p class="stage-lead">Ce second stage n'est pas encore réalisé. Cette fiche sera complétée au fur et à mesure : missions confiées, outils utilisés, difficultés rencontrées et bilan.</p>
+      <ul class="timeline-list">
+        <li>Missions : à venir</li>
+        <li>Environnement technique : à venir</li>
+        <li>Bilan et compétences acquises : à venir</li>
+      </ul>
+      <div class="stage-actions">
+        <a class="btn-outline magnetic" href="#contact">Me proposer un stage</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
 <!-- PARCOURS -->
 <section id="parcours">
   <div class="section-head">
@@ -412,6 +508,17 @@
           <li>Docker pour l'exécution d'applications conteneurisées</li>
           <li>Interventions techniques sur différents sites</li>
           <li>Maintenance, diagnostic et support technique</li>
+          <li><a href="#stages">Voir le détail de mes missions →</a></li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-year">25 janv. – 5 mars 2027 · À venir</div>
+        <div class="timeline-title">Stage informatique (2e stage)</div>
+        <div class="timeline-sub">Entreprise à définir</div>
+        <ul class="timeline-list">
+          <li>Recherche en cours</li>
+          <li><a href="#stages">Voir la fiche du stage</a></li>
         </ul>
       </div>
 
