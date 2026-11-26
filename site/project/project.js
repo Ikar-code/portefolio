@@ -507,6 +507,8 @@
     'L\'ensemble des fonctionnalités a été validé avec succès. Les opérations Git fonctionnent correctement et la plateforme est totalement opérationnelle pour un usage collaboratif fluide et sécurisé.': 'All the features were successfully validated. Git operations work correctly and the platform is fully operational for smooth, secure collaborative use.',
     'Comparaison': 'Comparison',
     'Forgejo / GitHub': 'Forgejo / GitHub',
+    'Détail des missions de mon stage à la Mairie de Saint-Joseph (juin – juillet 2026) : automatisation Ansible, sécurité, sauvegarde, restauration et déploiement de machines virtuelles.':
+      'Details of my internship tasks at Saint-Joseph Town Hall (June – July 2026): Ansible automation, security, backup, restore and virtual machine deployment.',
     'Critère': 'Criterion',
     'Local': 'Local',
     'Cloud': 'Cloud',
@@ -519,7 +521,169 @@
     'Conclusion': 'Conclusion',
     '& bilan': '& review',
     'Ce projet de stage m\'a permis d\'acquérir une compréhension fine du fonctionnement d\'une forge Git auto-hébergée et de développer mes compétences en gestion des services Linux. L\'exécution de l\'audit m\'a également sensibilisé aux bonnes pratiques indispensables en matière de sécurité des infrastructures.': 'This internship project gave me a detailed understanding of how a self-hosted Git forge works and let me develop my Linux service management skills. Carrying out the audit also made me aware of the essential good practices in infrastructure security.',
-    'Projet de stage : installation, sécurisation et audit d\'une forge Git Forgejo auto-hébergée sur Ubuntu.': 'Internship project: installation, hardening and audit of a self-hosted Forgejo Git forge on Ubuntu.'
+    'Projet de stage : installation, sécurisation et audit d\'une forge Git Forgejo auto-hébergée sur Ubuntu.': 'Internship project: installation, hardening and audit of a self-hosted Forgejo Git forge on Ubuntu.',
+
+    // Stages (détail des missions)
+    'Stage à la Mairie de Saint-Joseph — Détail des missions | Lucas Rajany':
+      'Internship at Saint-Joseph Town Hall — Task details | Lucas Rajany',
+    'Stage 1 · Réalisé · Juin – Juillet 2026':
+      'Internship 1 · Completed · June – July 2026',
+    'Stage à la Mairie de Saint-Joseph':
+      'Internship at Saint-Joseph Town Hall',
+    'Détail des missions : automatisation d\'une infrastructure avec Ansible, sécurité, sauvegarde, restauration et déploiement de machines virtuelles, ainsi que des interventions de support dans les services de la commune.':
+      'Task details: infrastructure automation with Ansible, security, backup, restore and virtual machine deployment, plus support work in the town\'s departments.',
+    'Voir le journal semaine par semaine':
+      'See the week-by-week logbook',
+    'Durée':
+      'Duration',
+    '1er juin – 3 juillet 2026':
+      'June 1 – July 3, 2026',
+    'Service':
+      'Department',
+    'Systèmes d\'information':
+      'Information systems',
+    'Équipe':
+      'Team',
+    'Binôme avec Erwan':
+      'Pair with Erwan',
+    'du stage':
+      'of the internship',
+    'Stage d\'un mois au sein du service informatique de la Mairie de Saint-Joseph. Les deux premiers jours ont été consacrés à l\'observation et à des interventions de support dans plusieurs services de la commune. Le reste du stage a porté sur un projet d\'infrastructure réalisé en binôme avec Erwan : automatiser avec Ansible la gestion d\'un parc de 7 machines virtuelles (serveur Forgejo, trois serveurs Wazuh, un contrôleur de domaine Windows et un poste client Windows, plus la VM de contrôle Ansible) hébergées sur Proxmox.':
+      'One-month internship in the IT department of Saint-Joseph Town Hall. The first two days were spent observing and doing support work in several of the town\'s departments. The rest of the internship focused on an infrastructure project carried out in a pair with Erwan: using Ansible to automate the management of a fleet of 7 virtual machines (a Forgejo server, three Wazuh servers, a Windows domain controller and a Windows client, plus the Ansible control VM) hosted on Proxmox.',
+    'Des points d\'avancement réguliers avec les tuteurs de stage ont orienté le travail : sécurisation des mots de passe, scan réel des ports, audit de sécurité approfondi, test réel de restauration, puis provisionnement de VM et interface web. L\'installation de Forgejo a été faite en parallèle par mon binôme. Le projet Forgejo est détaillé sur':
+      'Regular progress meetings with the internship tutors steered the work: password hardening, a real port scan, an in-depth security audit, a real restore test, then VM provisioning and a web interface. Forgejo was installed in parallel by my partner. The Forgejo project is detailed on',
+    'sa propre page':
+      'its own page',
+    'Mes missions':
+      'My tasks',
+    'semaine par semaine':
+      'week by week',
+    'Semaine 1 (1er – 5 juin) : support sur site, puis premiers pas avec Ansible.':
+      'Week 1 (June 1 – 5): on-site support, then first steps with Ansible.',
+    'Observation et interventions dans plusieurs services de la commune. Configuration du réseau de la VM de contrôle (Netplan, IP fixe, recherche de la bonne passerelle), installation d\'Ansible, inventaire, clé SSH, premier playbook « Hello World ». Création des playbooks de vérification, de mise à jour, de rapport, de sauvegarde de Forgejo et de pare-feu UFW. Mise en place d\'Ansible Vault pour chiffrer les mots de passe et d\'un fichier de log sur le serveur.':
+      'Observation and interventions in several of the town\'s departments. Network setup of the control VM (Netplan, static IP, finding the right gateway), Ansible installation, inventory, SSH key, first “Hello World” playbook. Creation of the check, update, report, Forgejo backup and UFW firewall playbooks. Setup of Ansible Vault to encrypt passwords and of a log file on the server.',
+    'Semaine 2 (8 – 12 juin) : tout le parc, Linux et Windows.':
+      'Week 2 (June 8 – 12): the whole fleet, Linux and Windows.',
+    'Activation de WinRM sur les machines Windows, inventaire complet des 7 serveurs, mots de passe tous déplacés dans le Vault. Playbooks adaptés aux deux systèmes. Création du playbook d\'audit de sécurité, puis du playbook de sauvegarde centralisée (Forgejo, Wazuh, Active Directory) avec vérification de la sauvegarde : mots de passe bien hachés dans la base. Mise en conformité de tous les playbooks avec ansible-lint.':
+      'WinRM enabled on the Windows machines, full inventory of the 7 servers, all passwords moved into the Vault. Playbooks adapted to both systems. Creation of the security audit playbook, then of the centralised backup playbook (Forgejo, Wazuh, Active Directory) with a backup check: passwords properly hashed in the database. All playbooks brought up to ansible-lint standards.',
+    'Semaine 3 (15 – 19 juin) : automatisation et restauration.':
+      'Week 3 (June 15 – 19): automation and restore.',
+    'Handlers pour le pare-feu, tâches planifiées avec cron (correction d\'un décalage horaire et d\'un chemin de configuration introuvable), rotation des sauvegardes sur 14 jours, premier playbook de restauration avec plusieurs niveaux de confirmation. Réunion d\'avancement avec les tuteurs : Vault et organisation des variables validés ; demandes de scan réel des ports, d\'audit approfondi et de vrai test de restauration.':
+      'Handlers for the firewall, scheduled tasks with cron (fixing a time zone offset and a missing configuration path), 14-day backup rotation, first restore playbook with several confirmation levels. Progress meeting with the tutors: Vault and variable organisation approved; requests for a real port scan, a deeper audit and a real restore test.',
+    'Semaine 4 (22 – 26 juin) : tests réels et déploiement de VM.':
+      'Week 4 (June 22 – 26): real tests and VM deployment.',
+    'Test de restauration sur toute l\'infrastructure et correction de bugs de fond. Remplacement de la liste de ports supposés par un vrai scan, avec des règles de pare-feu propres à chaque serveur Wazuh. Création d\'un playbook qui crée de 1 à 10 VM Ubuntu via l\'API Proxmox (installation automatique, mot de passe aléatoire, détection des identifiants et IP libres). Installation de Semaphore UI en conteneur Docker.':
+      'Restore test across the whole infrastructure and fixing of deep bugs. Replacing the assumed port list with a real scan, with firewall rules specific to each Wazuh server. Creation of a playbook that builds 1 to 10 Ubuntu VMs through the Proxmox API (automatic install, random password, detection of free IDs and IPs). Installation of Semaphore UI in a Docker container.',
+    'Semaine 5 (29 juin – 3 juillet) : sécurité, CI/CD et documentation.':
+      'Week 5 (June 29 – July 3): security, CI/CD and documentation.',
+    'Nettoyage des anciennes règles de pare-feu et activation du pare-feu Windows (avec snapshot préalable). Approfondissement de l\'audit : mises à jour de sécurité en attente et configuration SSH réellement appliquée. Webhook Forgejo vers Semaphore pour lancer ansible-lint à chaque push, code-server (VS Code dans le navigateur), organisation du tableau de bord Semaphore, formulaire de confirmation pour la restauration. Documentation finale, rapport de stage et journal de bord.':
+      'Clean-up of old firewall rules and Windows firewall activation (with a prior snapshot). Deeper audit: pending security updates and the SSH configuration actually applied. Forgejo to Semaphore webhook to run ansible-lint on every push, code-server (VS Code in the browser), organisation of the Semaphore dashboard, confirmation form for the restore. Final documentation, internship report and logbook.',
+    'Interventions':
+      'On-site',
+    'sur site':
+      'interventions',
+    'Service de restauration':
+      'Catering department',
+    'Un problème de réception de mails venait d\'une date erronée sur le serveur (2086 au lieu de 2026).':
+      'A mail reception problem came from a wrong date on the server (2086 instead of 2026).',
+    'Résidence pour personnes âgées':
+      'Residence for the elderly',
+    'Création de comptes utilisateurs pour les animatrices et attribution de droits d\'accès à des dossiers.':
+      'Creating user accounts for the activity leaders and granting access rights to folders.',
+    'Service communication':
+      'Communication department',
+    'Problèmes réseau et d\'accès internet, ordinateur en panne faute de mises à jour Windows.':
+      'Network and internet access problems, a computer faulty for lack of Windows updates.',
+    'Bibliothèque':
+      'Library',
+    'Problème d\'applications non résolu sur place, faute d\'ordinateur disponible pour tester.':
+      'Application problem not solved on site, for lack of a computer to test on.',
+    'Difficultés':
+      'Difficulties',
+    'et solutions':
+      'and solutions',
+    'Restauration de Forgejo':
+      'Forgejo restore',
+    'La commande de restauration prévue n\'existe pas. Reconstruction de la procédure à partir de la structure réelle d\'une sauvegarde, et découverte au passage d\'une erreur de configuration mail qui rendait les sauvegardes vides.':
+      'The planned restore command does not exist. Rebuilt the procedure from the real structure of a backup, and discovered along the way a mail configuration error that was making backups empty.',
+    'Restauration de Wazuh':
+      'Wazuh restore',
+    'Une recherche de fichiers s\'exécutait sur le contrôleur et non sur le serveur cible, ce qui faisait échouer l\'extraction sans erreur visible. Remplacement par un module qui s\'exécute côté cible.':
+      'A file lookup ran on the controller rather than the target server, silently breaking the extraction. Replaced with a module that runs on the target side.',
+    'Tâches cron en échec':
+      'Failing cron jobs',
+    'Le mot de passe du Vault était introuvable car cron ne s\'exécutait pas depuis le dossier du projet. Ajout d\'un changement de dossier au début de chaque commande et de logs dédiés.':
+      'The Vault password could not be found because cron did not run from the project folder. Added a change of directory at the start of each command and dedicated logs.',
+    'Création de VM':
+      'VM creation',
+    'Le modèle cloud-init ne démarrait pas (format d\'image différent de celui attendu). Changement d\'approche vers l\'installation automatique d\'Ubuntu, puis correction de huit bugs successifs.':
+      'The cloud-init template would not boot (image format different from the expected one). Switched to Ubuntu\'s automatic installation, then fixed eight successive bugs.',
+    'Interface Semaphore':
+      'Semaphore interface',
+    'Variables du Vault non définies et droits de lecture sur les fichiers sensibles : chargement du Vault dans chaque play et permissions limitées au strict nécessaire.':
+      'Undefined Vault variables and read permissions on sensitive files: Vault loaded in each play and permissions limited to the strict minimum.',
+    'Alertes par mail':
+      'Email alerts',
+    'Rejet par Gmail d\'un serveur auto-hébergé sans configuration DNS adaptée. Validation de toute la chaîne en interne, test retiré du périmètre final et noté comme limite.':
+      'Gmail rejected a self-hosted server without proper DNS setup. The whole chain was validated internally, the test was removed from the final scope and noted as a limit.',
+    '7 machines virtuelles':
+      '7 virtual machines',
+    'Serveur Forgejo, trois serveurs Wazuh, contrôleur de domaine et poste client Windows, VM de contrôle Ansible.':
+      'Forgejo server, three Wazuh servers, Windows domain controller and client, Ansible control VM.',
+    '9 playbooks Ansible':
+      '9 Ansible playbooks',
+    'État des serveurs, rapport, mises à jour, pare-feu, audit, sauvegarde, restauration, création de VM, tâches planifiées. Profil « production » d\'ansible-lint atteint.':
+      'Server status, report, updates, firewall, audit, backup, restore, VM creation, scheduled tasks. ansible-lint “production” profile reached.',
+    'Sauvegarde et restauration testées':
+      'Backup and restore tested',
+    'Sauvegardes centralisées, rotation sur 14 jours et restauration validée en conditions réelles sur Forgejo et Wazuh.':
+      'Centralised backups, 14-day rotation and restore validated in real conditions on Forgejo and Wazuh.',
+    'Création de VM en une commande':
+      'VM creation in one command',
+    'De 1 à 10 VM Ubuntu avec comptes, clé SSH et mot de passe aléatoire générés automatiquement.':
+      'From 1 to 10 Ubuntu VMs with accounts, SSH key and random password generated automatically.',
+    'Interface et CI/CD':
+      'Interface and CI/CD',
+    'Semaphore pour lancer les playbooks en un clic, code-server pour les éditer, lint automatique à chaque push sur Forgejo.':
+      'Semaphore to run playbooks in one click, code-server to edit them, automatic lint on every push to Forgejo.',
+    'Sécurité documentée':
+      'Documented security',
+    'Mots de passe chiffrés, accès SSH par clé pour Ansible, pare-feu actif sur les serveurs. Les risques acceptés et les limites du lab sont documentés.':
+      'Encrypted passwords, key-based SSH access for Ansible, firewall active on the servers. Accepted risks and lab limits are documented.',
+    'Administration systèmes et réseaux':
+      'Systems and network administration',
+    'Linux et Windows Server, réseau, pare-feu, virtualisation Proxmox, SSH, WinRM, services système.':
+      'Linux and Windows Server, networking, firewalls, Proxmox virtualisation, SSH, WinRM, system services.',
+    'Automatisation et DevOps':
+      'Automation and DevOps',
+    'Ansible, Vault, cron, conteneurs Docker, intégration continue avec Forgejo et Semaphore, versionnement Git.':
+      'Ansible, Vault, cron, Docker containers, continuous integration with Forgejo and Semaphore, Git versioning.',
+    'Cybersécurité':
+      'Cybersecurity',
+    'Audit, durcissement, sauvegarde et restauration, gestion des secrets, analyse de risques et décisions documentées.':
+      'Audit, hardening, backup and restore, secrets management, risk analysis and documented decisions.',
+    'Travail en équipe et documentation':
+      'Teamwork and documentation',
+    'Binôme avec Erwan, réunions avec les tuteurs, journal de bord quotidien, documentation technique et rapport de stage.':
+      'Pair work with Erwan, meetings with the tutors, daily logbook, technical documentation and internship report.',
+    'Bilan':
+      'Review',
+    'et suite':
+      'and next steps',
+    'Ce stage m\'a fait passer de la théorie à la pratique : une infrastructure qui tourne, qui se sauvegarde et qui se restaure vraiment, avec des erreurs de logique que seul un test réel révèle. J\'ai appris à documenter mes choix, y compris les risques acceptés, et à travailler avec des retours réguliers des tuteurs.':
+      'This internship took me from theory to practice: an infrastructure that runs, backs itself up and really restores, with logic errors that only a real test reveals. I learned to document my choices, including accepted risks, and to work with regular feedback from the tutors.',
+    'Un second stage est prévu du 25 janvier au 5 mars 2027. Il sera détaillé ici dès qu\'il sera réalisé.':
+      'A second internship is planned from January 25 to March 5, 2027. It will be detailed here once completed.',
+    'Section':
+      'Section',
+    'Mes stages':
+      'My internships',
+    'Projet associé':
+      'Related project',
+    '← Retour aux stages':
+      '← Back to internships',
+    'Voir tout le stage':
+      'See the whole internship'
   };
   var ATTR = {
     'Changer de mode jour / nuit': 'Switch day / night mode'
@@ -561,6 +725,7 @@
   var T_TITLE = {
     'Entrevilles-Reu — Championnat sportif inter-villes | Lucas Rajany': 'Entrevilles-Reu — Inter-town sports championship | Lucas Rajany',
     'Forgejo — Forge Git auto-hébergée | Lucas Rajany': 'Forgejo — Self-hosted Git forge | Lucas Rajany',
+    'Stage à la Mairie de Saint-Joseph — Détail des missions | Lucas Rajany': 'Internship at Saint-Joseph Town Hall — Task details | Lucas Rajany',
     'Le Fil du Lord — Média automatisé par IA | Lucas Rajany': 'Le Fil du Lord — AI-automated news media | Lucas Rajany',
     'Projets scolaires BTS SIO | Lucas Rajany': 'BTS SIO school projects | Lucas Rajany',
     'Veille IA — Application de veille technologique | Lucas Rajany': 'Veille IA — Technology watch application | Lucas Rajany'

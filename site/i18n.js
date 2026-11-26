@@ -173,7 +173,106 @@
     '25 janvier – 5 mars 2027': 'January 25 – March 5, 2027',
     'Création de sites web ou autre mission en développement et en systèmes. Le plus simple pour me joindre : un email, je réponds rapidement.': 'Website creation or another mission in development and systems. The easiest way to reach me is by email — I reply quickly.',
     'Écrire un email →': 'Send an email →',
-    'Télécharger mon CV': 'Download my CV'
+    'Télécharger mon CV': 'Download my CV',
+
+    // Stages (détail des missions)
+    '1 à 10': '1 to 10',
+    'Stages':
+      'Internships',
+    'Mes':
+      'My',
+    'stages':
+      'internships',
+    'Le détail de mes missions en entreprise : ce que j\'ai fait, avec quels outils, et ce que cela m\'a appris.':
+      'The details of my work placements: what I did, with which tools, and what I learned.',
+    'Stage 1 · Réalisé':
+      'Internship 1 · Completed',
+    '1er juin – 3 juillet 2026':
+      'June 1 – July 3, 2026',
+    'Mairie de Saint-Joseph · Direction des systèmes d\'information':
+      'Saint-Joseph Town Hall · Information Systems Department',
+    'Projet d\'infrastructure réalisé en binôme avec Erwan : automatiser avec Ansible la gestion, la sécurisation, la sauvegarde et le déploiement d\'un parc de 7 machines virtuelles (Linux et Windows), en plus d\'interventions de support dans les services de la commune.':
+      'Infrastructure project carried out in a pair with Erwan: using Ansible to automate the management, hardening, backup and deployment of a fleet of 7 virtual machines (Linux and Windows), in addition to support work in the town\'s departments.',
+    'Support et interventions sur site':
+      'Support and on-site interventions',
+    'Installation de matériel informatique (PC) et diagnostic de pannes d\'alimentation':
+      'Installing computer hardware (PCs) and diagnosing power faults',
+    'Création de comptes utilisateurs et attribution de droits d\'accès à des dossiers':
+      'Creating user accounts and granting access rights to folders',
+    'Diagnostic de problèmes réseau, d\'accès internet et de mises à jour Windows manquantes':
+      'Diagnosing network and internet access issues and missing Windows updates',
+    'Résolution d\'un problème de mails (date erronée du serveur)':
+      'Fixing a mail problem (wrong server date)',
+    'Automatisation avec Ansible':
+      'Automation with Ansible',
+    'Configuration réseau (Netplan) et installation d\'Ansible sur une VM contrôleur':
+      'Network setup (Netplan) and Ansible installation on a controller VM',
+    'Inventaire YAML, clés SSH, 9 playbooks : état des serveurs, mises à jour, rapport, pare-feu, audit, sauvegarde, restauration, création de VM':
+      'YAML inventory, SSH keys, 9 playbooks: server status, updates, report, firewall, audit, backup, restore, VM creation',
+    'Chiffrement des mots de passe avec Ansible Vault':
+      'Password encryption with Ansible Vault',
+    'Gestion de serveurs Windows via WinRM et qualité du code avec ansible-lint':
+      'Managing Windows servers through WinRM and code quality with ansible-lint',
+    'Tâches planifiées (cron) pour l\'audit, le rapport et la sauvegarde':
+      'Scheduled tasks (cron) for the audit, the report and the backup',
+    'Sécurité, sauvegarde et restauration':
+      'Security, backup and restore',
+    'Audit de sécurité automatisé (ports, accès SSH, mises à jour, connexions échouées)':
+      'Automated security audit (ports, SSH access, updates, failed logins)',
+    'Pare-feu UFW configuré d\'après un scan réel des ports, activation du pare-feu Windows':
+      'UFW firewall configured from a real port scan, Windows firewall enabled',
+    'Sauvegarde centralisée de Forgejo, Wazuh et Active Directory':
+      'Centralised backup of Forgejo, Wazuh and Active Directory',
+    'Test réel de restauration : plus de 6 erreurs de logique corrigées':
+      'Real restore test: more than 6 logic errors fixed',
+    'Déploiement et outils d\'équipe':
+      'Deployment and team tools',
+    'Création automatique de 1 à 10 VM Ubuntu via l\'API Proxmox (autoinstall)':
+      'Automatic creation of 1 to 10 Ubuntu VMs through the Proxmox API (autoinstall)',
+    'Interface web Semaphore UI (Docker) pour lancer les playbooks sans terminal':
+      'Semaphore UI web interface (Docker) to run playbooks without a terminal',
+    'VS Code dans le navigateur (code-server) pour éditer les playbooks':
+      'VS Code in the browser (code-server) to edit the playbooks',
+    'Webhook Forgejo vers Semaphore : contrôle ansible-lint à chaque push':
+      'Forgejo to Semaphore webhook: ansible-lint check on every push',
+    'Documentation technique, rapport de stage et journal de bord':
+      'Technical documentation, internship report and logbook',
+    'machines virtuelles gérées':
+      'virtual machines managed',
+    'playbooks Ansible':
+      'Ansible playbooks',
+    'VM créées en une commande':
+      'VMs created with one command',
+    'Voir le détail de mes missions →':
+      'See the details of my tasks →',
+    'Projet associé : Forgejo':
+      'Related project: Forgejo',
+    'Stage 2 · À venir':
+      'Internship 2 · Upcoming',
+    '25 janv. – 5 mars 2027':
+      'Jan 25 – Mar 5, 2027',
+    'Entreprise à définir · recherche en cours':
+      'Company to be determined · search in progress',
+    'Ce second stage n\'est pas encore réalisé. Cette fiche sera complétée au fur et à mesure : missions confiées, outils utilisés, difficultés rencontrées et bilan.':
+      'This second internship has not taken place yet. This card will be filled in as it goes: assigned tasks, tools used, difficulties met and review.',
+    'Missions : à venir':
+      'Tasks: coming soon',
+    'Environnement technique : à venir':
+      'Technical environment: coming soon',
+    'Bilan et compétences acquises : à venir':
+      'Review and skills gained: coming soon',
+    'Me proposer un stage':
+      'Offer me an internship',
+    '25 janv. – 5 mars 2027 · À venir':
+      'Jan 25 – Mar 5, 2027 · Upcoming',
+    'Stage informatique (2e stage)':
+      'IT internship (2nd internship)',
+    'Entreprise à définir':
+      'Company to be determined',
+    'Recherche en cours':
+      'Search in progress',
+    'Voir la fiche du stage':
+      'See the internship card'
   };
 
   /* ── Attributs (aria-label, placeholder, title) ── */
