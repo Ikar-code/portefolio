@@ -548,8 +548,20 @@
       'Pair with Erwan',
     'du stage':
       'of the internship',
-    'Stage d\'un mois au sein du service informatique de la Mairie de Saint-Joseph. Les deux premiers jours ont été consacrés à l\'observation et à des interventions de support dans plusieurs services de la commune. Le reste du stage a porté sur un projet d\'infrastructure réalisé en binôme avec Erwan : automatiser avec Ansible la gestion d\'un parc de 7 machines virtuelles (serveur Forgejo, trois serveurs Wazuh, un contrôleur de domaine Windows et un poste client Windows, plus la VM de contrôle Ansible) hébergées sur Proxmox.':
-      'One-month internship in the IT department of Saint-Joseph Town Hall. The first two days were spent observing and doing support work in several of the town\'s departments. The rest of the internship focused on an infrastructure project carried out in a pair with Erwan: using Ansible to automate the management of a fleet of 7 virtual machines (a Forgejo server, three Wazuh servers, a Windows domain controller and a Windows client, plus the Ansible control VM) hosted on Proxmox.',
+    'Stage d\'un mois au sein du service informatique de la Mairie de Saint-Joseph. Les deux premiers jours ont été consacrés à l\'observation et à des interventions de support dans plusieurs services de la commune.':
+      'One-month internship in the IT department of Saint-Joseph Town Hall. The first two days were spent observing and doing support work in several of the town\'s departments.',
+    'Le reste du stage a porté sur un projet d\'infrastructure réalisé en binôme avec Erwan : automatiser avec Ansible la gestion d\'un parc de 7 machines virtuelles hébergées sur Proxmox.':
+      'The rest of the internship focused on an infrastructure project carried out in a pair with Erwan: using Ansible to automate the management of a fleet of 7 virtual machines hosted on Proxmox.',
+    'Serveur Forgejo':
+      'Forgejo server',
+    '3 serveurs Wazuh':
+      '3 Wazuh servers',
+    'Contrôleur de domaine Windows':
+      'Windows domain controller',
+    'Poste client Windows':
+      'Windows client',
+    'VM de contrôle Ansible':
+      'Ansible control VM',
     'Des points d\'avancement réguliers avec les tuteurs de stage ont orienté le travail : sécurisation des mots de passe, scan réel des ports, audit de sécurité approfondi, test réel de restauration, puis provisionnement de VM et interface web. L\'installation de Forgejo a été faite en parallèle par mon binôme. Le projet Forgejo est détaillé sur':
       'Regular progress meetings with the internship tutors steered the work: password hardening, a real port scan, an in-depth security audit, a real restore test, then VM provisioning and a web interface. Forgejo was installed in parallel by my partner. The Forgejo project is detailed on',
     'sa propre page':
@@ -558,26 +570,74 @@
       'My tasks',
     'semaine par semaine':
       'week by week',
-    'Semaine 1 (1er – 5 juin) : support sur site, puis premiers pas avec Ansible.':
-      'Week 1 (June 1 – 5): on-site support, then first steps with Ansible.',
-    'Observation et interventions dans plusieurs services de la commune. Configuration du réseau de la VM de contrôle (Netplan, IP fixe, recherche de la bonne passerelle), installation d\'Ansible, inventaire, clé SSH, premier playbook « Hello World ». Création des playbooks de vérification, de mise à jour, de rapport, de sauvegarde de Forgejo et de pare-feu UFW. Mise en place d\'Ansible Vault pour chiffrer les mots de passe et d\'un fichier de log sur le serveur.':
-      'Observation and interventions in several of the town\'s departments. Network setup of the control VM (Netplan, static IP, finding the right gateway), Ansible installation, inventory, SSH key, first “Hello World” playbook. Creation of the check, update, report, Forgejo backup and UFW firewall playbooks. Setup of Ansible Vault to encrypt passwords and of a log file on the server.',
-    'Semaine 2 (8 – 12 juin) : tout le parc, Linux et Windows.':
-      'Week 2 (June 8 – 12): the whole fleet, Linux and Windows.',
-    'Activation de WinRM sur les machines Windows, inventaire complet des 7 serveurs, mots de passe tous déplacés dans le Vault. Playbooks adaptés aux deux systèmes. Création du playbook d\'audit de sécurité, puis du playbook de sauvegarde centralisée (Forgejo, Wazuh, Active Directory) avec vérification de la sauvegarde : mots de passe bien hachés dans la base. Mise en conformité de tous les playbooks avec ansible-lint.':
-      'WinRM enabled on the Windows machines, full inventory of the 7 servers, all passwords moved into the Vault. Playbooks adapted to both systems. Creation of the security audit playbook, then of the centralised backup playbook (Forgejo, Wazuh, Active Directory) with a backup check: passwords properly hashed in the database. All playbooks brought up to ansible-lint standards.',
-    'Semaine 3 (15 – 19 juin) : automatisation et restauration.':
-      'Week 3 (June 15 – 19): automation and restore.',
-    'Handlers pour le pare-feu, tâches planifiées avec cron (correction d\'un décalage horaire et d\'un chemin de configuration introuvable), rotation des sauvegardes sur 14 jours, premier playbook de restauration avec plusieurs niveaux de confirmation. Réunion d\'avancement avec les tuteurs : Vault et organisation des variables validés ; demandes de scan réel des ports, d\'audit approfondi et de vrai test de restauration.':
-      'Handlers for the firewall, scheduled tasks with cron (fixing a time zone offset and a missing configuration path), 14-day backup rotation, first restore playbook with several confirmation levels. Progress meeting with the tutors: Vault and variable organisation approved; requests for a real port scan, a deeper audit and a real restore test.',
-    'Semaine 4 (22 – 26 juin) : tests réels et déploiement de VM.':
-      'Week 4 (June 22 – 26): real tests and VM deployment.',
-    'Test de restauration sur toute l\'infrastructure et correction de bugs de fond. Remplacement de la liste de ports supposés par un vrai scan, avec des règles de pare-feu propres à chaque serveur Wazuh. Création d\'un playbook qui crée de 1 à 10 VM Ubuntu via l\'API Proxmox (installation automatique, mot de passe aléatoire, détection des identifiants et IP libres). Installation de Semaphore UI en conteneur Docker.':
-      'Restore test across the whole infrastructure and fixing of deep bugs. Replacing the assumed port list with a real scan, with firewall rules specific to each Wazuh server. Creation of a playbook that builds 1 to 10 Ubuntu VMs through the Proxmox API (automatic install, random password, detection of free IDs and IPs). Installation of Semaphore UI in a Docker container.',
-    'Semaine 5 (29 juin – 3 juillet) : sécurité, CI/CD et documentation.':
-      'Week 5 (June 29 – July 3): security, CI/CD and documentation.',
-    'Nettoyage des anciennes règles de pare-feu et activation du pare-feu Windows (avec snapshot préalable). Approfondissement de l\'audit : mises à jour de sécurité en attente et configuration SSH réellement appliquée. Webhook Forgejo vers Semaphore pour lancer ansible-lint à chaque push, code-server (VS Code dans le navigateur), organisation du tableau de bord Semaphore, formulaire de confirmation pour la restauration. Documentation finale, rapport de stage et journal de bord.':
-      'Clean-up of old firewall rules and Windows firewall activation (with a prior snapshot). Deeper audit: pending security updates and the SSH configuration actually applied. Forgejo to Semaphore webhook to run ansible-lint on every push, code-server (VS Code in the browser), organisation of the Semaphore dashboard, confirmation form for the restore. Final documentation, internship report and logbook.',
+    'Semaine 1 · 1er – 5 juin':
+      'Week 1 · June 1 – 5',
+    'Support sur site, puis premiers pas avec Ansible':
+      'On-site support, then first steps with Ansible',
+    'Observation et interventions dans plusieurs services de la commune':
+      'Observation and interventions in several of the town\'s departments',
+    'Configuration réseau de la VM de contrôle (Netplan, IP fixe, recherche de la bonne passerelle)':
+      'Network setup of the control VM (Netplan, static IP, finding the right gateway)',
+    'Installation d\'Ansible, inventaire, clé SSH, premier playbook « Hello World »':
+      'Ansible installation, inventory, SSH key, first “Hello World” playbook',
+    'Playbooks de vérification, de mise à jour, de rapport, de sauvegarde de Forgejo et de pare-feu UFW':
+      'Check, update, report, Forgejo backup and UFW firewall playbooks',
+    'Ansible Vault pour chiffrer les mots de passe, et fichier de log sur le serveur':
+      'Ansible Vault to encrypt passwords, and a log file on the server',
+    'Semaine 2 · 8 – 12 juin':
+      'Week 2 · June 8 – 12',
+    'Tout le parc, Linux et Windows':
+      'The whole fleet, Linux and Windows',
+    'Activation de WinRM sur les machines Windows et inventaire complet des 7 serveurs':
+      'WinRM enabled on the Windows machines and full inventory of the 7 servers',
+    'Tous les mots de passe déplacés dans le Vault, playbooks adaptés aux deux systèmes':
+      'All passwords moved into the Vault, playbooks adapted to both systems',
+    'Playbook d\'audit de sécurité':
+      'Security audit playbook',
+    'Playbook de sauvegarde centralisée (Forgejo, Wazuh, Active Directory), avec vérification : mots de passe bien hachés dans la base':
+      'Centralised backup playbook (Forgejo, Wazuh, Active Directory) with a check: passwords properly hashed in the database',
+    'Mise en conformité de tous les playbooks avec ansible-lint':
+      'All playbooks brought up to ansible-lint standards',
+    'Semaine 3 · 15 – 19 juin':
+      'Week 3 · June 15 – 19',
+    'Automatisation et restauration':
+      'Automation and restore',
+    'Handlers pour le pare-feu':
+      'Handlers for the firewall',
+    'Tâches planifiées avec cron (correction d\'un décalage horaire et d\'un chemin de configuration introuvable)':
+      'Scheduled tasks with cron (fixing a time zone offset and a missing configuration path)',
+    'Rotation des sauvegardes sur 14 jours':
+      '14-day backup rotation',
+    'Premier playbook de restauration avec plusieurs niveaux de confirmation':
+      'First restore playbook with several confirmation levels',
+    'Réunion d\'avancement avec les tuteurs : Vault et organisation des variables validés ; demandes de scan réel des ports, d\'audit approfondi et de vrai test de restauration':
+      'Progress meeting with the tutors: Vault and variable organisation approved; requests for a real port scan, a deeper audit and a real restore test',
+    'Semaine 4 · 22 – 26 juin':
+      'Week 4 · June 22 – 26',
+    'Tests réels et déploiement de VM':
+      'Real tests and VM deployment',
+    'Test de restauration sur toute l\'infrastructure et correction de bugs de fond':
+      'Restore test across the whole infrastructure and fixing of deep bugs',
+    'Vrai scan de ports à la place de la liste supposée, avec des règles de pare-feu propres à chaque serveur Wazuh':
+      'Real port scan instead of the assumed port list, with firewall rules specific to each Wazuh server',
+    'Playbook qui crée de 1 à 10 VM Ubuntu via l\'API Proxmox (installation automatique, mot de passe aléatoire, détection des identifiants et IP libres)':
+      'Playbook that builds 1 to 10 Ubuntu VMs through the Proxmox API (automatic install, random password, detection of free IDs and IPs)',
+    'Installation de Semaphore UI en conteneur Docker':
+      'Installation of Semaphore UI in a Docker container',
+    'Semaine 5 · 29 juin – 3 juillet':
+      'Week 5 · June 29 – July 3',
+    'Sécurité, CI/CD et documentation':
+      'Security, CI/CD and documentation',
+    'Nettoyage des anciennes règles de pare-feu et activation du pare-feu Windows (avec snapshot préalable)':
+      'Clean-up of old firewall rules and Windows firewall activation (with a prior snapshot)',
+    'Audit approfondi : mises à jour de sécurité en attente et configuration SSH réellement appliquée':
+      'Deeper audit: pending security updates and the SSH configuration actually applied',
+    'Webhook Forgejo vers Semaphore pour lancer ansible-lint à chaque push':
+      'Forgejo to Semaphore webhook to run ansible-lint on every push',
+    'code-server (VS Code dans le navigateur), organisation du tableau de bord Semaphore, formulaire de confirmation pour la restauration':
+      'code-server (VS Code in the browser), organisation of the Semaphore dashboard, confirmation form for the restore',
+    'Documentation finale, rapport de stage et journal de bord':
+      'Final documentation, internship report and logbook',
     'Interventions':
       'On-site',
     'sur site':
@@ -602,30 +662,46 @@
       'Difficulties',
     'et solutions':
       'and solutions',
+    'Problème':
+      'Problem',
+    'Solution':
+      'Solution',
     'Restauration de Forgejo':
       'Forgejo restore',
-    'La commande de restauration prévue n\'existe pas. Reconstruction de la procédure à partir de la structure réelle d\'une sauvegarde, et découverte au passage d\'une erreur de configuration mail qui rendait les sauvegardes vides.':
-      'The planned restore command does not exist. Rebuilt the procedure from the real structure of a backup, and discovered along the way a mail configuration error that was making backups empty.',
+    'La commande de restauration prévue n\'existe pas.':
+      'The planned restore command does not exist.',
+    'Reconstruction de la procédure à partir de la structure réelle d\'une sauvegarde, et découverte au passage d\'une erreur de configuration mail qui rendait les sauvegardes vides.':
+      'Rebuilt the procedure from the real structure of a backup, and discovered along the way a mail configuration error that was making backups empty.',
     'Restauration de Wazuh':
       'Wazuh restore',
-    'Une recherche de fichiers s\'exécutait sur le contrôleur et non sur le serveur cible, ce qui faisait échouer l\'extraction sans erreur visible. Remplacement par un module qui s\'exécute côté cible.':
-      'A file lookup ran on the controller rather than the target server, silently breaking the extraction. Replaced with a module that runs on the target side.',
+    'Une recherche de fichiers s\'exécutait sur le contrôleur et non sur le serveur cible, ce qui faisait échouer l\'extraction sans erreur visible.':
+      'A file lookup ran on the controller rather than the target server, silently breaking the extraction.',
+    'Remplacement par un module qui s\'exécute côté cible.':
+      'Replaced with a module that runs on the target side.',
     'Tâches cron en échec':
       'Failing cron jobs',
-    'Le mot de passe du Vault était introuvable car cron ne s\'exécutait pas depuis le dossier du projet. Ajout d\'un changement de dossier au début de chaque commande et de logs dédiés.':
-      'The Vault password could not be found because cron did not run from the project folder. Added a change of directory at the start of each command and dedicated logs.',
+    'Le mot de passe du Vault était introuvable car cron ne s\'exécutait pas depuis le dossier du projet.':
+      'The Vault password could not be found because cron did not run from the project folder.',
+    'Ajout d\'un changement de dossier au début de chaque commande et de logs dédiés.':
+      'Added a change of directory at the start of each command and dedicated logs.',
     'Création de VM':
       'VM creation',
-    'Le modèle cloud-init ne démarrait pas (format d\'image différent de celui attendu). Changement d\'approche vers l\'installation automatique d\'Ubuntu, puis correction de huit bugs successifs.':
-      'The cloud-init template would not boot (image format different from the expected one). Switched to Ubuntu\'s automatic installation, then fixed eight successive bugs.',
+    'Le modèle cloud-init ne démarrait pas (format d\'image différent de celui attendu).':
+      'The cloud-init template would not boot (image format different from the expected one).',
+    'Changement d\'approche vers l\'installation automatique d\'Ubuntu, puis correction de huit bugs successifs.':
+      'Switched to Ubuntu\'s automatic installation, then fixed eight successive bugs.',
     'Interface Semaphore':
       'Semaphore interface',
-    'Variables du Vault non définies et droits de lecture sur les fichiers sensibles : chargement du Vault dans chaque play et permissions limitées au strict nécessaire.':
-      'Undefined Vault variables and read permissions on sensitive files: Vault loaded in each play and permissions limited to the strict minimum.',
+    'Variables du Vault non définies et droits de lecture sur les fichiers sensibles.':
+      'Undefined Vault variables and read permissions on sensitive files.',
+    'Chargement du Vault dans chaque play et permissions limitées au strict nécessaire.':
+      'Vault loaded in each play and permissions limited to the strict minimum.',
     'Alertes par mail':
       'Email alerts',
-    'Rejet par Gmail d\'un serveur auto-hébergé sans configuration DNS adaptée. Validation de toute la chaîne en interne, test retiré du périmètre final et noté comme limite.':
-      'Gmail rejected a self-hosted server without proper DNS setup. The whole chain was validated internally, the test was removed from the final scope and noted as a limit.',
+    'Rejet par Gmail d\'un serveur auto-hébergé sans configuration DNS adaptée.':
+      'Gmail rejected a self-hosted server without proper DNS setup.',
+    'Validation de toute la chaîne en interne, test retiré du périmètre final et noté comme limite.':
+      'The whole chain was validated internally, the test was removed from the final scope and noted as a limit.',
     '7 machines virtuelles':
       '7 virtual machines',
     'Serveur Forgejo, trois serveurs Wazuh, contrôleur de domaine et poste client Windows, VM de contrôle Ansible.':

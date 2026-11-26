@@ -62,17 +62,83 @@
 <main class="p-main">
   <section class="p-sec">
     <div class="sec-head reveal"><span class="sec-num">01</span><h2>Contexte <em>du stage</em></h2><span class="sec-line"></span></div>
-    <p class="reveal">Stage d'un mois au sein du service informatique de la Mairie de Saint-Joseph. Les deux premiers jours ont été consacrés à l'observation et à des interventions de support dans plusieurs services de la commune. Le reste du stage a porté sur un projet d'infrastructure réalisé en binôme avec Erwan : automatiser avec Ansible la gestion d'un parc de 7 machines virtuelles (serveur Forgejo, trois serveurs Wazuh, un contrôleur de domaine Windows et un poste client Windows, plus la VM de contrôle Ansible) hébergées sur Proxmox.</p>
+    <p class="reveal">Stage d'un mois au sein du service informatique de la Mairie de Saint-Joseph. Les deux premiers jours ont été consacrés à l'observation et à des interventions de support dans plusieurs services de la commune.</p>
+    <p class="reveal">Le reste du stage a porté sur un projet d'infrastructure réalisé en binôme avec Erwan : automatiser avec Ansible la gestion d'un parc de 7 machines virtuelles hébergées sur Proxmox.</p>
+    <div class="p-tags reveal"><span class="p-tag">Serveur Forgejo</span><span class="p-tag">3 serveurs Wazuh</span><span class="p-tag">Contrôleur de domaine Windows</span><span class="p-tag">Poste client Windows</span><span class="p-tag">VM de contrôle Ansible</span></div>
     <p class="reveal">Des points d'avancement réguliers avec les tuteurs de stage ont orienté le travail : sécurisation des mots de passe, scan réel des ports, audit de sécurité approfondi, test réel de restauration, puis provisionnement de VM et interface web. L'installation de Forgejo a été faite en parallèle par mon binôme. Le projet Forgejo est détaillé sur <a href="forgejo.html">sa propre page</a>.</p>
   </section>
-<div id="semaines"></div>  <section class="p-sec">
+  <section class="p-sec" id="semaines">
     <div class="sec-head reveal"><span class="sec-num">02</span><h2>Mes missions <em>semaine par semaine</em></h2><span class="sec-line"></span></div>
-    <div class="flow">
-      <div class="step reveal"><span class="num">1</span><strong>Semaine 1 (1er – 5 juin) : support sur site, puis premiers pas avec Ansible.</strong> Observation et interventions dans plusieurs services de la commune. Configuration du réseau de la VM de contrôle (Netplan, IP fixe, recherche de la bonne passerelle), installation d'Ansible, inventaire, clé SSH, premier playbook « Hello World ». Création des playbooks de vérification, de mise à jour, de rapport, de sauvegarde de Forgejo et de pare-feu UFW. Mise en place d'Ansible Vault pour chiffrer les mots de passe et d'un fichier de log sur le serveur.</div>
-      <div class="step reveal"><span class="num">2</span><strong>Semaine 2 (8 – 12 juin) : tout le parc, Linux et Windows.</strong> Activation de WinRM sur les machines Windows, inventaire complet des 7 serveurs, mots de passe tous déplacés dans le Vault. Playbooks adaptés aux deux systèmes. Création du playbook d'audit de sécurité, puis du playbook de sauvegarde centralisée (Forgejo, Wazuh, Active Directory) avec vérification de la sauvegarde : mots de passe bien hachés dans la base. Mise en conformité de tous les playbooks avec ansible-lint.</div>
-      <div class="step reveal"><span class="num">3</span><strong>Semaine 3 (15 – 19 juin) : automatisation et restauration.</strong> Handlers pour le pare-feu, tâches planifiées avec cron (correction d'un décalage horaire et d'un chemin de configuration introuvable), rotation des sauvegardes sur 14 jours, premier playbook de restauration avec plusieurs niveaux de confirmation. Réunion d'avancement avec les tuteurs : Vault et organisation des variables validés ; demandes de scan réel des ports, d'audit approfondi et de vrai test de restauration.</div>
-      <div class="step reveal"><span class="num">4</span><strong>Semaine 4 (22 – 26 juin) : tests réels et déploiement de VM.</strong> Test de restauration sur toute l'infrastructure et correction de bugs de fond. Remplacement de la liste de ports supposés par un vrai scan, avec des règles de pare-feu propres à chaque serveur Wazuh. Création d'un playbook qui crée de 1 à 10 VM Ubuntu via l'API Proxmox (installation automatique, mot de passe aléatoire, détection des identifiants et IP libres). Installation de Semaphore UI en conteneur Docker.</div>
-      <div class="step reveal"><span class="num">5</span><strong>Semaine 5 (29 juin – 3 juillet) : sécurité, CI/CD et documentation.</strong> Nettoyage des anciennes règles de pare-feu et activation du pare-feu Windows (avec snapshot préalable). Approfondissement de l'audit : mises à jour de sécurité en attente et configuration SSH réellement appliquée. Webhook Forgejo vers Semaphore pour lancer ansible-lint à chaque push, code-server (VS Code dans le navigateur), organisation du tableau de bord Semaphore, formulaire de confirmation pour la restauration. Documentation finale, rapport de stage et journal de bord.</div>
+    <div class="weeks">
+      <div class="week reveal">
+        <div class="week-rail"><span class="week-num" aria-hidden="true">1</span></div>
+        <div class="week-card">
+          <p class="week-dates">Semaine 1 · 1er – 5 juin</p>
+          <h3>Support sur site, puis premiers pas avec Ansible</h3>
+          <ul class="week-list">
+            <li>Observation et interventions dans plusieurs services de la commune</li>
+            <li>Configuration réseau de la VM de contrôle (Netplan, IP fixe, recherche de la bonne passerelle)</li>
+            <li>Installation d'Ansible, inventaire, clé SSH, premier playbook « Hello World »</li>
+            <li>Playbooks de vérification, de mise à jour, de rapport, de sauvegarde de Forgejo et de pare-feu UFW</li>
+            <li>Ansible Vault pour chiffrer les mots de passe, et fichier de log sur le serveur</li>
+          </ul>
+        </div>
+      </div>
+      <div class="week reveal">
+        <div class="week-rail"><span class="week-num" aria-hidden="true">2</span></div>
+        <div class="week-card">
+          <p class="week-dates">Semaine 2 · 8 – 12 juin</p>
+          <h3>Tout le parc, Linux et Windows</h3>
+          <ul class="week-list">
+            <li>Activation de WinRM sur les machines Windows et inventaire complet des 7 serveurs</li>
+            <li>Tous les mots de passe déplacés dans le Vault, playbooks adaptés aux deux systèmes</li>
+            <li>Playbook d'audit de sécurité</li>
+            <li>Playbook de sauvegarde centralisée (Forgejo, Wazuh, Active Directory), avec vérification : mots de passe bien hachés dans la base</li>
+            <li>Mise en conformité de tous les playbooks avec ansible-lint</li>
+          </ul>
+        </div>
+      </div>
+      <div class="week reveal">
+        <div class="week-rail"><span class="week-num" aria-hidden="true">3</span></div>
+        <div class="week-card">
+          <p class="week-dates">Semaine 3 · 15 – 19 juin</p>
+          <h3>Automatisation et restauration</h3>
+          <ul class="week-list">
+            <li>Handlers pour le pare-feu</li>
+            <li>Tâches planifiées avec cron (correction d'un décalage horaire et d'un chemin de configuration introuvable)</li>
+            <li>Rotation des sauvegardes sur 14 jours</li>
+            <li>Premier playbook de restauration avec plusieurs niveaux de confirmation</li>
+            <li>Réunion d'avancement avec les tuteurs : Vault et organisation des variables validés ; demandes de scan réel des ports, d'audit approfondi et de vrai test de restauration</li>
+          </ul>
+        </div>
+      </div>
+      <div class="week reveal">
+        <div class="week-rail"><span class="week-num" aria-hidden="true">4</span></div>
+        <div class="week-card">
+          <p class="week-dates">Semaine 4 · 22 – 26 juin</p>
+          <h3>Tests réels et déploiement de VM</h3>
+          <ul class="week-list">
+            <li>Test de restauration sur toute l'infrastructure et correction de bugs de fond</li>
+            <li>Vrai scan de ports à la place de la liste supposée, avec des règles de pare-feu propres à chaque serveur Wazuh</li>
+            <li>Playbook qui crée de 1 à 10 VM Ubuntu via l'API Proxmox (installation automatique, mot de passe aléatoire, détection des identifiants et IP libres)</li>
+            <li>Installation de Semaphore UI en conteneur Docker</li>
+          </ul>
+        </div>
+      </div>
+      <div class="week reveal">
+        <div class="week-rail"><span class="week-num" aria-hidden="true">5</span></div>
+        <div class="week-card">
+          <p class="week-dates">Semaine 5 · 29 juin – 3 juillet</p>
+          <h3>Sécurité, CI/CD et documentation</h3>
+          <ul class="week-list">
+            <li>Nettoyage des anciennes règles de pare-feu et activation du pare-feu Windows (avec snapshot préalable)</li>
+            <li>Audit approfondi : mises à jour de sécurité en attente et configuration SSH réellement appliquée</li>
+            <li>Webhook Forgejo vers Semaphore pour lancer ansible-lint à chaque push</li>
+            <li>code-server (VS Code dans le navigateur), organisation du tableau de bord Semaphore, formulaire de confirmation pour la restauration</li>
+            <li>Documentation finale, rapport de stage et journal de bord</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
   <section class="p-sec">
@@ -86,14 +152,38 @@
   </section>
   <section class="p-sec">
     <div class="sec-head reveal"><span class="sec-num">04</span><h2>Difficultés <em>et solutions</em></h2><span class="sec-line"></span></div>
-    <ul class="checklist">
-      <li class="reveal"><strong>Restauration de Forgejo</strong>La commande de restauration prévue n'existe pas. Reconstruction de la procédure à partir de la structure réelle d'une sauvegarde, et découverte au passage d'une erreur de configuration mail qui rendait les sauvegardes vides.</li>
-      <li class="reveal"><strong>Restauration de Wazuh</strong>Une recherche de fichiers s'exécutait sur le contrôleur et non sur le serveur cible, ce qui faisait échouer l'extraction sans erreur visible. Remplacement par un module qui s'exécute côté cible.</li>
-      <li class="reveal"><strong>Tâches cron en échec</strong>Le mot de passe du Vault était introuvable car cron ne s'exécutait pas depuis le dossier du projet. Ajout d'un changement de dossier au début de chaque commande et de logs dédiés.</li>
-      <li class="reveal"><strong>Création de VM</strong>Le modèle cloud-init ne démarrait pas (format d'image différent de celui attendu). Changement d'approche vers l'installation automatique d'Ubuntu, puis correction de huit bugs successifs.</li>
-      <li class="reveal"><strong>Interface Semaphore</strong>Variables du Vault non définies et droits de lecture sur les fichiers sensibles : chargement du Vault dans chaque play et permissions limitées au strict nécessaire.</li>
-      <li class="reveal"><strong>Alertes par mail</strong>Rejet par Gmail d'un serveur auto-hébergé sans configuration DNS adaptée. Validation de toute la chaîne en interne, test retiré du périmètre final et noté comme limite.</li>
-    </ul>
+    <div class="issues">
+      <article class="issue reveal">
+        <h3>Restauration de Forgejo</h3>
+        <div class="issue-row is-problem"><span class="issue-tag">Problème</span><p>La commande de restauration prévue n'existe pas.</p></div>
+        <div class="issue-row is-solution"><span class="issue-tag">Solution</span><p>Reconstruction de la procédure à partir de la structure réelle d'une sauvegarde, et découverte au passage d'une erreur de configuration mail qui rendait les sauvegardes vides.</p></div>
+      </article>
+      <article class="issue reveal">
+        <h3>Restauration de Wazuh</h3>
+        <div class="issue-row is-problem"><span class="issue-tag">Problème</span><p>Une recherche de fichiers s'exécutait sur le contrôleur et non sur le serveur cible, ce qui faisait échouer l'extraction sans erreur visible.</p></div>
+        <div class="issue-row is-solution"><span class="issue-tag">Solution</span><p>Remplacement par un module qui s'exécute côté cible.</p></div>
+      </article>
+      <article class="issue reveal">
+        <h3>Tâches cron en échec</h3>
+        <div class="issue-row is-problem"><span class="issue-tag">Problème</span><p>Le mot de passe du Vault était introuvable car cron ne s'exécutait pas depuis le dossier du projet.</p></div>
+        <div class="issue-row is-solution"><span class="issue-tag">Solution</span><p>Ajout d'un changement de dossier au début de chaque commande et de logs dédiés.</p></div>
+      </article>
+      <article class="issue reveal">
+        <h3>Création de VM</h3>
+        <div class="issue-row is-problem"><span class="issue-tag">Problème</span><p>Le modèle cloud-init ne démarrait pas (format d'image différent de celui attendu).</p></div>
+        <div class="issue-row is-solution"><span class="issue-tag">Solution</span><p>Changement d'approche vers l'installation automatique d'Ubuntu, puis correction de huit bugs successifs.</p></div>
+      </article>
+      <article class="issue reveal">
+        <h3>Interface Semaphore</h3>
+        <div class="issue-row is-problem"><span class="issue-tag">Problème</span><p>Variables du Vault non définies et droits de lecture sur les fichiers sensibles.</p></div>
+        <div class="issue-row is-solution"><span class="issue-tag">Solution</span><p>Chargement du Vault dans chaque play et permissions limitées au strict nécessaire.</p></div>
+      </article>
+      <article class="issue reveal">
+        <h3>Alertes par mail</h3>
+        <div class="issue-row is-problem"><span class="issue-tag">Problème</span><p>Rejet par Gmail d'un serveur auto-hébergé sans configuration DNS adaptée.</p></div>
+        <div class="issue-row is-solution"><span class="issue-tag">Solution</span><p>Validation de toute la chaîne en interne, test retiré du périmètre final et noté comme limite.</p></div>
+      </article>
+    </div>
   </section>
   <section class="p-sec">
     <div class="sec-head reveal"><span class="sec-num">05</span><h2>Résultats <em>obtenus</em></h2><span class="sec-line"></span></div>
